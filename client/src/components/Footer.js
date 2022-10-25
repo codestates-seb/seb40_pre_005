@@ -4,13 +4,19 @@ import logo_icon from '../assets/logo-icon.svg.png';
 const FooterBlock = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 32px 35px 12px 35px;
+  position: absolute;
+  bottom: 0;
+  /* padding: 32px 35px 12px 35px; */
   background: hsl(210, 8%, 15%);
   color: hsl(210, 8%, 60%);
   overflow: hidden;
   width: 100%;
   height: 322px;
   font-size: 0.9rem;
+  .footer-logo {
+    flex: 0 0 25px;
+    margin: 18px 0 0 60px;
+  }
   .footer-col {
     display: flex;
     flex: 2 1 auto;
@@ -18,7 +24,7 @@ const FooterBlock = styled.div`
     line-height: 1.5rem;
   }
   h5 {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 10px;
   }
   div {
@@ -26,6 +32,7 @@ const FooterBlock = styled.div`
   }
   ul {
     display: block;
+    list-style: none;
   }
   .footer-copyright {
     flex: 1 1 150px;
@@ -34,13 +41,15 @@ const FooterBlock = styled.div`
     font-size: 0.8rem;
     margin-top: auto;
     margin-bottom: 30px;
+    padding-right: 40px;
   }
 `;
 const Footer = () => {
   return (
     <footer>
       <FooterBlock>
-        {/* <div>
+        <div className="footer-logo">
+          {/* <img src={logo_icon} alt="logo_icon" width="32" height="37" /> */}
           <svg aria-hidden="true" width="32" height="37" viewBox="0 0 32 37">
             <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#BCBBBB"></path>
             <path
@@ -48,8 +57,7 @@ const Footer = () => {
               fill="#F48024"
             ></path>
           </svg>
-        </div> */}
-        <img src={logo_icon} className="logo_icon_footer" alt="logo_icon"></img>
+        </div>
         <div className="footer-col">
           <div className="col">
             <ul>
@@ -78,7 +86,7 @@ const Footer = () => {
           </div>
           <div>
             <ul>
-              <h5> STACK EXCHANGE NETWORK</h5>
+              <h5>STACK EXCHANGE NETWORK</h5>
               <li>Technology Culture</li>
               <li>Culture & recreation</li>
               <li>Life & arts</li>
