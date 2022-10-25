@@ -17,7 +17,11 @@ const SideWrapper = styled.aside`
   font-weight: 700;
   border: 1px solid #feedae;
   border-radius: 5px;
-
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 6px -1px;
+  @media screen and (max-width: 980px) {
+    display: none;
+  }
   ul {
     list-style: none;
     padding: 0;
