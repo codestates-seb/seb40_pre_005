@@ -9,7 +9,7 @@ const NavWrapper = styled.nav`
   padding-top: 14px;
   width: 164px;
   height: 100vh;
-  border-right: 1px solid grey;
+  border-right: 1px solid #d6d9dc;
   font-size: 13px;
   color: #525960;
   ul {
