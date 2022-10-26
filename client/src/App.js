@@ -7,6 +7,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Header />
+        <Nav />
+        <Sidebar />
         <Routes>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
