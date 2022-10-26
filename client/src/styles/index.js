@@ -8,4 +8,8 @@ export const GlobalStyle = createGlobalStyle`
   * {
     font-family: -apple-system,BlinkMacSystemFont,monospace,sans-serif;
   }
+
+  body {
+    background-color: #F1F2F3;
+  }
 `;
