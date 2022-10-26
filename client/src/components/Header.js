@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import logo_svg from '../assets/logo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faApple } from '@fortawesome/free-brands-svg-icons';
+import logo_svg from '../assets/img/logo.png';
+import { Link } from 'react-router-dom';
+import Search from './Search';
 
 const HeaderNav = styled.header`
   width: 100%;
@@ -19,8 +19,13 @@ const HeaderNav = styled.header`
   .logo_icon {
     width: 150px;
     height: 40px;
-    margin-top: 2px;
+    margin-bottom: 2px;
     margin-left: 10px;
+  }
+
+  .search_icon {
+    position: relative;
+    left: 25px;
   }
 `;
 
@@ -39,7 +44,7 @@ const LogoContainer = styled.div`
 const NavItemContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 10px;
+
   height: 100%;
   padding: 0 7.5px;
   cursor: pointer;
@@ -54,13 +59,6 @@ const NavItemContainer = styled.div`
   }
 `;
 
-const SearchBar = styled.input`
-  width: 750px;
-  height: 25px;
-  border-radius: 2px;
-  padding: 2px 10px;
-  border: 1px solid grey;
-`;
 const ButtonContainer = styled.div`
   width: 200px;
   display: flex;
@@ -78,6 +76,7 @@ const LoginBtn = styled.button`
   opacity: 0.75;
   color: #2c5877;
   padding: 8px 10px 8px 10px;
+  font-size: 12px;
 
   &:hover {
     background-color: #b3d3ea;
@@ -92,25 +91,38 @@ const SignUpBtn = styled.button`
   background: #4ca8ff;
   margin: 5px;
   border: 1px solid;
+  font-size: 12px;
   color: #fff;
   &:hover {
     background-color: #0073cc;
   }
 `;
 
-const LogoutBtn = styled.button``;
+const LogoutBtn = styled.button`
+  width: 80px;
+  height: 33px;
+  border-radius: 5px;
+  text-decoration: none;
+  background: #c0e7f9;
+  border: 1px solid #c0e7f9;
+  margin: 5px;
+  opacity: 0.75;
+  color: #2c5877;
+  padding: 8px 10px 8px 10px;
+  font-size: 12px;
 
-const OptionContainer = styled.div`
-  width: 200px;
-  display: flex;
-  justify-content: end;
+  &:hover {
+    background-color: #b3d3ea;
+  }
 `;
 
-function LoginChecked() {
-  const [isLogin, setIsLogin] = useState(false);
-}
+const ProfileBtn = styled.button``;
 
 function Header() {
+  const [isLogin, setIsLogin] = useState(false);
+  const onClick = () => {
+    setIsLogin(!isLogin);
+  };
   return (
     <HeaderNav>
       <LogoContainer>
@@ -123,11 +135,22 @@ function Header() {
         <span>Product</span>
         <span>For Teams</span>
       </NavItemContainer>
-      <SearchBar placeholder="Search.." />
-      <ButtonContainer>
-        <LoginBtn>Log in</LoginBtn>
-        <SignUpBtn>Sign up</SignUpBtn>
-      </ButtonContainer>
+      <Search />
+      {!isLogin ? (
+        <ButtonContainer>
+          <Link to="/login">
+            <LoginBtn onClick={onClick}>Log in</LoginBtn>
+          </Link>
+          <SignUpBtn>Sign up</SignUpBtn>
+        </ButtonContainer>
+      ) : (
+        <ButtonContainer>
+          <ProfileBtn></ProfileBtn>
+          <Link to="/logout">
+            <LogoutBtn onClick={onClick}>Log out</LogoutBtn>
+          </Link>
+        </ButtonContainer>
+      )}
     </HeaderNav>
   );
 }
