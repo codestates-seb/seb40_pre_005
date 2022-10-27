@@ -4,11 +4,10 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faMessage } from '@fortawesome/free-regular-svg-icons';
 import { faStackOverflow } from '@fortawesome/free-brands-svg-icons';
 
-const headerHeight = 50;
+const headerHeight = 50 + 3;
 const SideWrapper = styled.aside`
   margin-top: ${headerHeight + 24}px;
   width: 300px;
-  min-height: 400px;
   color: #525960;
   position: fixed;
   right: 0;
