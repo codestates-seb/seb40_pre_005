@@ -5,13 +5,13 @@ import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 export const headerHeight = 50 + 3; //header에 가리지 않기 위한 최소한의 높이
 
 const NavWrapper = styled.nav`
-  height: 100%;
-  overflow: hidden;
-  width: 164px;
   font-size: 13px;
   color: #525960;
   // --- position fixed ---
   // 나중에 Nav, Main, Sidebar는 flex로 레이아웃 정렬
+  > div {
+    width: 164px;
+  }
   ul {
     &:not(.subNav) {
       margin-top: ${headerHeight}px;
@@ -69,31 +69,33 @@ const NavWrapper = styled.nav`
 const Nav = () => {
   return (
     <NavWrapper>
-      <ul>
-        <li>
-          <a href="#!">Home</a>
-        </li>
-        <li>
-          <ul className="subNav">
-            <li>PUBLIC</li>
-            <li>
-              <a href="#!">
-                <FontAwesomeIcon icon={faEarthAmericas} size={'lg'} />
-                <span>Questions</span>
-              </a>
-            </li>
-            <li>
-              <a href="#!">Tags</a>
-            </li>
-            <li>
-              <a href="#!">Users</a>
-            </li>
-            <li>
-              <a href="#!">Companies</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <div>
+        <ul>
+          <li>
+            <a href="#!">Home</a>
+          </li>
+          <li>
+            <ul className="subNav">
+              <li>PUBLIC</li>
+              <li>
+                <a href="#!">
+                  <FontAwesomeIcon icon={faEarthAmericas} size={'lg'} />
+                  <span>Questions</span>
+                </a>
+              </li>
+              <li>
+                <a href="#!">Tags</a>
+              </li>
+              <li>
+                <a href="#!">Users</a>
+              </li>
+              <li>
+                <a href="#!">Companies</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </NavWrapper>
   );
 };
