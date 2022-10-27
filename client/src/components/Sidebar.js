@@ -6,10 +6,13 @@ import { faStackOverflow } from '@fortawesome/free-brands-svg-icons';
 
 const headerHeight = 50 + 3;
 const SideWrapper = styled.aside`
-  margin-top: ${headerHeight + 24}px;
+  /* margin-top: ${headerHeight + 24}px; */
+  margin-top: 24px; //detail에선 이미 container에 53px를 마진으로 주고 있음
+  margin-left: 24px;
   width: 300px;
+  height: 402px;
   color: #525960;
-  position: fixed;
+  /* position: fixed; */
   right: 0;
   top: 0;
   font-size: 12px;
