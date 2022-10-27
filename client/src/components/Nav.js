@@ -7,6 +7,9 @@ export const headerHeight = 50 + 3; //header에 가리지 않기 위한 최소�
 const NavWrapper = styled.nav`
   font-size: 13px;
   color: #525960;
+  height: 100vh;
+  position: sticky;
+  top: 0;
   // --- position fixed ---
   // 나중에 Nav, Main, Sidebar는 flex로 레이아웃 정렬
   > div {
@@ -14,14 +17,11 @@ const NavWrapper = styled.nav`
   }
   ul {
     &:not(.subNav) {
-      margin-top: ${headerHeight}px;
-      position: fixed;
       width: 164px;
-      padding-top: 14px;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      border-right: 1px solid #d6d9dc;
+      padding-top: ${headerHeight + 14}px;
+      > li > a {
+        padding-left: 8px;
+      }
     }
     list-style: none;
     padding: 0;
