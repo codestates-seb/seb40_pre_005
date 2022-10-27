@@ -30,15 +30,15 @@ const SearchBar = styled.input`
 `;
 
 const Search = () => {
-  const [focus, setFocus] = useState(false);
-  const onFocus = () => {
-    return setFocus(true);
-  };
+  //   const [focus, setFocus] = useState(false);
+  //   const onFocus = () => {
+  //     return setFocus(true);
+  //   };
   return (
     <SearchContainer>
-      <SearchBar placeholder="Search.." type="text" onFocus={onFocus} />
+      <SearchBar placeholder="Search.." type="text" />
       <SearchIcon width="1rem" height="1rem" fill="#BABFC3" />
-      {focus ? <SearchOptions /> : null}
+      {/* {focus ? <SearchOptions /> : null} */}
     </SearchContainer>
   );
 };

@@ -7,6 +7,7 @@ import FacebookIcon from '../assets/img/facebook_logo.svg';
 import GithubIcon from '../assets/img/github_logo.svg';
 import GoogleIcon from '../assets/img/google_logo.svg';
 import stack_logo_svg from '../assets/img/stack_logo.png';
+import Header from '../components/Header';
 
 const Wrapper = styled.div`
   height: 650px;
@@ -89,40 +90,43 @@ const Login = () => {
   const navigate = useNavigate;
 
   return (
-    <Wrapper>
-      <LoginContainer>
-        <div className="social_login">
-          <img
-            className="stack_logo"
-            src={stack_logo_svg}
-            alt="stack_logo"
-          ></img>
-        </div>
-
-        <div className="social_login">
-          <GoogleLoginBtn>
-            <img className="social_logo" src={GoogleIcon} alt="google_logo" />
-            Log in with Google
-          </GoogleLoginBtn>
-        </div>
-        <div className="social_login">
-          <GitHubLoginBtn>
-            <img className="social_logo" src={GithubIcon} alt="github_logo" />
-            Log in with Github
-          </GitHubLoginBtn>
-        </div>
-        <div className="social_login">
-          <FacebookLoginBtn>
+    <>
+      <Header />
+      <Wrapper>
+        <LoginContainer>
+          <div className="social_login">
             <img
-              className="social_logo"
-              src={FacebookIcon}
-              alt="facebook_icon"
-            />
-            Log in with Facebook
-          </FacebookLoginBtn>
-        </div>
-      </LoginContainer>
-    </Wrapper>
+              className="stack_logo"
+              src={stack_logo_svg}
+              alt="stack_logo"
+            ></img>
+          </div>
+
+          <div className="social_login">
+            <GoogleLoginBtn>
+              <img className="social_logo" src={GoogleIcon} alt="google_logo" />
+              Log in with Google
+            </GoogleLoginBtn>
+          </div>
+          <div className="social_login">
+            <GitHubLoginBtn>
+              <img className="social_logo" src={GithubIcon} alt="github_logo" />
+              Log in with Github
+            </GitHubLoginBtn>
+          </div>
+          <div className="social_login">
+            <FacebookLoginBtn>
+              <img
+                className="social_logo"
+                src={FacebookIcon}
+                alt="facebook_icon"
+              />
+              Log in with Facebook
+            </FacebookLoginBtn>
+          </div>
+        </LoginContainer>
+      </Wrapper>
+    </>
   );
 };
 
