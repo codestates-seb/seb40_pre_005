@@ -27,6 +27,9 @@ const SearchBar = styled.input`
     outline: 1px solid #6bbbf7;
     box-shadow: #d7e5f2 0px 0px 0px 5px;
   }
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const Search = () => {
