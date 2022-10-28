@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://database-1.cvz0lwzweyo3.ap-northeast-2.rds.amazonaws.com:13306/stackoverflow?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
