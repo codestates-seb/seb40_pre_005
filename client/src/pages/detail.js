@@ -3,11 +3,11 @@ import Header from '../components/Header';
 import Nav, { headerHeight } from '../components/Nav';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
+import Answer from '../components/Answer';
+import AnswerEditor from '../components/AnswerEditor';
+import Writer from '../components/Writer';
 
 const Container = styled.div`
-  a {
-    text-decoration: none;
-  }
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -15,6 +15,9 @@ const Container = styled.div`
   margin: 0 auto;
   min-height: 100vh;
   font-size: 13px;
+  a {
+    text-decoration: none;
+  }
   .wrapper {
     margin-top: ${headerHeight}px;
     border-left: 1px solid #d6d9dc;
@@ -55,6 +58,7 @@ const Container = styled.div`
         flex-direction: row;
         justify-content: space-between;
         .mainbar {
+          width: 100%;
           max-width: 728px;
           font-size: 15px;
           .post {
@@ -77,42 +81,9 @@ const Container = styled.div`
       background-color: #0074cc;
     }
   }
-  .writer {
-    display: flex;
-    justify-content: end;
-    > div {
-      display: flex;
-      background-color: #daeaf8;
-      align-items: center;
-      width: 150px;
-      border-radius: 5px;
-      padding: 0.8em;
-      .avatar {
-        width: 30px;
-        height: 30px;
-        background-color: #0074cc;
-        border-radius: 20%;
-      }
-      .username {
-        padding-left: 8px;
-      }
-    }
-  }
   h2 {
     font-weight: 400;
     font-size: 19px;
-  }
-  textarea {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 24px;
-  }
-  .answer {
-    padding: 24px 0;
-  }
-  .answerEditor {
-    border-top: 1px solid #d6d9dc;
-    padding: 24px 0;
   }
 `;
 
@@ -155,47 +126,17 @@ const Detail = () => {
               <div className="mainbar">
                 <div className="post">
                   <p>I have the following Array in JavaScript:</p>
-                  <p>roles = [1, 3 , 4, 6]</p>
-                  <p>I want to Match it with a dictionary for example :</p>
-                  <p>
-                    role_dict = [1: Owner, 2: System Admin, 3: Developer, 4:
-                    Viewer, 5: Tester, 6: Engineer]
-                  </p>
-                  <p>and return the following output:</p>
-                  <p>[Owner, Developer, Viewer, Engineer]</p>
                 </div>
-                <div className="writer">
-                  <div>
-                    <div className="avatar"></div>
-                    <div className="username">username</div>
-                  </div>
-                </div>
-                {/* Answer.js로 분리 */}
-                <div className="answer">
-                  <div>
-                    <h2>Answers</h2>
-                    <div>blablabla</div>
-                  </div>
-                  <div className="writer">
-                    <div>
-                      <div className="avatar"></div>
-                      <div className="username">username</div>
-                    </div>
-                  </div>
-                </div>
-                {/* AnswerEditor.js로 분리 */}
-                <div className="answerEditor">
-                  <h2>Your Answer</h2>
-                  <textarea></textarea>
-                  <button className="button">Post Your Answer</button>
-                </div>
+                <Writer />
+                <Answer />
+                <AnswerEditor />
               </div>
               <Sidebar />
             </div>
           </div>
         </div>
       </Container>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
