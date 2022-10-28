@@ -3,15 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 
 export const headerHeight = 50 + 3; //header에 가리지 않기 위한 최소한의 높이
+const footerHeight = 322;
 
 const NavWrapper = styled.nav`
   font-size: 13px;
   color: #525960;
-  height: 100vh;
+  height: calc(100vh - ${footerHeight}px);
   position: sticky;
   top: 0;
-  // --- position fixed ---
-  // 나중에 Nav, Main, Sidebar는 flex로 레이아웃 정렬
   > div {
     width: 164px;
   }
