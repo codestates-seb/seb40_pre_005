@@ -10,21 +10,21 @@ const SideWrapper = styled.aside`
   margin-top: 24px; //detail에선 이미 container에 53px를 마진으로 주고 있음
   margin-left: 24px;
   width: 300px;
-  height: 402px;
+  /* height: 402px; */
   color: #525960;
   /* position: fixed; */
   right: 0;
   top: 0;
   font-size: 12px;
   font-weight: 700;
-  border: 1px solid #feedae;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 6px -1px;
   @media screen and (max-width: 980px) {
     display: none;
   }
   ul {
+    border: 1px solid #feedae;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px -1px,
+      rgba(0, 0, 0, 0.06) 0px 2px 6px -1px;
     list-style: none;
     padding: 0;
     margin: 0;
