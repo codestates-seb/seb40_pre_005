@@ -2,21 +2,26 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 
-const headerHeight = 50; //header에 가리지 않기 위한 최소한의 높이
+export const headerHeight = 50 + 3; //header에 가리지 않기 위한 최소한의 높이
+const footerHeight = 322;
 
 const NavWrapper = styled.nav`
-  margin-top: ${headerHeight}px;
-  padding-top: 14px;
-  height: 100%;
-  overflow: hidden;
-  width: 164px;
-  border-right: 1px solid #d6d9dc;
   font-size: 13px;
   color: #525960;
-  position: fixed;
-  left: 0;
+  height: calc(100vh - ${footerHeight}px);
+  position: sticky;
   top: 0;
+  > div {
+    width: 164px;
+  }
   ul {
+    &:not(.subNav) {
+      width: 164px;
+      padding-top: ${headerHeight + 14}px;
+      > li > a {
+        padding-left: 8px;
+      }
+    }
     list-style: none;
     padding: 0;
   }
@@ -63,31 +68,33 @@ const NavWrapper = styled.nav`
 const Nav = () => {
   return (
     <NavWrapper>
-      <ul>
-        <li>
-          <a href="#!">Home</a>
-        </li>
-        <li>
-          <ul className="subNav">
-            <li>PUBLIC</li>
-            <li>
-              <a href="#!">
-                <FontAwesomeIcon icon={faEarthAmericas} size={'lg'} />
-                <span>Questions</span>
-              </a>
-            </li>
-            <li>
-              <a href="#!">Tags</a>
-            </li>
-            <li>
-              <a href="#!">Users</a>
-            </li>
-            <li>
-              <a href="#!">Companies</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <div>
+        <ul>
+          <li>
+            <a href="#!">Home</a>
+          </li>
+          <li>
+            <ul className="subNav">
+              <li>PUBLIC</li>
+              <li>
+                <a href="#!">
+                  <FontAwesomeIcon icon={faEarthAmericas} size={'lg'} />
+                  <span>Questions</span>
+                </a>
+              </li>
+              <li>
+                <a href="#!">Tags</a>
+              </li>
+              <li>
+                <a href="#!">Users</a>
+              </li>
+              <li>
+                <a href="#!">Companies</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </NavWrapper>
   );
 };
