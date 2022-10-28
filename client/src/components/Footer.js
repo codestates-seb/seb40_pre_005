@@ -4,7 +4,7 @@ import logo_icon from '../assets/logo-icon.svg.png';
 const FooterBlock = styled.div`
   display: flex;
   flex-direction: row;
-  /* position: absolute; */
+  position: absolute;
   bottom: 0;
   /* padding: 32px 35px 12px 35px; */
   background: hsl(210, 8%, 15%);

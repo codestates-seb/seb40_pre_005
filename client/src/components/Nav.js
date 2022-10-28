@@ -7,11 +7,15 @@ const headerHeight = 50; //header에 가리지 않기 위한 최소한의 높이
 const NavWrapper = styled.nav`
   margin-top: ${headerHeight}px;
   padding-top: 14px;
+  height: 100%;
+  overflow: hidden;
   width: 164px;
-  height: 100vh;
   border-right: 1px solid #d6d9dc;
   font-size: 13px;
   color: #525960;
+  position: fixed;
+  left: 0;
+  top: 0;
   ul {
     list-style: none;
     padding: 0;

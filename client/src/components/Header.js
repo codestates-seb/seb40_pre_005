@@ -27,6 +27,19 @@ const HeaderNav = styled.header`
     position: relative;
     left: 25px;
   }
+
+  .ForTeams {
+    width: 65px;
+  }
+
+  @media only screen and (max-width: 980px) {
+    .About {
+      display: none;
+    }
+    .ForTeams {
+      display: none;
+    }
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -49,10 +62,12 @@ const NavItemContainer = styled.div`
   padding: 0 7.5px;
   cursor: pointer;
   span {
-    padding: 7.5px;
-    border-radius: 1000px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 20px;
     background: #f8f9f9;
-    font-size: 14px;
+    font-size: 13px;
+    color: #232629;
   }
   span:hover {
     background: #e3e6e8;
@@ -60,7 +75,7 @@ const NavItemContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 200px;
+  width: 170px;
   display: flex;
   justify-content: end;
 `;
@@ -131,9 +146,9 @@ function Header() {
         </a>
       </LogoContainer>
       <NavItemContainer>
-        <span>About</span>
-        <span>Product</span>
-        <span>For Teams</span>
+        <span className="About">About</span>
+        <span className="Product">Product</span>
+        <span className="ForTeams">For Teams</span>
       </NavItemContainer>
       <Search />
       {!isLogin ? (
@@ -141,7 +156,9 @@ function Header() {
           <Link to="/login">
             <LoginBtn onClick={onClick}>Log in</LoginBtn>
           </Link>
-          <SignUpBtn>Sign up</SignUpBtn>
+          <Link to="/signup">
+            <SignUpBtn>Sign up</SignUpBtn>
+          </Link>
         </ButtonContainer>
       ) : (
         <ButtonContainer>
