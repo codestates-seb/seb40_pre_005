@@ -15,12 +15,12 @@ public class SecurityConfiguration{
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
-                .csrf().disable()
-                .formLogin()
-                .loginPage("/auths/login-form")
-                .loginProcessingUrl("/process_login")
-                .failureUrl("/auths/login-form?error")
-                .and()
+                .csrf().disable()   //1
+                .formLogin()//2
+                .loginPage("/auths/login-form")//3
+                .loginProcessingUrl("/process_login")//4
+                .failureUrl("/auths/login-form?error")//5
+                .and()//6
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")

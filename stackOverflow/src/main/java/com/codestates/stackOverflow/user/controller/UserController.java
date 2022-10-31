@@ -1,6 +1,7 @@
 package com.codestates.stackOverflow.user.controller;
 
 import com.codestates.stackOverflow.user.dto.UserDto;
+import com.codestates.stackOverflow.user.dto.UserPostDto;
 import com.codestates.stackOverflow.user.entity.User;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
@@ -15,6 +16,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
