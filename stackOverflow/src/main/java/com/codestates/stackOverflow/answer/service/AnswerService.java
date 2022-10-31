@@ -1,15 +1,24 @@
 package com.codestates.stackOverflow.answer.service;
 
 import com.codestates.stackOverflow.answer.entity.Answer;
+import com.codestates.stackOverflow.answer.repository.AnswerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class AnswerService {
+    private final AnswerRepository answerRepository;
 
+    public AnswerService(AnswerRepository answerRepository) {
+        this.answerRepository = answerRepository;
+    }
     public Answer createAnswer(Answer answer){
-        return null;
+        /**
+        // Answer answer = answer;
+        //return answer;
+         */
+        return answerRepository.save(answer);
     }
 
     public User findAnswerUser(long answerId){
@@ -18,7 +27,7 @@ public class AnswerService {
     }
 
     public Answer updateAnswer(Answer answer){
-        Optional.ofNullable(answer.getBody()) //내용수정
+        Optional.ofNullable(answer.getBody()) //답변 내용 수정
                 .ifPresent(answerBody->findAnswer.setBody(answerBody));
 
         Optional.ofNullable(answer.getUpdatedAt()) // 업데이트 날짜 수정

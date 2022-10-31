@@ -17,11 +17,19 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "ANSWER")
+@Table(name = "ANSWERS")
 public class Answer {
+
+    /**
+     * id 값을 null로 하면 DB가 알아서 AUTO_INCREMENT ( 1씩 증감 ) 해준다.
+     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long answerId;
+    private Long answerId; // 답변 일련번호
+
+    @Column(nullable = false,columnDefinition = "TEXT")
+    private String body; // 답변 내용
+
 
 }

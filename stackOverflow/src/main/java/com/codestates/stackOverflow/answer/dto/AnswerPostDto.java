@@ -8,11 +8,12 @@ import javax.validation.constraints.Positive;
 
 @Getter
 public class AnswerPostDto {
+
     @Positive
     @NotNull
     private Long questionId;
 
     // 답변 작성
-    @NotBlank(message = " Post Your Answer ")
+    @NotBlank(message = "Post Your Answer" )
     private String body;
 }

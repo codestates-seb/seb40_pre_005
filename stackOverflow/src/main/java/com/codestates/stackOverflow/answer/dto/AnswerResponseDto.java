@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class AnswerResponseDto {
+
+    /**
+     *  user ResponseDto 필요
+     */
     private long answerId;
     private String body;
     private LocalDateTime createdAt;

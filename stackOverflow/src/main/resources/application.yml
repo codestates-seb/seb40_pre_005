@@ -6,7 +6,10 @@ spring:
       path: /h2
   datasource:
     url: jdbc:h2:mem:test
+
+    ## JPA ??
   jpa:
     hibernate:
       ddl-auto: create  # (1) ??? ?? ??
     show-sql: true   # (2) SQL ?? ??
+
