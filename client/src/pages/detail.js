@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import Answer from '../components/Answer';
 import AnswerEditor from '../components/AnswerEditor';
 import Writer from '../components/Writer';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -88,6 +90,11 @@ const Container = styled.div`
 `;
 
 const Detail = () => {
+  // const [question, setQuestion] = useState();
+  const question = useSelector((state) => {
+    return state.question.value;
+  });
+  const dispatch = useDispatch();
   return (
     <>
       <Header />
