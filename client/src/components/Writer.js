@@ -21,7 +21,8 @@ const WriterWrapper = styled.div`
     }
   }
 `;
-const Writer = () => {
+const Writer = ({ question }) => {
+  const { user_id } = question;
   return (
     <WriterWrapper className="writer">
       <div>

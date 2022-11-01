@@ -100,6 +100,7 @@ const Detail = () => {
       try {
         await axios.get(url).then((res) => {
           setQuestion(res.data[0]);
+          console.log(res.data[0]);
         });
       } catch (err) {
         console.log('error', err);
@@ -149,8 +150,8 @@ const Detail = () => {
                 <div className="post">
                   <p>{question.que_content}</p>
                 </div>
-                <Writer />
-                <Answer />
+                <Writer question={question} />
+                <Answer question={question} />
                 <AnswerEditor />
               </div>
               <Sidebar />
