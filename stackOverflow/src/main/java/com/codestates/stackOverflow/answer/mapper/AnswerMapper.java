@@ -1,11 +1,12 @@
 package com.codestates.stackOverflow.answer.mapper;
 
-
 import com.codestates.stackOverflow.answer.dto.AnswerPatchDto;
 import com.codestates.stackOverflow.answer.dto.AnswerPostDto;
 import com.codestates.stackOverflow.answer.dto.AnswerResponseDto;
 import com.codestates.stackOverflow.answer.entity.Answer;
 import com.codestates.stackOverflow.answer.service.AnswerService;
+import com.codestates.stackOverflow.exception.BusinessLogicException;
+import com.codestates.stackOverflow.exception.ExceptionCode;
 import org.mapstruct.Mapper;
 
 /**
@@ -18,7 +19,7 @@ import org.mapstruct.Mapper;
  */
 
 @Mapper(componentModel = "Spring")
-public class AnswerMapper {
+public interface AnswerMapper {
 
     /**
      *  유저 정보와 질문 정보를 받아 와야 함
@@ -54,10 +55,18 @@ public class AnswerMapper {
 
         User user = answer.getUser();
         answerResponseDto.setUser(userMapper.userToUserResponseDto(user));
-     //   answerResponseDto.setVote(answer.getVote());
+        //   answerResponseDto.setVote(answer.getVote());
         answerResponseDto.setUpdatedAt(answer.getUpdatedAt());
 
         return answerResponseDto;
+
+        /**
+         * return new AnswerResponseDto(answer.getAnswerId(),
+         *      answer.getStatus(),
+         *      answer.getBody(),
+         *      answer.getCreateAt(),
+         *      answer.UpdatedAt());
+         */
     }
 
 
