@@ -8,6 +8,8 @@ import AnswerEditor from '../components/AnswerEditor';
 import Writer from '../components/Writer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Container = styled.div`
   display: flex;
@@ -90,13 +92,29 @@ const Container = styled.div`
 `;
 
 const Detail = () => {
-  // const [question, setQuestion] = useState();
-  const question = useSelector((state) => {
-    return state.question.value;
-  });
-  const dispatch = useDispatch();
+  let { id } = useParams();
+  const [question, setQuestion] = useState(null);
+  useEffect(() => {
+    const url = `http://localhost:3001/data?questions_id=${id}`;
+    const fetchData = async () => {
+      try {
+        await axios.get(url).then((res) => {
+          setQuestion(res.data[0]);
+        });
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    fetchData();
+  }, []);
+  //
+  // const question = useSelector((state) => {
+  //   return state.question.value;
+  // });
+  // const dispatch = useDispatch();
   return (
     <>
+      (
       <Header />
       <Container>
         <Nav />
@@ -104,10 +122,7 @@ const Detail = () => {
           <div className="content">
             <div className="header">
               <div className="title">
-                <h1>
-                  How to match a Array in JS to a Dictionary and Return the
-                  values as output?
-                </h1>
+                {<h1>{question.title}</h1>}
                 <div>
                   <button href="#!" className="button">
                     Ask Question
@@ -117,7 +132,7 @@ const Detail = () => {
               <div className="detail">
                 <div>
                   <span>Asked</span>
-                  며칠전
+                  {question.reg_date}
                 </div>
                 <div>
                   <span>Modified</span>
@@ -125,14 +140,14 @@ const Detail = () => {
                 </div>
                 <div>
                   <span>Viewed</span>
-                  몇명
+                  {question.hit}
                 </div>
               </div>
             </div>
             <div className="contentBody">
               <div className="mainbar">
                 <div className="post">
-                  <p>I have the following Array in JavaScript:</p>
+                  <p>{question.que_content}</p>
                 </div>
                 <Writer />
                 <Answer />
@@ -143,7 +158,7 @@ const Detail = () => {
           </div>
         </div>
       </Container>
-      <Footer />
+      <Footer />)
     </>
   );
 };
