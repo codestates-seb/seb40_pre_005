@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  *  데이터베이스에 쓰일 컬럼과 여러 엔티티 간의 연관관계 정의
@@ -31,5 +32,10 @@ public class Answer {
     @Column(nullable = false,columnDefinition = "TEXT")
     private String body; // 답변 내용
 
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullable = false, name = "UPDATED_AT")
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
 }
