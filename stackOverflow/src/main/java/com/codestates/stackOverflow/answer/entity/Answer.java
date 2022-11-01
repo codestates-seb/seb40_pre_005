@@ -1,6 +1,8 @@
 package com.codestates.stackOverflow.answer.entity;
 
 
+import com.codestates.stackOverflow.question.entity.Question;
+import com.codestates.stackOverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,4 +40,11 @@ public class Answer {
     @Column(nullable = false, name = "UPDATED_AT")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "QUESTION_ID")
+    private Question question;
 }

@@ -1,11 +1,15 @@
 package com.codestates.stackOverflow.question.entity;
 
+import com.codestates.stackOverflow.answer.entity.Answer;
+import com.codestates.stackOverflow.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,12 +24,25 @@ public class Question {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "STATUS")
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_EXIST;
-    @Column(nullable = false,columnDefinition = "TEXT")
+
+    //질문 제목
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String title;
-    @Column(nullable = false,columnDefinition = "TEXT")
+
+    //질문 내용
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
+
+    // 조회수
     @Column(nullable = false)
     private int view;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers = new ArrayList<>();
 
     public Question(long questionId, String title, String body) {
         this.questionId = questionId;
