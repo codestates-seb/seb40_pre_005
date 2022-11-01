@@ -123,7 +123,7 @@ const Detail = () => {
           <div className="content">
             <div className="header">
               <div className="title">
-                {<h1>{question.title}</h1>}
+                {<h1>{question?.title}</h1>}
                 <div>
                   <button href="#!" className="button">
                     Ask Question
@@ -133,7 +133,7 @@ const Detail = () => {
               <div className="detail">
                 <div>
                   <span>Asked</span>
-                  {question.reg_date}
+                  {question?.reg_date}
                 </div>
                 <div>
                   <span>Modified</span>
@@ -141,16 +141,16 @@ const Detail = () => {
                 </div>
                 <div>
                   <span>Viewed</span>
-                  {question.hit}
+                  {question?.hit}
                 </div>
               </div>
             </div>
             <div className="contentBody">
               <div className="mainbar">
                 <div className="post">
-                  <p>{question.que_content}</p>
+                  <p>{question?.que_content}</p>
                 </div>
-                <Writer question={question} />
+                <Writer question={question?.user_id} />
                 <Answer question={question} />
                 <AnswerEditor />
               </div>
