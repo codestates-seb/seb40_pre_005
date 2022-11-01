@@ -149,7 +149,7 @@ const Detail = () => {
                 <div className="post">
                   <p>{question?.que_content}</p>
                 </div>
-                <Writer question={question?.user_id} />
+                <Writer props={question?.user_id} />
                 <AnswerList id={id} />
                 <AnswerEditor id={id} />
               </div>
