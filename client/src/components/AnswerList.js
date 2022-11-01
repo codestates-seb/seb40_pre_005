@@ -32,14 +32,15 @@ const AnswerList = ({ id }) => {
     <AnswersWrapper>
       {answers
         ? answers.map((answer) => {
+            const { answer_id, ans_content, user_id } = answer;
             return (
               // eslint-disable-next-line react/jsx-key
               <Answer>
-                <div key={answer.answer_id}>
+                <div key={answer_id}>
                   <h2>Answers</h2>
-                  <div>{answer.ans_content}</div>
+                  <div>{ans_content}</div>
                 </div>
-                <Writer props={answer?.user_id} />
+                <Writer props={user_id} />
               </Answer>
             );
           })
