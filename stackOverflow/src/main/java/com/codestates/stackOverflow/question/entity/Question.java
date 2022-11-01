@@ -5,27 +5,42 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "QUESTION")
 public class Question {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionId;
-    private String title;
-    private String body;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "STATUS")
+    private QuestionStatus questionStatus = QuestionStatus.QUESTION_EXIST;
+    @Column(nullable = false,columnDefinition = "TEXT")
+    private String title;
+    @Column(nullable = false,columnDefinition = "TEXT")
+    private String body;
+    @Column(nullable = false)
+    private int view;
 
     public Question(long questionId, String title, String body) {
         this.questionId = questionId;
         this.title = title;
         this.body = body;
+    }
+    public enum QuestionStatus {
+        QUESTION_NOT_EXIST("존재하지 않는 질문"),
+        QUESTION_EXIST("존재하는 질문");
+
+        @Getter
+        private String status;
+
+        QuestionStatus(String status) {
+            this.status = status;
+        }
     }
 }
