@@ -7,6 +7,9 @@ import com.codestates.stackOverflow.question.dto.QuestionResponseDto;
 import com.codestates.stackOverflow.question.entity.Question;
 import com.codestates.stackOverflow.question.mapper.QuestionMapper;
 import com.codestates.stackOverflow.question.service.QuestionService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/question")
 @Validated
+@Slf4j
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
@@ -31,7 +35,7 @@ public class QuestionController {
         this.questionMapper = questionMapper;
     }
     //질문 정보 등록
-    @PostMapping
+    @PostMapping("/write")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto){
         Question question = questionMapper.questionPostDtoToQuestion(questionPostDto);
 
@@ -57,8 +61,10 @@ public class QuestionController {
     }
     // 모든 질문 정보 조회
     @GetMapping
-    public ResponseEntity getQuestions(){
-        List<Question> questions = questionService.findQuestions();
+    public ResponseEntity getQuestions(@Positive @RequestParam("page") int page,
+                                       @Positive @RequestParam("size") int size,
+                                       @RequestParam("sort") String sort){
+        Page<Question> questions = questionService.findQuestions(page-1,size,sort);
 
         List<QuestionResponseDto> response =
                 questions.stream()
