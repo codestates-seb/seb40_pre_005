@@ -3,13 +3,13 @@ import Header from '../components/Header';
 import Nav, { headerHeight } from '../components/Nav';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
-import Answer from '../components/Answer';
 import AnswerEditor from '../components/AnswerEditor';
 import Writer from '../components/Writer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import AnswerList from '../components/AnswerList';
 
 const Container = styled.div`
   display: flex;
@@ -100,7 +100,6 @@ const Detail = () => {
       try {
         await axios.get(url).then((res) => {
           setQuestion(res.data[0]);
-          console.log(res.data[0]);
         });
       } catch (err) {
         console.log('error', err);
@@ -151,8 +150,8 @@ const Detail = () => {
                   <p>{question?.que_content}</p>
                 </div>
                 <Writer question={question?.user_id} />
-                <Answer question={question} />
-                <AnswerEditor />
+                <AnswerList id={id} />
+                <AnswerEditor id={id} />
               </div>
               <Sidebar />
             </div>
