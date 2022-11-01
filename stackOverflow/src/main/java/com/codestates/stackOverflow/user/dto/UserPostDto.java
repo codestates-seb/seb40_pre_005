@@ -19,8 +19,5 @@ public class UserPostDto {
     private String userEmail;
 
     @NotNull
-    private String name;
-
-    @NotNull
-    private String userPw;
+    private String userPassword;
 }
