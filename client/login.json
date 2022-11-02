@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "userEmail": "test@gmail.com",
+      "userPassword": "a12345678!"
+    },
+    {
+      "userEmail": "test2@gmail.com",
+      "userPassword": "a12345678!"
+    },
+    {
+      "userEmail": "test3@gmail.com",
+      "userPassword": "a12345678!"
+    }
+  ]
+}

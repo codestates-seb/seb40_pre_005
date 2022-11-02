@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { useState } from 'react';
 
 const Container = styled.div`
   .help {
@@ -89,25 +91,39 @@ const LoginBtn = styled.button`
 
 const LoginForm = () => {
   const { register, watch, handleSubmit } = useForm();
-  const onValid = (e) => {
-    console.log(e);
+  const [user, serUser] = useState({
+    userEmail: '',
+    userPassword: '',
+  });
+  const onValid = (data) => {
+    // const User = {
+    //   userEmail: e.userEmail,
+    //   userPassword: e.userPassword,
+    // };
+    // console.log(User);
+    console.log(data);
+    axios
+      .post('http://localhost:3001/data', data)
+      .then((res) => console.log('res', res))
+      .catch((err) => console.log('err', err));
   };
   const helpMessage = "Don't have an account?";
+
   return (
     <Container>
       <LoginContainer>
         <DefaultLoginForm onSubmit={handleSubmit(onValid)}>
           <span>Email </span>
           <EmailInput
-            {...register('user_email')}
+            {...register('userEmail', { required: true })}
             placeholder="Email"
           ></EmailInput>
           <span>Password </span>
           <PasswordInput
-            {...register('user_pw')}
+            {...register('userPassword', { required: true })}
             placeholder="Password"
           ></PasswordInput>
-          <LoginBtn type="submit">Log in</LoginBtn>
+          <LoginBtn as="input" type="submit" value="Log in"></LoginBtn>
         </DefaultLoginForm>
       </LoginContainer>
       <div className="help">

@@ -18,9 +18,6 @@ function App() {
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/questions/:id" element={<Detail />}></Route>
         </Routes>
-        {/* <Nav />
-        <Sidebar />
-        <Footer /> */}
       </BrowserRouter>
     </div>
   );
