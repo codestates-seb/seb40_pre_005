@@ -26,6 +26,7 @@ import javax.validation.constraints.Positive;
 @RestController
 @Validated
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @AllArgsConstructor
 @RequestMapping("/v1")
 public class AnswerController {

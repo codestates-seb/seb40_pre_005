@@ -6,6 +6,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @EnableJpaAuditing
 @SpringBootApplication
 public class StackOverflowApplication extends SpringBootServletInitializer {
@@ -18,5 +21,8 @@ public class StackOverflowApplication extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
 		return builder.sources(SpringApplication.class);
 	}
-
+	@PostConstruct
+	void init() {
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+	}
 }
