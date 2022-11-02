@@ -22,15 +22,19 @@ const AnswerEditor = ({ id, answers, setAnswers }) => {
     e.preventDefault();
     const data = {
       // eslint-disable-next-line no-const-assign
-      answer_id: answers.length++,
+      id,
       question_id: id,
       user_id: 'user',
       ans_content: answer,
-      ans_reg_date: Date(),
+      ans_reg_date: new Date()
+        .toISOString()
+        .replace('T', ' ')
+        .replace(/\..*/, ''),
     };
     const fetchData = async () => {
       try {
         await axios.post(`http://localhost:3001/answer`, data);
+        window.location.reload();
       } catch (err) {
         console.log('error', err);
       }
