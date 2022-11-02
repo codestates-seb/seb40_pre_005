@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Writer from '../components/Writer';
+import AnswerEditor from './AnswerEditor';
 
 const AnswersWrapper = styled.div`
   padding: 24px 0;
@@ -45,6 +46,7 @@ const AnswerList = ({ id }) => {
             );
           })
         : null}
+      <AnswerEditor id={id} answers={answers} setAnswers={setAnswers} />
     </AnswersWrapper>
   );
 };

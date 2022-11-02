@@ -12,44 +12,39 @@ const AnswerEditorWrapper = styled.div`
     margin-bottom: 24px;
   }
 `;
-const AnswerEditor = () => {
-  let { id } = useParams();
+const AnswerEditor = ({ id, answers, setAnswers }) => {
   const [answer, setAnswer] = useState([]);
-  const bind = {
-    answer,
-    onchange: (e) => setAnswer(e.target.value),
-  };
 
+  const onChange = (e) => {
+    setAnswer(e.target.value);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      answer_id: 1,
+      // eslint-disable-next-line no-const-assign
+      answer_id: answers.length++,
       question_id: id,
-      user_id: 1,
+      user_id: 'user',
       ans_content: answer,
       ans_reg_date: Date(),
     };
-    axios(`http://localhost:3001/data?questions_id=${id}`, {
-      method: 'post',
-      responseType: 'type',
-      body: data,
-    })
-      .then(() => {
-        setAnswer([...answer, data]);
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const fetchData = async () => {
+      try {
+        await axios.post(`http://localhost:3001/answer`, data);
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    fetchData();
   };
   return (
     <>
       <AnswerEditorWrapper className="answerEditor">
         <h2>Your Answer</h2>
-        <textarea />
-        <button className="button" onSubmit={handleSubmit}>
-          Post Your Answer
-        </button>
+        <form onSubmit={handleSubmit}>
+          <textarea onChange={onChange} />
+          <button className="button">Post Your Answer</button>
+        </form>
       </AnswerEditorWrapper>
     </>
   );
