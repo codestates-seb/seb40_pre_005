@@ -6,15 +6,15 @@ const QuestionItem = ({ question }) => {
   return (
     <QuestionContainer>
       <QuestionStat>
-        <span>{question.likes} likes</span>
-        <span style={{ color: '#6a737c' }}>{question.answers} answers</span>
-        <span style={{ color: '#6a737c' }}>{question.hit} views</span>
+        <span>123 likes</span>
+        <span style={{ color: '#6a737c' }}>123 answers</span>
+        <span style={{ color: '#6a737c' }}>{question.view} views</span>
       </QuestionStat>
       <QuestionPreview>
-        <Link to={`/questions/${question.questions_id}`}>
+        <Link to={`/questions/${question.questionId}`}>
           <h3 className="main-title">{question.title}</h3>
         </Link>
-        <div className="main-body">{question.que_content}</div>
+        <div className="main-body">{question.body}</div>
       </QuestionPreview>
     </QuestionContainer>
   );
