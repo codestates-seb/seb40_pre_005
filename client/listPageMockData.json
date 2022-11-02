@@ -1,56 +1,64 @@
 {
-  "data": [
-    {
-      "user_id": 1,
-      "questions_id": 1,
-      "que_content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vulputate dui sit amet viverra dignissim. Sed nec mi in ligula congue tristique. Integer laoreet tortor vel diam volutpat fringilla. Nulla elementum lacus nec lorem dapibus, ac auctor tortor faucibus. Vestibulum mollis luctus augue, quis facilisis neque porttitor vel. Donec imperdiet blandit ipsum convallis pellentesque. Ut id facilisis quam. Cras felis libero, euismod eget sollicitudin ut, vehicula ut nisi.",
-      "title": "Happy Hacking!",
-      "hit": 123,
-      "reg_date": "2022-10-31T13:00",
-      "tag_id": 1,
-      "tag_name": "React",
-      "likes": 100,
-      "answers": 12
-    },
-    {
-      "user_id": 2,
-      "questions_id": 2,
-      "que_content": "Cras convallis sem quis diam ultricies porta vel id elit. Nulla facilisi. Morbi erat quam, tempor nec eleifend in, mollis eget orci. Quisque nec urna eu ante auctor aliquet nec sodales dui. Morbi eget ipsum faucibus, malesuada augue eget, fringilla neque. Nam ut nisl sed diam feugiat mattis sit amet ut lectus.",
-      "title": "How to know a Salesforce table field is auto-calculated?",
-      "hit": 345,
-      "reg_date": "2022-10-31T13:00",
-      "tag_id": 2,
-      "tag_name": "Code",
-      "likes": 120,
-      "answers": 20
-    },
-    {
-      "user_id": 3,
-      "questions_id": 3,
-      "que_content": "Pellentesque elementum dictum urna nec iaculis. Cras sollicitudin ligula diam, eu pretium orci congue nec. Proin semper finibus odio, eu pharetra tortor finibus id. ",
-      "title": "How to add input data to json file, using addorder function that's in the api file, when the user clicks the submit button?",
-      "hit": 2343,
-      "reg_date": "2022-10-31T13:00",
-      "tag_id": 3,
-      "tag_name": "Coffee",
-      "likes": 10,
-      "answers": 3
-    }
-  ],
-  "answer": [
-    {
-      "answer_id": 1,
-      "questions_id": 1,
-      "user_id": "냠냠",
-      "ans_content": "hello world!",
-      "ans_reg_date": "2022-10-31T13:00"
-    },
-    {
-      "answer_id": 2,
-      "questions_id": 1,
-      "user_id": "바쁘다",
-      "ans_content": "bye world!",
-      "ans_reg_date": "2022-10-31T13:00"
-    }
-  ]
+   "question": {
+      "data": [
+         {
+            "questionId": 5,
+            "questionStatus": "QUESTION_EXIST",
+            "title": "string",
+            "body": "string",
+            "view": 0,
+            "createdAt": "2022-11-02T20:12:47.809521",
+            "updatedAt": "2022-11-02T20:12:47.719745"
+         },
+         {
+            "questionId": 4,
+            "questionStatus": "QUESTION_EXIST",
+            "title": "test",
+            "body": "qwdawdawdawdawd",
+            "view": 0,
+            "createdAt": "2022-11-02T15:23:23.614035",
+            "updatedAt": "2022-11-02T15:23:23.523276"
+         },
+         {
+            "questionId": 3,
+            "questionStatus": "QUESTION_EXIST",
+            "title": "string",
+            "body": "string",
+            "view": 0,
+            "createdAt": "2022-11-02T15:02:40.439374",
+            "updatedAt": "2022-11-02T15:02:40.381612"
+         },
+         {
+            "questionId": 2,
+            "questionStatus": "QUESTION_EXIST",
+            "title": "string1",
+            "body": "string2",
+            "view": 0,
+            "createdAt": "2022-11-02T14:18:35.093064",
+            "updatedAt": "2022-11-02T14:18:35.076376"
+         }
+      ],
+      "pageInfo": {
+         "page": 1,
+         "size": 10,
+         "totalElements": 4,
+         "totalPages": 1
+      }
+   },
+   "answer": [
+      {
+         "answer_id": 1,
+         "questions_id": 1,
+         "user_id": "냠냠",
+         "ans_content": "hello world!",
+         "ans_reg_date": "2022-10-31T13:00"
+      },
+      {
+         "answer_id": 2,
+         "questions_id": 1,
+         "user_id": "바쁘다",
+         "ans_content": "bye world!",
+         "ans_reg_date": "2022-10-31T13:00"
+      }
+   ]
 }
