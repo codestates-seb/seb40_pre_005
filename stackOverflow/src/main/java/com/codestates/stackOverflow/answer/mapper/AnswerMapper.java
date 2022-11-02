@@ -8,7 +8,13 @@ import com.codestates.stackOverflow.answer.entity.Answer;
 import com.codestates.stackOverflow.answer.service.AnswerService;
 import com.codestates.stackOverflow.exception.BusinessLogicException;
 import com.codestates.stackOverflow.exception.ExceptionCode;
+import com.codestates.stackOverflow.question.service.QuestionService;
+import com.codestates.stackOverflow.user.entity.User;
+import com.codestates.stackOverflow.user.mapper.UserMapper;
+import com.codestates.stackOverflow.user.service.UserService;
 import org.mapstruct.Mapper;
+
+import java.util.List;
 
 
 /**
@@ -38,7 +44,7 @@ public interface AnswerMapper {
 
         return answer;
     }
-    default Answer answerPatchDtoToAnswer(AnswerService answerService, UserService userService, AnswerPatchDto answerPatchDto) {
+    default Answer answerPatchDtoToAnswer(AnswerService answerService, AnswerPatchDto answerPatchDto) {
         if (userService.getLoginUser().getUserId() != answerService.findAnswerUser(answerPatchDto.getAnswerId()).getUserId()) {
             //해당 유저가 쓴 답 글 아니므로 수정 삭제 불가
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
@@ -57,12 +63,12 @@ public interface AnswerMapper {
         answerResponseDto.setAnswerStatus(answer.getAnswerStatus());
         answerResponseDto.setBody(answer.getBody());
         answerResponseDto.setCreatedAt(answer.getCreatedAt());
-
+/**
         User user = answer.getUser();
         answerResponseDto.setUser(userMapper.userToUserResponseDto(user));
         //   answerResponseDto.setVote(answer.getVote());
         answerResponseDto.setUpdatedAt(answer.getUpdatedAt());
-
+*/
         return answerResponseDto;
 
 
@@ -78,8 +84,7 @@ public interface AnswerMapper {
 
 
 
-
-
+    List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers);
 
 
 }

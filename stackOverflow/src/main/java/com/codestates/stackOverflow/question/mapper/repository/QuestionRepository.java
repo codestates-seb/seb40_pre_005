@@ -1,4 +1,4 @@
-package com.codestates.stackOverflow.question.repository;
+package com.codestates.stackOverflow.question.mapper.repository;
 
 import com.codestates.stackOverflow.question.entity.Question;
 import org.springframework.data.domain.Page;

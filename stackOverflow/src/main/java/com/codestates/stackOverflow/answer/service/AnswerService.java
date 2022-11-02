@@ -3,6 +3,9 @@ package com.codestates.stackOverflow.answer.service;
 
 import com.codestates.stackOverflow.answer.entity.Answer;
 import com.codestates.stackOverflow.answer.repository.AnswerRepository;
+import com.codestates.stackOverflow.exception.BusinessLogicException;
+import com.codestates.stackOverflow.exception.ExceptionCode;
+import com.codestates.stackOverflow.user.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,13 +18,13 @@ public class AnswerService {
         this.answerRepository = answerRepository;
     }
     public Answer createAnswer(Answer answer){
-
-/**
-        // Answer answer = answer;
-        //return answer;
-         */
-
         return answerRepository.save(answer);
+    }
+    public Answer findVerifiedAnswer(long answerId){ //요청된 답이 DB에 없으면 에러
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        Answer findAnswer = optionalAnswer.orElseThrow(()->
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+        return findAnswer;
     }
 
     public User findAnswerUser(long answerId){
@@ -30,6 +33,8 @@ public class AnswerService {
     }
 
     public Answer updateAnswer(Answer answer){
+        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());//요청된 답이 DB에 없으면 에러
+
         Optional.ofNullable(answer.getBody()) //답변 내용 수정
                 .ifPresent(answerBody->findAnswer.setBody(answerBody));
 

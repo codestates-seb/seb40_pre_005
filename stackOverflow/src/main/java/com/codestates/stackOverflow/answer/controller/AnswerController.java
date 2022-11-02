@@ -6,20 +6,34 @@ import com.codestates.stackOverflow.answer.dto.AnswerPostDto;
 import com.codestates.stackOverflow.answer.entity.Answer;
 import com.codestates.stackOverflow.answer.mapper.AnswerMapper;
 import com.codestates.stackOverflow.answer.service.AnswerService;
+import com.codestates.stackOverflow.question.service.QuestionService;
+import com.codestates.stackOverflow.user.mapper.UserMapper;
+import com.codestates.stackOverflow.user.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
+@Api(tags = {"Answer API"})
 @RestController
+@Validated
+@Slf4j
+@AllArgsConstructor
 @RequestMapping("/v1")
 public class AnswerController {
 
     private AnswerService answerService;
     private AnswerMapper mapper;
+    private UserService userService;
+    private UserMapper userMapper;
+    private QuestionService questionService;
 
 
     @GetMapping(value= "/answer")
@@ -35,13 +49,18 @@ public class AnswerController {
 
 
 // localhost8080/v1/answer
+    @ApiOperation(value = "Answer 등록", response = Answer.class)
     @PostMapping("/answer/")
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
         Answer question = answerService.createAnswer(
                 mapper.answerPostDtoToAnswer(questionService, userService,answerPostDto));
 
+
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
+                /** new SingleResponseDto<>/
+                 *
+                 */
+                (mapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
     }
 
 
@@ -50,6 +69,7 @@ public class AnswerController {
      */
 
 
+    @ApiOperation(value = "Answer 수정", response = Answer.class)
     @PatchMapping("/answer/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
                                           @Valid @RequestBody AnswerPatchDto answerPatchDto){
@@ -57,11 +77,9 @@ public class AnswerController {
         answerPatchDto.setAnswerId(answerId);
 
         Answer response = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
-
         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
 
     }
-
 
 }
 

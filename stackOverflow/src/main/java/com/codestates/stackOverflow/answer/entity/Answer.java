@@ -31,8 +31,12 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId; // 답변 일련번호
 
-    @Column(nullable = false,columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body; // 답변 내용
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "STATUS")
+    private AnswerStatus answerStatus = AnswerStatus.ANSWER_EXIST;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -40,6 +44,11 @@ public class Answer {
     @Column(nullable = false, name = "UPDATED_AT")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    /**
+     * @Enumerated(EnumType.STRING)
+     * @Column(nullable = false, name = "STATUS")
+     * private AnswerStatus answerStatus = AnswerStatus.ANSWER_EXIST; // 댓글 존재여부
+     */
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -47,4 +56,16 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
+
+    public enum AnswerStatus {
+        ANSWER_NOT_EXIST("존재하지 않는 답변"),
+        ANSWER_EXIST("존재하는 답변");
+
+        @Getter
+        private String status;
+
+        AnswerStatus(String status) {
+            this.status = status;
+        }
+    }
 }

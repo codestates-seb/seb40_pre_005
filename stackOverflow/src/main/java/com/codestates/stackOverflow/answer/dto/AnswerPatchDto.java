@@ -1,6 +1,7 @@
 package com.codestates.stackOverflow.answer.dto;
 
 
+import com.codestates.stackOverflow.answer.entity.Answer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,7 @@ public class AnswerPatchDto {
     // 답변 수정
     private String body;
 
+    //답 삭제
+    private Answer.AnswerStatus answerStatus;
 
 }

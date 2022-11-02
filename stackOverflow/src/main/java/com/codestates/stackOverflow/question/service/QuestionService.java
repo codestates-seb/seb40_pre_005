@@ -3,13 +3,12 @@ package com.codestates.stackOverflow.question.service;
 import com.codestates.stackOverflow.exception.BusinessLogicException;
 import com.codestates.stackOverflow.exception.ExceptionCode;
 import com.codestates.stackOverflow.question.entity.Question;
-import com.codestates.stackOverflow.question.repository.QuestionRepository;
+import com.codestates.stackOverflow.question.mapper.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
