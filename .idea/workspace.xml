@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6db50a6f-5981-4e8e-9973-78c9b267e636" name="Changes" comment="" />
+    <list default="true" id="6db50a6f-5981-4e8e-9973-78c9b267e636" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stackOverflow/src/main/java/com/codestates/stackOverflow/answer/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/stackOverflow/src/main/java/com/codestates/stackOverflow/answer/controller/AnswerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stackOverflow/src/main/java/com/codestates/stackOverflow/answer/mapper/AnswerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/stackOverflow/src/main/java/com/codestates/stackOverflow/answer/mapper/AnswerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stackOverflow/src/main/java/com/codestates/stackOverflow/answer/service/AnswerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/stackOverflow/src/main/java/com/codestates/stackOverflow/answer/service/AnswerService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$/stackOverflow">
       <ProjectState />
     </projectState>
@@ -75,15 +83,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/project/seb40_pre_005&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/user/project/seb40_pre_005/stackOverflow",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\project\seb40_pre_005\stackOverflow\src\main" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="StackOverflowApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.codestates.stackOverflow.StackOverflowApplication" />
@@ -126,7 +142,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/feat/answer" />
+                        <option value="origin/entity-mapping" />
                       </list>
                     </value>
                   </entry>

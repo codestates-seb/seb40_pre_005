@@ -1,3 +1,4 @@
+
 package com.codestates.stackOverflow.answer.mapper;
 
 import com.codestates.stackOverflow.answer.dto.AnswerPatchDto;
@@ -9,6 +10,7 @@ import com.codestates.stackOverflow.exception.BusinessLogicException;
 import com.codestates.stackOverflow.exception.ExceptionCode;
 import org.mapstruct.Mapper;
 
+
 /**
  * Mybatis 매핑 XML에 기재된 SQL을 호출하기 위한 인터페이스이다
  *
@@ -18,12 +20,15 @@ import org.mapstruct.Mapper;
  * SQL id는 인터페이스에 정의된 메서드명과 동일하게 작성한다
  */
 
+
 @Mapper(componentModel = "Spring")
 public interface AnswerMapper {
 
-    /**
+
+/**
      *  유저 정보와 질문 정보를 받아 와야 함
      */
+
     default Answer answerPostDtoToAnswer(QuestionService questionService, UserService userService, AnswerPostDto answerPostDto){
         Answer answer = new Answer();
         answer.setBody(answerPostDto.getBody());
@@ -60,13 +65,15 @@ public interface AnswerMapper {
 
         return answerResponseDto;
 
-        /**
+
+/**
          * return new AnswerResponseDto(answer.getAnswerId(),
          *      answer.getStatus(),
          *      answer.getBody(),
          *      answer.getCreateAt(),
          *      answer.UpdatedAt());
          */
+
     }
 
 

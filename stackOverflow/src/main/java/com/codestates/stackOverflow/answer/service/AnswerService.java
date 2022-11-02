@@ -1,3 +1,4 @@
+
 package com.codestates.stackOverflow.answer.service;
 
 import com.codestates.stackOverflow.answer.entity.Answer;
@@ -14,10 +15,12 @@ public class AnswerService {
         this.answerRepository = answerRepository;
     }
     public Answer createAnswer(Answer answer){
-        /**
+
+/**
         // Answer answer = answer;
         //return answer;
          */
+
         return answerRepository.save(answer);
     }
 
@@ -43,3 +46,4 @@ public class AnswerService {
     }
 
 }
+
