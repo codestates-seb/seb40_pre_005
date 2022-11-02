@@ -19,7 +19,7 @@ const AnswerList = ({ id }) => {
     const fetchData = async () => {
       try {
         await axios
-          .get(`http://localhost:3001/answer?questions_id=${id}`)
+          .get(`http://localhost:3001/answer?question_id=${id}`)
           .then((res) => {
             setAnswers(res.data);
           });
