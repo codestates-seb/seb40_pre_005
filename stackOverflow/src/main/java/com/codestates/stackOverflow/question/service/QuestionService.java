@@ -3,13 +3,12 @@ package com.codestates.stackOverflow.question.service;
 import com.codestates.stackOverflow.exception.BusinessLogicException;
 import com.codestates.stackOverflow.exception.ExceptionCode;
 import com.codestates.stackOverflow.question.entity.Question;
-import com.codestates.stackOverflow.question.repository.QuestionRepository;
+import com.codestates.stackOverflow.question.mapper.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,15 +31,18 @@ public class QuestionService {
         Question updateQuestion = questionRepository.save(findQuestion);
         return updateQuestion;
     }
-    public Question findQuestion(long questionId){
+    public Question findQuestion(String title){
+//        Page<Question> question = questionRepository.findAllByQuestionStatus(
+//                PageRequest.of(page,size, Sort.by("createdAt").descending()),
+//                Question.QuestionStatus.QUESTION_EXIST);
         Question question = new Question();
         question.setView(question.getView()+1);
         questionRepository.save(question);
         return question;
     }
-    public Page<Question> findQuestions(int page, int size,String sort){
+    public Page<Question> findQuestions(int page, int size){
         Page<Question> questions = questionRepository.findAllByQuestionStatus(
-                PageRequest.of(page,size, Sort.by(sort).descending()),
+                PageRequest.of(page,size, Sort.by("createdAt").descending()),
                 Question.QuestionStatus.QUESTION_EXIST);
         return questions;
     }
