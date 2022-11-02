@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getQuestionList } from '../api/requestor';
-import QuestionItem from './QuestionItem';
+import QuestionItem from '../components/QuestionItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Pagination from '../components/Pagination';
 
 export const headerHeight = 50 + 3; //header에 가리지 않기 위한 최소한의 높이
 const footerHeight = 322;
@@ -113,17 +114,24 @@ const QuestionList = styled.div`
 `;
 
 function Question() {
+  const [pageInfo, setPageInfo] = useState();
   const [questions, setQuestions] = useState([]);
+  const [selectedPage, setSelectedPage] = useState(1);
+  const [pageSize, setPageSize] = useState(2);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getQuestionList();
+      const data = await getQuestionList({
+        page: selectedPage,
+        size: pageSize,
+      });
 
-      setQuestions(data);
+      setPageInfo(data.pageInfo);
+      setQuestions(data.data);
     };
 
     fetchData();
-  }, []);
+  }, [selectedPage, pageSize]);
 
   return (
     <>
@@ -133,7 +141,7 @@ function Question() {
           <AskQuestionButton>Ask Question</AskQuestionButton>
         </Head>
         <ToolBox>
-          <QuestionAmount>23,149,033 questions</QuestionAmount>
+          <QuestionAmount>{pageInfo?.totalElements} questions</QuestionAmount>
           <LeftestButton>Newest</LeftestButton>
           <MiddleButton>Active</MiddleButton>
           <MiddleButton>Bountied</MiddleButton>
@@ -146,9 +154,15 @@ function Question() {
         </ToolBox>
         <QuestionList>
           {questions.map((question) => (
-            <QuestionItem key={question.questions_id} question={question} />
+            <QuestionItem key={question.questionId} question={question} />
           ))}
         </QuestionList>
+        <Pagination
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
+          totalElements={pageInfo?.totalElements || 0}
+          pageSize={pageSize}
+        />
       </QuestionWrapper>
     </>
   );
