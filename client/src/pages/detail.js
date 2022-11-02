@@ -151,7 +151,6 @@ const Detail = () => {
                 </div>
                 <Writer props={question?.user_id} />
                 <AnswerList id={id} />
-                <AnswerEditor id={id} />
               </div>
               <Sidebar />
             </div>
