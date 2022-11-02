@@ -1,6 +1,7 @@
 package com.codestates.stackOverflow.question.entity;
 
 import com.codestates.stackOverflow.answer.entity.Answer;
+import com.codestates.stackOverflow.audit.Auditable;
 import com.codestates.stackOverflow.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "QUESTION")
-public class Question {
+public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "STATUS")
+    @Column(nullable = true, name = "STATUS")
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_EXIST;
 
     //질문 제목
@@ -34,7 +35,7 @@ public class Question {
     private String body;
 
     // 조회수
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int view;
 
     @ManyToOne

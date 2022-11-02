@@ -1,4 +1,5 @@
 
+
 package com.codestates.stackOverflow.answer.service;
 
 import com.codestates.stackOverflow.answer.entity.Answer;
@@ -51,4 +52,3 @@ public class AnswerService {
     }
 
 }
-

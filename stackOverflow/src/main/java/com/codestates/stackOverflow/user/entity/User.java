@@ -34,5 +34,4 @@ public class User extends Auditable {
 
     @OneToMany(mappedBy = "user")
     private List<Answer> answers = new ArrayList<>();
-
 }

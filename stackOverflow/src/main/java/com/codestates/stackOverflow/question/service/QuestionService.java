@@ -31,15 +31,18 @@ public class QuestionService {
         Question updateQuestion = questionRepository.save(findQuestion);
         return updateQuestion;
     }
-    public Question findQuestion(long questionId){
+    public Question findQuestion(String title){
+//        Page<Question> question = questionRepository.findAllByQuestionStatus(
+//                PageRequest.of(page,size, Sort.by("createdAt").descending()),
+//                Question.QuestionStatus.QUESTION_EXIST);
         Question question = new Question();
         question.setView(question.getView()+1);
         questionRepository.save(question);
         return question;
     }
-    public Page<Question> findQuestions(int page, int size,String sort){
+    public Page<Question> findQuestions(int page, int size){
         Page<Question> questions = questionRepository.findAllByQuestionStatus(
-                PageRequest.of(page,size, Sort.by(sort).descending()),
+                PageRequest.of(page,size, Sort.by("createdAt").descending()),
                 Question.QuestionStatus.QUESTION_EXIST);
         return questions;
     }

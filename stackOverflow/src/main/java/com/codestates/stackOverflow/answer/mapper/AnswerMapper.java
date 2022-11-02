@@ -1,5 +1,6 @@
 
 
+
 package com.codestates.stackOverflow.answer.mapper;
 
 import com.codestates.stackOverflow.answer.dto.AnswerPatchDto;
@@ -98,4 +99,3 @@ public interface AnswerMapper {
 
 
 }
-
