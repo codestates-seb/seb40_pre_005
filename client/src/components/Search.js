@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SearchIcon } from '../assets/img/glass.svg';
@@ -33,15 +34,22 @@ const SearchBar = styled.input`
 `;
 
 const Search = () => {
-  //   const [focus, setFocus] = useState(false);
-  //   const onFocus = () => {
-  //     return setFocus(true);
-  //   };
+  const [search, setSearch] = useState();
+  const onChangeSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+  const onSearch = (e) => {
+    // e.preventDefault();
+    // if (search === null || search === '') {
+    //   axios.get(url).then((res) =>);
+    // }
+  };
+  console.log(search);
   return (
     <SearchContainer>
-      <SearchBar placeholder="Search.." type="text" />
+      <SearchBar placeholder="Search.." type="text" onChange={onChangeSearch} />
       <SearchIcon width="1rem" height="1rem" fill="#BABFC3" />
-      {/* {focus ? <SearchOptions /> : null} */}
     </SearchContainer>
   );
 };
