@@ -9,13 +9,16 @@ import com.codestates.stackOverflow.answer.entity.Answer;
 import com.codestates.stackOverflow.answer.mapper.AnswerMapper;
 import com.codestates.stackOverflow.answer.service.AnswerService;
 import com.codestates.stackOverflow.question.entity.Question;
+import com.codestates.stackOverflow.question.mapper.QuestionMapper;
 import com.codestates.stackOverflow.question.service.QuestionService;
+import com.codestates.stackOverflow.response.MultiResponseDto;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +44,7 @@ public class AnswerController {
     private UserMapper userMapper;
     private QuestionService questionService;
 
-
+    private final QuestionMapper questionMapper;
 /**
      * answer 등록 API
      */
@@ -92,10 +95,40 @@ public class AnswerController {
      * answer 조회 API
      */
 
+
+    /**
+
     @ApiOperation(value = "Answer 조회", response = Answer.class)
     @GetMapping(value= "/answer")
     public ResponseEntity getAnswers() {
+        List<Answer> answers = answerService.findsAnswers();
 
+        List<AnswerResponseDto> response =
+                answers.stream()
+                        .map(answer -> mapper.answersToAnswerResponseDtos(userMapper,answers)
+                                .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+*/
+    @ApiOperation(value = "Answer 조회", response = Answer.class)
+    @GetMapping(value= "/answer")
+    public ResponseEntity getAnswers( Question question,
+                                      @Positive @RequestParam("page") int page,
+                                      @Positive @RequestParam("size") int size,
+                                      @Positive @RequestParam("answerSort") String answerSort){
+            Page<Answer> pageAnswers = answerService.findAnswers(question,page-1,size, answerSort);
+
+            List<Answer> answers = pageAnswers.getContent();
+
+            return new ResponseEntity<>(new MultiResponseDto<>(
+                    answerMapper.answersToAnswerResponseDtos(userMapper, answers),
+                    pageAnswers),HttpStatus.OK);
+
+
+        /**
+        return new ResponseEntity<>(
+                mapper.answersToAnswerResponseDtos(),HttpStatus.OK);
+
+*/
 
         /**
        List<Answer> answer = answerService.findAnswers(List<Answer> answers);

@@ -101,7 +101,7 @@ public interface AnswerMapper {
     };
 
 
-    List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers);
+  // List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers);
 
 
 }

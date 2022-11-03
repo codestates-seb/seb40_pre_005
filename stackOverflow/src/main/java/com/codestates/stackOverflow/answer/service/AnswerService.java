@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Member;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,8 +47,15 @@ public class AnswerService {
 
         return findAllAnswer;
     }
+/**
+    public List<Answer> findsAnswers(){
 
+        List<Answer> answers =  List.of(new Answer(findAnswers()));
 
+        return answers;
+    }
+
+*/
     public Answer updateAnswer(Answer answer){
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());//요청된 답이 DB에 없으면 에러
 
@@ -66,7 +75,7 @@ public class AnswerService {
     }
 
     /**
-    public Answer deleteAnswer(Answer answer) {
+    public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());//요청된 답이 DB에 없으면 에러
 
         Optional.ofNullable(answer.getAnswerStatus()) //글 삭제

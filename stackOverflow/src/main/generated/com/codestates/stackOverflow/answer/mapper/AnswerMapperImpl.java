@@ -5,23 +5,24 @@ import com.codestates.stackOverflow.answer.entity.Answer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-03T11:14:44+0900",
+    date = "2022-11-03T16:33:15+0900",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class AnswerMapperImpl implements AnswerMapper {
 
     @Override
-    public List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers) {
+    public List<AnswerResponseDto> answersToAnswerResponseDtos(Page<Answer> answers) {
         if ( answers == null ) {
             return null;
         }
 
-        List<AnswerResponseDto> list = new ArrayList<AnswerResponseDto>( answers.size() );
+        List<AnswerResponseDto> list = new ArrayList<AnswerResponseDto>();
         for ( Answer answer : answers ) {
             list.add( answerToAnswerResponseDto( answer ) );
         }
