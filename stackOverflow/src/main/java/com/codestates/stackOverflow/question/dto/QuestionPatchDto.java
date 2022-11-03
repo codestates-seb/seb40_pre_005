@@ -1,20 +1,27 @@
 package com.codestates.stackOverflow.question.dto;
 
-import com.codestates.stackOverflow.question.entity.Question;
+import com.codestates.stackOverflow.audit.Auditable;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Getter
-@Setter
+@NoArgsConstructor
+@Builder //test
 public class QuestionPatchDto {
+//    @Setter
 //    private long questionId;
     @NotBlank(message = "The title must not be blank.")
     private String title;
     @NotBlank(message = "The content must not be blank.")
     private String body;
+    @Builder //test
+    public QuestionPatchDto(String title, String body){
+        this.title = title;
+        this.body = body;
+    }
 
 //    public long getQuestionId() {
 //        return questionId;

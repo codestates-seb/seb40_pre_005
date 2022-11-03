@@ -7,7 +7,8 @@ public enum ExceptionCode {
     user_EXISTS(409, "User exists"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     INVALID_user_STATUS(400, "Invalid User status"),
-    QUESTION_NOT_FOUND(404, "Not Question");
+    QUESTION_NOT_FOUND(404, "Not Question"),
+    ACCESS_DENIED_USER(403, "Access Denied User");
 
     @Getter
     private int status;

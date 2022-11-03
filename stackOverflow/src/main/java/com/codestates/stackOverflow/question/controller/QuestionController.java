@@ -1,5 +1,6 @@
 package com.codestates.stackOverflow.question.controller;
 
+import com.codestates.stackOverflow.question.dto.QuestionGetDto;
 import com.codestates.stackOverflow.question.dto.QuestionPatchDto;
 import com.codestates.stackOverflow.question.dto.QuestionPostDto;
 
@@ -51,30 +52,41 @@ public class QuestionController {
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper,question)), HttpStatus.CREATED);
     }
     //질문 정보 수정
+//    @PatchMapping("/{question-id}")
+//    @ApiOperation(value = "질문수정", response = Question.class)
+//    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
+//                                        @Valid @RequestBody QuestionPatchDto questionPatchDto) {
+////        questionPatchDto.setQuestionId(questionId);
+//        Question question = questionMapper.questionPatchDtoToQuestion(questionService,userService,questionPatchDto);
+//        Question updatedQuestion = questionService.updateQuestion(question);
+//
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper,updatedQuestion)),
+//                HttpStatus.OK);
+//    }
     @PatchMapping("/{question-id}")
     @ApiOperation(value = "질문수정", response = Question.class)
-    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
-                                        @Valid @RequestBody QuestionPatchDto questionPatchDto) {
-        Question question = questionMapper.questionPatchDtoToQuestion(questionService,userService,questionPatchDto);
-        Question updatedQuestion = questionService.updateQuestion(question);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper,updatedQuestion)),
-                HttpStatus.OK);
+    public void patchQuestion(@PathVariable("question-id") @Positive long questionId, @RequestBody @Valid QuestionPatchDto request){
+        questionService.updateQuestion(questionId, request);
     }
 
-    //한개의 질문 정보 조회
-    @GetMapping("/{title}")
+//    //한개의 질문 정보 조회
+//    @GetMapping("/{question-id}")
+//    @ApiOperation(value = "특정질문조회", response = Question.class)
+//    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
+//                                      @Positive @RequestParam("page") int answerPage,
+//                                      @Positive @RequestParam("size") int answerSize,
+//                                      @RequestParam("sort") String answerSort){
+//        Question question = questionService.findQuestion(questionId);
+////        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(), HttpStatus.OK);
+//        return new ResponseEntity<>(new SingleResponseDto<>(
+//                questionMapper.questionToQuestionAndAnswerResponseDto(
+//                        userMapper, question, answerPage, answerSize, answerSort)), HttpStatus.OK);
+//    }
+    @GetMapping("/{question-id}")
     @ApiOperation(value = "특정질문조회", response = Question.class)
-    public ResponseEntity getQuestion(@PathVariable("title") @Positive String title,
-                                      @Positive @RequestParam("page") int answerPage,
-                                      @Positive @RequestParam("size") int answerSize,
-                                      @RequestParam("sort") String answerSort){
-        Question question = questionService.findQuestion(title);
-//        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(), HttpStatus.OK);
-        return new ResponseEntity<>(new SingleResponseDto<>(
-                questionMapper.questionToQuestionAndAnswerResponseDto(
-                        userMapper, question, answerPage, answerSize, answerSort)), HttpStatus.OK);
+    public QuestionGetDto getQuestion(@PathVariable("question-id") @Positive long questionId){
+        return questionService.findQuestion(questionId);
     }
     // 모든 질문 정보 조회
     @GetMapping
