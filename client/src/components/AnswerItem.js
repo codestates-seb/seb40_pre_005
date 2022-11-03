@@ -64,17 +64,15 @@ const AnswerItem = ({ answer }) => {
     <>
       {answer ? (
         <Answer id={answer.answerId}>
-          <AnswerItem>
-            <div>
-              <h2>Answers</h2>
-              <div>{answer.body}</div>
-            </div>
-            <Writer props={answer.userId} />
-            <div className="handleBtns">
-              <button onClick={handleEditBtn}>edit</button>
-              <button onClick={handleDelete}>delete</button>
-            </div>
-          </AnswerItem>
+          <div>
+            <h2>Answers</h2>
+            <div>{answer.body}</div>
+          </div>
+          <Writer props={answer.userId} />
+          <div className="handleBtns">
+            <button onClick={handleEditBtn}>edit</button>
+            <button onClick={handleDelete}>delete</button>
+          </div>
         </Answer>
       ) : null}
     </>
