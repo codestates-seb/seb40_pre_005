@@ -11,12 +11,13 @@ import com.codestates.stackOverflow.answer.service.AnswerService;
 import com.codestates.stackOverflow.exception.BusinessLogicException;
 import com.codestates.stackOverflow.exception.ExceptionCode;
 import com.codestates.stackOverflow.question.service.QuestionService;
+import com.codestates.stackOverflow.user.entity.User;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import org.mapstruct.Mapper;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 /**
@@ -38,7 +39,6 @@ public interface AnswerMapper {
 /**
      *  유저 정보와 질문 정보를 받아 와야 함
      */
-
 
     default Answer answerPostDtoToAnswer(QuestionService questionService, UserService userService, AnswerPostDto answerPostDto){
         Answer answer = new Answer();
@@ -76,8 +76,8 @@ public interface AnswerMapper {
         answerResponseDto.setUser(userMapper.userToUserResponseDto(user));
         //   answerResponseDto.setVote(answer.getVote());
         answerResponseDto.setUpdatedAt(answer.getUpdatedAt());
-*/
 
+*/
         return answerResponseDto;
 
 
@@ -92,7 +92,13 @@ public interface AnswerMapper {
 
 
     }
+    default List<AnswerResponseDto> answersToAnswerResponseDtos(UserMapper userMapper,List<Answer> answers){
 
+        List<AnswerResponseDto> answerResponseDtos =answers.stream().map(answer -> answerToAnswerResponseDto(userMapper,answer)).collect(Collectors.toList());
+
+
+       return answerResponseDtos;
+    };
 
 
     List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers);
