@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Writer from '../components/Writer';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
 const Answer = styled.div`
   padding-bottom: 24px;
@@ -19,13 +20,15 @@ const Answer = styled.div`
 const AnswerItem = ({ answer }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState();
-  console.log(answer.answerId, answer.body, answer.userId);
+  const { id, body, userId } = answer;
   //DELETE
   const handleDelete = () => {
-    const url = `http://localhost:3001/answer?id=${answer?.answerId}`;
+    console.log(id, body);
+    const url = `http://localhost:3001/answer/${id}`;
     const fetchData = async () => {
       try {
         await axios.delete(url).then(() => {
+          console.log(id, body);
           window.location.reload();
         });
       } catch (err) {
@@ -36,16 +39,17 @@ const AnswerItem = ({ answer }) => {
   };
   // UPDATE
   const handleEditBtn = () => {
+    console.log(id);
     setIsEdit(!isEdit);
   };
-  // const onChange = (e) => {
-  //   setEditText(e.target.value);
-  // };
+  const onChange = (e) => {
+    setEditText(e.target.value);
+  };
   // useEffect(() => {
   //   // const url = REACT_APP_ANSWER + ${answerId};
-  //   const url = `https://localhost:3001/answer?id=${answerId}`;
+  //   const url = `https://localhost:3001/answer?id=${id}`;
   //   const data = {
-  //     answerId,
+  //     id,
   //     answerStatus: 'ANSWER_NOT_EXIST',
   //     body: editText,
   //   };
@@ -59,16 +63,16 @@ const AnswerItem = ({ answer }) => {
   //     }
   //   };
   //   fetchData();
-  // }, [isEdit]);
+  // }, [answerId, editText, isEdit]);
   return (
     <>
       {answer ? (
-        <Answer id={answer.answerId}>
+        <Answer id={id}>
           <div>
             <h2>Answers</h2>
-            <div>{answer.body}</div>
+            <div onChange={onChange}>{body}</div>
           </div>
-          <Writer props={answer.userId} />
+          <Writer props={userId} />
           <div className="handleBtns">
             <button onClick={handleEditBtn}>edit</button>
             <button onClick={handleDelete}>delete</button>
