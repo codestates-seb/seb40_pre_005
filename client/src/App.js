@@ -9,6 +9,7 @@ import Signup from './pages/signup';
 import Detail from './pages/detail';
 import SearchPage from './pages/search';
 import Ask from './pages/ask';
+import Logout from './pages/logout';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             path="/questions/:id/edit"
             element={<Ask mode="EDIT" />}
           ></Route>
+          <Route path="/logout" element={<Logout />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

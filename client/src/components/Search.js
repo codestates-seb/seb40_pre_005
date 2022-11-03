@@ -45,7 +45,6 @@ const Search = () => {
     e.preventDefault();
 
     if (e.key === 'Enter') {
-      console.log(search);
       navigate(`/search?q=${search}`);
     }
   };

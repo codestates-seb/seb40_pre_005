@@ -102,7 +102,7 @@ const LoginForm = () => {
     };
 
     setUser(User);
-    console.log('user', user);
+
     axios
       .get('http://localhost:3001/data')
       .then((res) => console.log(res.data))
