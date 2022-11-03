@@ -19,7 +19,7 @@ const Answer = styled.div`
 const AnswerItem = ({ answer }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState();
-  console.log(answer);
+  console.log(answer.answerId, answer.body, answer.userId);
   //DELETE
   const handleDelete = () => {
     const url = `http://localhost:3001/answer?id=${answer?.answerId}`;
@@ -61,21 +61,23 @@ const AnswerItem = ({ answer }) => {
   //   fetchData();
   // }, [isEdit]);
   return (
-    <Answer>
-      <AnswerItem>
-        <div>
-          <h2>Answers</h2>
-          <div>{answer?.body}</div>
-        </div>
-        <Writer props={answer?.userId} />
-        <div className="handleBtns">
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <button onClick={handleEditBtn}>edit</button>
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <button onClick={handleDelete}>delete</button>
-        </div>
-      </AnswerItem>
-    </Answer>
+    <>
+      {answer ? (
+        <Answer id={answer.answerId}>
+          <AnswerItem>
+            <div>
+              <h2>Answers</h2>
+              <div>{answer.body}</div>
+            </div>
+            <Writer props={answer.userId} />
+            <div className="handleBtns">
+              <button onClick={handleEditBtn}>edit</button>
+              <button onClick={handleDelete}>delete</button>
+            </div>
+          </AnswerItem>
+        </Answer>
+      ) : null}
+    </>
   );
 };
 
