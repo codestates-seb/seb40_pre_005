@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as SearchIcon } from '../assets/img/glass.svg';
 import SearchOptions from './SearchOptions';
@@ -35,20 +36,27 @@ const SearchBar = styled.input`
 
 const Search = () => {
   const [search, setSearch] = useState();
+  const navigate = useNavigate();
   const onChangeSearch = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
   };
   const onSearch = (e) => {
-    // e.preventDefault();
-    // if (search === null || search === '') {
-    //   axios.get(url).then((res) =>);
-    // }
+    e.preventDefault();
+
+    if (e.key === 'Enter') {
+      console.log(search);
+      navigate(`/search?q=${search}`);
+    }
   };
-  console.log(search);
   return (
     <SearchContainer>
-      <SearchBar placeholder="Search.." type="text" onChange={onChangeSearch} />
+      <SearchBar
+        placeholder="Search.."
+        type="text"
+        onChange={onChangeSearch}
+        onKeyUp={onSearch}
+      />
       <SearchIcon width="1rem" height="1rem" fill="#BABFC3" />
     </SearchContainer>
   );

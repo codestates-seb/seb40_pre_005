@@ -15,7 +15,7 @@ const HeaderNav = styled.header`
   top: 0px;
   left: 0px;
   align-items: center;
-
+  z-index: 10;
   .logo_icon {
     width: 150px;
     height: 40px;
@@ -131,7 +131,18 @@ const LogoutBtn = styled.button`
   }
 `;
 
-const ProfileBtn = styled.button``;
+const Profile = styled.img`
+  border-radius: 15px;
+  width: 33px;
+  height: 33px;
+  margin: 5px 15px 5px 5px;
+  background-color: white;
+  border: 1px solid grey;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
@@ -162,7 +173,7 @@ function Header() {
         </ButtonContainer>
       ) : (
         <ButtonContainer>
-          <ProfileBtn></ProfileBtn>
+          <Profile src={process.env.PUBLIC_URL + '/profile.png'}></Profile>
           <Link to="/logout">
             <LogoutBtn onClick={onClick}>Log out</LogoutBtn>
           </Link>
