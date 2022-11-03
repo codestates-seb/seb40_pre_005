@@ -48,13 +48,13 @@
    "answer": [
       {
          "answerId": 1,
-         "questionsId": 2,
+         "questionId": 2,
          "userId": "냠냠",
          "body": "hello world!"
       },
       {
          "answerId": 2,
-         "questionsId": 2,
+         "questionId": 2,
          "userId": "바쁘다",
          "body": "bye world!"
       }
