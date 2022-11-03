@@ -74,18 +74,11 @@ public class AnswerService {
         return updatedQuestion;
     }
 
-    /**
+
     public void deleteAnswer(long answerId) {
-        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());//요청된 답이 DB에 없으면 에러
-
-        Optional.ofNullable(answer.getAnswerStatus()) //글 삭제
-                .ifPresent(answerStatus->findAnswer.setAnswerStatus(answerStatus));
-
-        Answer updatedQuestion = answerRepository.save(findAnswer);
-
-        return updatedQuestion;
+        answerRepository.deleteById(answerId);
     }
-*/
+
 
 
     private void VerifiedNoAnswer(Page<Answer> findAllAnswer) throws BusinessLogicException{//status가 ANSWER_EXIST인 List 데이터가 0이면 예외발생

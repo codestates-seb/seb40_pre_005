@@ -2,6 +2,7 @@ package com.codestates.stackOverflow.question.entity;
 
 import com.codestates.stackOverflow.answer.entity.Answer;
 import com.codestates.stackOverflow.audit.Auditable;
+import com.codestates.stackOverflow.question.dto.PatchEditor;
 import com.codestates.stackOverflow.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,11 +46,25 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
-    public Question(long questionId, String title, String body) {
+    public Question(long questionId, String title, String body, int view) {
         this.questionId = questionId;
         this.title = title;
         this.body = body;
+        this.view = view;
     }
+    //test
+    public PatchEditor.PatchEditorBuilder toEditor() {
+        return PatchEditor.builder()
+                .title(title)
+                .body(body);
+
+    }
+    //test
+    public void edit(PatchEditor patchEditor) {
+        title = patchEditor.getTitle();
+        body = patchEditor.getBody();
+    }
+
     public enum QuestionStatus {
         QUESTION_NOT_EXIST("존재하지 않는 질문"),
         QUESTION_EXIST("존재하는 질문");

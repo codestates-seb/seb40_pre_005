@@ -1,9 +1,10 @@
 package com.codestates.stackOverflow.question.mapper;
 
+import com.codestates.stackOverflow.exception.BusinessLogicException;
+import com.codestates.stackOverflow.exception.ExceptionCode;
 import com.codestates.stackOverflow.question.dto.QuestionPatchDto;
 import com.codestates.stackOverflow.question.dto.QuestionPostDto;
 import com.codestates.stackOverflow.question.dto.QuestionResponseDto;
-import com.codestates.stackOverflow.question.dto.QuestionVoteDto;
 import com.codestates.stackOverflow.question.entity.Question;
 import com.codestates.stackOverflow.question.service.QuestionService;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
@@ -25,6 +26,10 @@ public interface QuestionMapper {
         return question;
     }
     default Question questionPatchDtoToQuestion(QuestionService questionService, UserService userService ,QuestionPatchDto questionPatchDto){
+//        낼 31~33부분 준열님께 설명드리고 상의하기 기능 : 해당 유저가 쓴 질문글만 수정할수 있도록!
+//        if(userService.getLoginUser().getUserId()!= questionService.findQuestionUser(questionPatchDto.getQuestionId()).getUserId()){
+//            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
+//        }
         Question question = new Question();
 //        question.setQuestionId(questionPatchDto.getQuestionId());
 

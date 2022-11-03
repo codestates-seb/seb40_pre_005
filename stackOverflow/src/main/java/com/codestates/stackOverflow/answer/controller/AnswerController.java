@@ -109,6 +109,7 @@ public class AnswerController {
                                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
 */
+    /**
     @ApiOperation(value = "Answer 조회", response = Answer.class)
     @GetMapping(value= "/answer")
     public ResponseEntity getAnswers( Question question,
@@ -122,8 +123,9 @@ public class AnswerController {
             return new ResponseEntity<>(new MultiResponseDto<>(
                     answerMapper.answersToAnswerResponseDtos(userMapper, answers),
                     pageAnswers),HttpStatus.OK);
+                                      }
 
-
+*/
         /**
         return new ResponseEntity<>(
                 mapper.answersToAnswerResponseDtos(),HttpStatus.OK);
@@ -139,7 +141,6 @@ public class AnswerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
 
          */
-    }
 
 
     /**
@@ -147,24 +148,10 @@ public class AnswerController {
      */
     @ApiOperation(value = "Answer 삭제", response = Answer.class)
     @DeleteMapping(value= "/answer/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
-                                       @Valid @RequestBody AnswerPatchDto answerPatchDto){
-        /**
-         answerPatchDto.setAnswerId(answerId);
+    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId){
 
-         Answer response = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
-         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
-         */
-
-        answerPatchDto.setAnswerId(answerId);
-        Answer answer = mapper.answerPatchDtoToAnswer(answerService,userService,answerPatchDto);
-        Answer updatedAnswer = answerService.updateAnswer(answer);
-
-        return new ResponseEntity<>(
-                /**
-                 new SingleResponseDto<>
-                 */(mapper.answerToAnswerResponseDto(userMapper,updatedAnswer)),
-                HttpStatus.OK);
+        answerService.deleteAnswer(answerId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
