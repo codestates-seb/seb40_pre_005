@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import Question from '../pages/question';
 import styled from 'styled-components';
 
-const ContentWrapper = styled.div`
+export const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 1264px;

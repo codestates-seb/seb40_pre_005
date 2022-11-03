@@ -91,20 +91,21 @@ const LoginBtn = styled.button`
 
 const LoginForm = () => {
   const { register, watch, handleSubmit } = useForm();
-  const [user, serUser] = useState({
+  const [user, setUser] = useState({
     userEmail: '',
     userPassword: '',
   });
   const onValid = (data) => {
-    // const User = {
-    //   userEmail: e.userEmail,
-    //   userPassword: e.userPassword,
-    // };
-    // console.log(User);
-    console.log(data);
+    const User = {
+      userEmail: data.userEmail,
+      userPassword: data.userPassword,
+    };
+
+    setUser(User);
+    console.log('user', user);
     axios
-      .post('http://localhost:3001/data', data)
-      .then((res) => console.log('res', res))
+      .get('http://localhost:3001/data')
+      .then((res) => console.log(res.data))
       .catch((err) => console.log('err', err));
   };
   const helpMessage = "Don't have an account?";
