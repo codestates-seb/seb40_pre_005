@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Writer from '../components/Writer';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useSyncExternalStore } from 'react';
+import AnswerEditor from './AnswerEditor';
+import AnswerUpdate from './AnswerUpdate';
 
 const Answer = styled.div`
   padding-bottom: 24px;
@@ -19,7 +20,6 @@ const Answer = styled.div`
 `;
 const AnswerItem = ({ answer }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [editText, setEditText] = useState();
   const { id, body, userId } = answer;
   //DELETE
   const handleDelete = () => {
@@ -37,40 +37,26 @@ const AnswerItem = ({ answer }) => {
     };
     fetchData();
   };
-  // UPDATE
   const handleEditBtn = () => {
-    console.log(id);
     setIsEdit(!isEdit);
   };
-  const onChange = (e) => {
-    setEditText(e.target.value);
-  };
-  // useEffect(() => {
-  //   // const url = REACT_APP_ANSWER + ${answerId};
-  //   const url = `https://localhost:3001/answer?id=${id}`;
-  //   const data = {
-  //     id,
-  //     answerStatus: 'ANSWER_NOT_EXIST',
-  //     body: editText,
-  //   };
-  //   const fetchData = async () => {
-  //     try {
-  //       await axios.patch(url, data).then((res) => {
-  //         console.log(res);
-  //       });
-  //     } catch (err) {
-  //       console.log('error', err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [answerId, editText, isEdit]);
+
   return (
     <>
       {answer ? (
         <Answer id={id}>
           <div>
             <h2>Answers</h2>
-            <div onChange={onChange}>{body}</div>
+            {isEdit ? (
+              <AnswerUpdate
+                body={body}
+                setIsEdit={setIsEdit}
+                isEdit={isEdit}
+                answerId={id}
+              />
+            ) : (
+              <div>{body}</div>
+            )}
           </div>
           <Writer props={userId} />
           <div className="handleBtns">
