@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/question")
 @Validated
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = {"Question API"})
 @AllArgsConstructor
 public class QuestionController {
