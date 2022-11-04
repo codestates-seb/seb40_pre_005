@@ -1,6 +1,7 @@
 
 
 package com.codestates.stackOverflow.answer.controller;
+import com.codestates.stackOverflow.question.dto.QuestionResponseDto;
 import com.codestates.stackOverflow.question.entity.Question;
 import com.codestates.stackOverflow.answer.dto.AnswerPatchDto;
 import com.codestates.stackOverflow.answer.dto.AnswerPostDto;
@@ -12,6 +13,7 @@ import com.codestates.stackOverflow.question.entity.Question;
 import com.codestates.stackOverflow.question.mapper.QuestionMapper;
 import com.codestates.stackOverflow.question.service.QuestionService;
 import com.codestates.stackOverflow.response.MultiResponseDto;
+import com.codestates.stackOverflow.response.SingleResponseDto;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -44,7 +46,7 @@ public class AnswerController {
     private UserMapper userMapper;
     private QuestionService questionService;
 
-    private final QuestionMapper questionMapper;
+
 /**
      * answer 등록 API
      */
@@ -72,22 +74,21 @@ public class AnswerController {
     @ApiOperation(value = "Answer 수정", response = Answer.class)
     @PatchMapping("/answer/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
-                                          @Valid @RequestBody AnswerPatchDto answerPatchDto){
+                                          @Valid @RequestBody AnswerPatchDto answerPatchDto) {
         /**
-        answerPatchDto.setAnswerId(answerId);
+         answerPatchDto.setAnswerId(answerId);
 
-        Answer response = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
-*/
-
+         Answer response = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
+         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
+         */
         answerPatchDto.setAnswerId(answerId);
-        Answer answer = mapper.answerPatchDtoToAnswer(answerService,userService,answerPatchDto);
+        Answer answer = mapper.answerPatchDtoToAnswer(answerService, userService, answerPatchDto);
         Answer updatedAnswer = answerService.updateAnswer(answer);
 
         return new ResponseEntity<>(
                 /**
-                new SingleResponseDto<>
-                 */(mapper.answerToAnswerResponseDto(userMapper,updatedAnswer)),
+                 new SingleResponseDto<>
+                 */(mapper.answerToAnswerResponseDto(userMapper, updatedAnswer)),
                 HttpStatus.OK);
     }
 
@@ -96,20 +97,20 @@ public class AnswerController {
      */
 
 
-    /**
 
+/**
     @ApiOperation(value = "Answer 조회", response = Answer.class)
     @GetMapping(value= "/answer")
-    public ResponseEntity getAnswers() {
-        List<Answer> answers = answerService.findsAnswers();
+    public ResponseEntity getAnswers(long answerId) {
+        List<Answer> answers = answerService.findAnswerUser(answerId);
 
         List<AnswerResponseDto> response =
                 answers.stream()
-                        .map(answer -> mapper.answersToAnswerResponseDtos(userMapper,answers)
-                                .collect(Collectors.toList());
+                        .map(answer -> mapper.answersToAnswerResponseDtos(userMapper,answer).collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
-*/
-    /**
+    }
+    */
+
     @ApiOperation(value = "Answer 조회", response = Answer.class)
     @GetMapping(value= "/answer")
     public ResponseEntity getAnswers( Question question,
@@ -118,14 +119,14 @@ public class AnswerController {
                                       @Positive @RequestParam("answerSort") String answerSort){
             Page<Answer> pageAnswers = answerService.findAnswers(question,page-1,size, answerSort);
 
-            List<Answer> answers = pageAnswers.getContent();
+            List<Answer> findAllAnswer = pageAnswers.getContent();
 
-            return new ResponseEntity<>(new MultiResponseDto<>(
-                    answerMapper.answersToAnswerResponseDtos(userMapper, answers),
-                    pageAnswers),HttpStatus.OK);
-                                      }
+            return new ResponseEntity<>(new SingleResponseDto<>(
+                    mapper.answersToAnswerResponseDtos(userMapper,findAllAnswer)),
+                   HttpStatus.OK);
+    }
 
-*/
+
         /**
         return new ResponseEntity<>(
                 mapper.answersToAnswerResponseDtos(),HttpStatus.OK);
@@ -155,7 +156,9 @@ public class AnswerController {
     }
 
 
-}
+    }
+
+
 
 
 
