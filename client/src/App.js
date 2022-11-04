@@ -8,7 +8,7 @@ import Home from './components/Home';
 import Signup from './pages/signup';
 import Detail from './pages/detail';
 import SearchPage from './pages/search';
-import Logout from './pages/logout';
+import Ask from './pages/ask';
 
 function App() {
   return (
@@ -20,7 +20,11 @@ function App() {
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/questions/:id" element={<Detail />}></Route>
           <Route path="/search" element={<SearchPage />}></Route>
-          <Route path="/logout" element={<Logout />}></Route>
+          <Route path="/questions/ask" element={<Ask />}></Route>
+          <Route
+            path="/questions/:id/edit"
+            element={<Ask mode="EDIT" />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>

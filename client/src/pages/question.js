@@ -117,7 +117,7 @@ function Question() {
   const [pageInfo, setPageInfo] = useState();
   const [questions, setQuestions] = useState([]);
   const [selectedPage, setSelectedPage] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize, setPageSize] = useState(5);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,8 +137,12 @@ function Question() {
     <>
       <QuestionWrapper>
         <Head>
-          <Title>All Questions</Title>
-          <AskQuestionButton>Ask Question</AskQuestionButton>
+          <Head>
+            <Title>All Questions</Title>
+            <a href="/questions/ask" style={{ marginLeft: 'auto' }}>
+              <AskQuestionButton>Ask Question</AskQuestionButton>
+            </a>
+          </Head>
         </Head>
         <ToolBox>
           <QuestionAmount>{pageInfo?.totalElements} questions</QuestionAmount>
