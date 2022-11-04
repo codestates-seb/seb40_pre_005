@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import AnswerList from '../components/AnswerList';
+import { deleteQuestion } from '../api/requestor';
 
 const Container = styled.div`
   display: flex;
@@ -83,6 +84,21 @@ const Container = styled.div`
       background-color: #0074cc;
     }
   }
+  .deleteButton {
+    margin-right: 12px;
+
+    background-color: #db3a2e;
+    padding: 0.8em;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 13px;
+    cursor: pointer;
+    &:hover {
+      background-color: #b82a1f;
+    }
+  }
   h2 {
     font-weight: 400;
     font-size: 19px;
@@ -105,6 +121,20 @@ const Detail = () => {
     };
     fetchData();
   }, []);
+
+  const handleDeleteButtonClick = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 지우시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    await deleteQuestion({ questionId: id });
+
+    window.location.href = '/';
+  };
+
   return (
     <>
       (
@@ -117,6 +147,12 @@ const Detail = () => {
               <div className="title">
                 {<h1>{question?.title}</h1>}
                 <div>
+                  <button
+                    className="deleteButton"
+                    onClick={handleDeleteButtonClick}
+                  >
+                    Delete
+                  </button>
                   <button href="#!" className="button">
                     Ask Question
                   </button>
