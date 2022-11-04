@@ -137,7 +137,6 @@ const Detail = () => {
 
   return (
     <>
-      (
       <Header />
       <Container>
         <Nav />
@@ -186,7 +185,7 @@ const Detail = () => {
           </div>
         </div>
       </Container>
-      <Footer />)
+      <Footer />
     </>
   );
 };
