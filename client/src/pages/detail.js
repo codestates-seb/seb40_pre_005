@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import AnswerList from '../components/AnswerList';
-import { deleteQuestion } from '../api/requestor';
+import { deleteQuestion, getSpecificQuestion } from '../api/requestor';
 
 const Container = styled.div`
   display: flex;
@@ -99,6 +99,21 @@ const Container = styled.div`
       background-color: #b82a1f;
     }
   }
+  .editButton {
+    margin-right: 12px;
+
+    background-color: #7f7f7f;
+    padding: 0.8em;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 13px;
+    cursor: pointer;
+    &:hover {
+      background-color: #4f4f4f;
+    }
+  }
   h2 {
     font-weight: 400;
     font-size: 19px;
@@ -108,19 +123,34 @@ const Container = styled.div`
 const Detail = () => {
   let { id } = useParams();
   const [question, setQuestion] = useState(null);
+
   useEffect(() => {
-    const url = `http://localhost:3001/question?questionId=${id}`;
     const fetchData = async () => {
-      try {
-        await axios.get(url).then((res) => {
-          setQuestion(res.data[0]);
-        });
-      } catch (err) {
-        console.log('error', err);
-      }
+      const data = await getSpecificQuestion({ questionId: id });
+
+      setQuestion(data);
     };
+
     fetchData();
-  }, []);
+  }, [id]);
+
+  // useEffect(() => {
+  //   const url = `http://localhost:3001/question?questionId=${id}`;
+  //   const fetchData = async () => {
+  //     try {
+  //       await axios.get(url).then((res) => {
+  //         setQuestion(res.data[0]);
+  //       });
+  //     } catch (err) {
+  //       console.log('error', err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const handleEditButtonClick = () => {
+    window.location.href = `/questions/${id}/edit`;
+  };
 
   const handleDeleteButtonClick = async () => {
     // eslint-disable-next-line no-restricted-globals
@@ -147,6 +177,12 @@ const Detail = () => {
               <div className="title">
                 {<h1>{question?.title}</h1>}
                 <div>
+                  <button
+                    className="editButton"
+                    onClick={handleEditButtonClick}
+                  >
+                    Edit
+                  </button>
                   <button
                     className="deleteButton"
                     onClick={handleDeleteButtonClick}
