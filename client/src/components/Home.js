@@ -2,6 +2,7 @@ import Footer from './Footer';
 import Header from './Header';
 import Nav, { headerHeight } from './Nav';
 import Sidebar from './Sidebar';
+import Question from './Question';
 import styled from 'styled-components';
 
 const ContentWrapper = styled.div`
@@ -32,7 +33,7 @@ const Home = () => {
       <ContentWrapper>
         <Nav />
         <div className="mainContents">
-          <div>contents</div>
+          <Question />
           <Sidebar />
         </div>
       </ContentWrapper>
