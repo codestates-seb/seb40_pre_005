@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 @RestController
 @Validated
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @AllArgsConstructor
 @RequestMapping("/v1")
 public class AnswerController {
@@ -71,6 +72,8 @@ public class AnswerController {
      *  answer 수정
      */
 
+
+
     @ApiOperation(value = "Answer 수정", response = Answer.class)
     @PatchMapping("/answer/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
@@ -81,6 +84,7 @@ public class AnswerController {
          Answer response = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
          return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
          */
+
         answerPatchDto.setAnswerId(answerId);
         Answer answer = mapper.answerPatchDtoToAnswer(answerService, userService, answerPatchDto);
         Answer updatedAnswer = answerService.updateAnswer(answer);
@@ -91,6 +95,8 @@ public class AnswerController {
                  */(mapper.answerToAnswerResponseDto(userMapper, updatedAnswer)),
                 HttpStatus.OK);
     }
+
+
 
     /**
      * answer 조회 API
@@ -106,23 +112,23 @@ public class AnswerController {
 
         List<AnswerResponseDto> response =
                 answers.stream()
-                        .map(answer -> mapper.answersToAnswerResponseDtos(userMapper,answer).collect(Collectors.toList());
+                        .map(answer -> mapper.answerToAnswerResponseDto(userMapper,answer).collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     */
 
+
+
     @ApiOperation(value = "Answer 조회", response = Answer.class)
-    @GetMapping(value= "/answer")
-    public ResponseEntity getAnswers( Question question,
-                                      @Positive @RequestParam("page") int page,
-                                      @Positive @RequestParam("size") int size,
-                                      @Positive @RequestParam("answerSort") String answerSort){
-            Page<Answer> pageAnswers = answerService.findAnswers(question,page-1,size, answerSort);
+    @GetMapping(value= "/answer/{question-id}")
+    public ResponseEntity getAnswers( @PathVariable("question-id") @Positive Question questionId
+                                      ){
+            Page<Answer> pageAnswers = answerService.findAnswers(questionId,1,100, "createdAt");
 
             List<Answer> findAllAnswer = pageAnswers.getContent();
 
-            return new ResponseEntity<>(new SingleResponseDto<>(
-                    mapper.answersToAnswerResponseDtos(userMapper,findAllAnswer)),
+            return new ResponseEntity<>(new MultiResponseDto<>(
+                    mapper.answersToAnswerResponseDtos(userMapper,findAllAnswer),pageAnswers),
                    HttpStatus.OK);
     }
 
@@ -132,16 +138,17 @@ public class AnswerController {
                 mapper.answersToAnswerResponseDtos(),HttpStatus.OK);
 
 */
-
-        /**
-       List<Answer> answer = answerService.findAnswers(List<Answer> answers);
+/**
+    @ApiOperation(value = "Answer 조회", response = Answer.class)
+    @GetMapping(value= "/answer")
+    public ResponseEntity getAnswers();
         List<AnswerResponseDto> response =
                 answer.stream()
                         .map(answers -> mapper.answersToAnswerResponseDtos(answer)
                         .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
 
-         */
+
 
 
     /**
