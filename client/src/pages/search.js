@@ -37,26 +37,30 @@ const SearchPage = () => {
   const [questions, setQuestions] = useState([]);
   const [pageInfo, setPageInfo] = useState();
   const [selectedPage, setSelectedPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(1000);
   const location = useLocation();
   const searchTitle = location.search.slice(3);
-  //   const baseUrl =
-  //     'http://ec2-3-39-250-169.ap-northeast-2.compute.amazonaws.com:8080/question';
   //   useEffect(() => {
-  //     const res = axios
-  //       .get(baseUrl)
-  //       .then((data) => {
-  //         setQuestions(data.data.data);
-  //         console.log(data.data.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }, []);
+  //     const fetchData = async () => {
+  //       const data = await getQuestionList({
+  //         page: selectedPage,
+  //         size: pageSize,
+  //       });
+  //       console.log('pageinfo', data.pageInfo);
+  //       setPageInfo(data.pageInfo);
+  //       setQuestions(data.data);
+  //       console.log('data', data);
+  //     };
+
+  //     fetchData();
+  //   }, [selectedPage, pageSize]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getQuestionList({
         page: selectedPage,
         size: pageSize,
       });
+
       setPageInfo(data.pageInfo);
       setQuestions(data.data);
     };
