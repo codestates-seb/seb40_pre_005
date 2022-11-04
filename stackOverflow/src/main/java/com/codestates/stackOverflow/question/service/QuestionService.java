@@ -80,6 +80,7 @@ public class QuestionService {
                 .title(question.getTitle())
                 .body(question.getBody())
                 .view(question.getView())
+                .answers(question.getAnswers())
                 .build();
     }
     //모든 질문 조회 서비스
@@ -94,6 +95,7 @@ public class QuestionService {
     }
     //질문 삭제 서비스
     public void deleteQuestion(long questionId){
+
         questionRepository.deleteById(questionId);
     }
 
