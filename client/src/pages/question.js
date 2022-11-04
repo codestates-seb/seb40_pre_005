@@ -138,7 +138,9 @@ function Question() {
       <QuestionWrapper>
         <Head>
           <Title>All Questions</Title>
-          <AskQuestionButton>Ask Question</AskQuestionButton>
+          <a href="/questions/ask" style={{ marginLeft: 'auto' }}>
+            <AskQuestionButton>Ask Question</AskQuestionButton>
+          </a>
         </Head>
         <ToolBox>
           <QuestionAmount>{pageInfo?.totalElements} questions</QuestionAmount>
