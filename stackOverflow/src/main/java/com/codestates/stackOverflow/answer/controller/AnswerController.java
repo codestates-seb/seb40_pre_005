@@ -119,11 +119,22 @@ public class AnswerController {
 
 
 
+@ApiOperation(value = "Answer 조회", response = Answer.class)
+@GetMapping(value= "/answer")
+public ResponseEntity getAnswers(@RequestParam("page") @Positive int page,
+                                 @RequestParam("size") @Positive int size) {
+    Page<Answer> allAnswer = answerService.getAllAnswer(page - 1, size);
+    List<Answer> content = allAnswer.getContent();
+    return new ResponseEntity(new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(userMapper,content), allAnswer), HttpStatus.OK);
+}
+
+
+/**
     @ApiOperation(value = "Answer 조회", response = Answer.class)
     @GetMapping(value= "/answer/{question-id}")
-    public ResponseEntity getAnswers( @PathVariable("question-id") @Positive Question questionId
+    public ResponseEntity getAnswers( @PathVariable("question-id") @Positive long questionId
                                       ){
-            Page<Answer> pageAnswers = answerService.findAnswers(questionId,1,100, "createdAt");
+            Page<Answer> pageAnswers = answerService.findAnswers(questionId,1,100);
 
             List<Answer> findAllAnswer = pageAnswers.getContent();
 
@@ -131,7 +142,7 @@ public class AnswerController {
                     mapper.answersToAnswerResponseDtos(userMapper,findAllAnswer),pageAnswers),
                    HttpStatus.OK);
     }
-
+*/
 
         /**
         return new ResponseEntity<>(

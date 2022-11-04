@@ -41,7 +41,7 @@ public class AnswerService {
 
     public Page<Answer> findAnswers(Question question, int answerPage, int answerSize, String answerSort) throws BusinessLogicException{
         Page<Answer> findAllAnswer = answerRepository.finaAllByQuestionAndAnswerStatus( //해당question의 삭제되지 않은 answer의 Page를 가져온다
-                PageRequest.of(answerPage-1,answerSize, Sort.by("createdAt").descending()),
+                PageRequest.of(answerPage-1,answerSize, Sort.by(answerSort).descending()),
                 question, Answer.AnswerStatus.ANSWER_EXIST);
         VerifiedNoAnswer(findAllAnswer);
 
@@ -80,6 +80,9 @@ public class AnswerService {
     }
 
 
+    public Page<Answer> getAllAnswer(int page, int size) {
+        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("createdAt").descending()));
+    }
 
     private void VerifiedNoAnswer(Page<Answer> findAllAnswer) throws BusinessLogicException{//status가 ANSWER_EXIST인 List 데이터가 0이면 예외발생
         if(findAllAnswer.getTotalElements()==0){
