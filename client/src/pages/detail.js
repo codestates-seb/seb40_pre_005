@@ -3,10 +3,8 @@ import Header from '../components/Header';
 import Nav, { headerHeight } from '../components/Nav';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
-import AnswerEditor from '../components/AnswerEditor';
 import Writer from '../components/Writer';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import AnswerList from '../components/AnswerList';
@@ -111,7 +109,7 @@ const Detail = () => {
   let { id } = useParams();
   const [question, setQuestion] = useState(null);
   useEffect(() => {
-    const url = `http://localhost:3001/data?questions_id=${id}`;
+    const url = `http://localhost:3001/question?questionId=${id}`;
     const fetchData = async () => {
       try {
         await axios.get(url).then((res) => {
@@ -123,13 +121,6 @@ const Detail = () => {
     };
     fetchData();
   }, []);
-  //
-  // const question = useSelector((state) => {
-  //   return state.question.value;
-  // });
-  // const dispatch = useDispatch();
-
-  // const isMyQuestion = question.
 
   const handleDeleteButtonClick = async () => {
     // eslint-disable-next-line no-restricted-globals
@@ -170,7 +161,7 @@ const Detail = () => {
               <div className="detail">
                 <div>
                   <span>Asked</span>
-                  {question?.reg_date}
+                  {question?.createdAt}
                 </div>
                 <div>
                   <span>Modified</span>
@@ -178,18 +169,17 @@ const Detail = () => {
                 </div>
                 <div>
                   <span>Viewed</span>
-                  {question?.hit}
+                  {question?.view}
                 </div>
               </div>
             </div>
             <div className="contentBody">
               <div className="mainbar">
                 <div className="post">
-                  <p>{question?.que_content}</p>
+                  <p>{question?.body}</p>
                 </div>
-                <Writer props={question?.user_id} />
-                <AnswerList id={id} />
-                <AnswerEditor id={id} />
+                <Writer props={question?.questionId} />
+                <AnswerList questionId={id} />
               </div>
               <Sidebar />
             </div>

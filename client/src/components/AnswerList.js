@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import Writer from '../components/Writer';
+import AnswerEditor from './AnswerEditor';
+import AnswerItem from './AnswerItem';
 
 const AnswersWrapper = styled.div`
   padding: 24px 0;
@@ -12,39 +13,37 @@ const Answer = styled.div`
   border-bottom: 1px solid #d6d9dc;
 `;
 
-const AnswerList = ({ id }) => {
+const AnswerList = ({ questionId }) => {
   const [answers, setAnswers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
+      const url = `http://localhost:3001/answer?questionId=${questionId}`;
       try {
-        await axios
-          .get(`http://localhost:3001/answer?questions_id=${id}`)
-          .then((res) => {
-            setAnswers(res.data);
-          });
+        await axios.get(url).then((res) => {
+          setAnswers(res.data);
+        });
       } catch (err) {
         console.log('error', err);
       }
     };
     fetchData();
-  }, []);
+  }, [questionId]);
   return (
     <AnswersWrapper>
       {answers
         ? answers.map((answer) => {
-            const { answer_id, ans_content, user_id } = answer;
             return (
-              // eslint-disable-next-line react/jsx-key
-              <Answer>
-                <div key={answer_id}>
-                  <h2>Answers</h2>
-                  <div>{ans_content}</div>
-                </div>
-                <Writer props={user_id} />
-              </Answer>
+              <>
+                <AnswerItem key={answer.answerId} answer={answer} />
+              </>
             );
           })
         : null}
+      <AnswerEditor
+        questionId={questionId}
+        answers={answers}
+        setAnswers={setAnswers}
+      />
     </AnswersWrapper>
   );
 };

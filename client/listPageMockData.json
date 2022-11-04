@@ -1,64 +1,57 @@
 {
-   "question": {
-      "data": [
-         {
-            "questionId": 5,
-            "questionStatus": "QUESTION_EXIST",
-            "title": "string",
-            "body": "string",
-            "view": 0,
-            "createdAt": "2022-11-02T20:12:47.809521",
-            "updatedAt": "2022-11-02T20:12:47.719745"
-         },
-         {
-            "questionId": 4,
-            "questionStatus": "QUESTION_EXIST",
-            "title": "test",
-            "body": "qwdawdawdawdawd",
-            "view": 0,
-            "createdAt": "2022-11-02T15:23:23.614035",
-            "updatedAt": "2022-11-02T15:23:23.523276"
-         },
-         {
-            "questionId": 3,
-            "questionStatus": "QUESTION_EXIST",
-            "title": "string",
-            "body": "string",
-            "view": 0,
-            "createdAt": "2022-11-02T15:02:40.439374",
-            "updatedAt": "2022-11-02T15:02:40.381612"
-         },
-         {
-            "questionId": 2,
-            "questionStatus": "QUESTION_EXIST",
-            "title": "string1",
-            "body": "string2",
-            "view": 0,
-            "createdAt": "2022-11-02T14:18:35.093064",
-            "updatedAt": "2022-11-02T14:18:35.076376"
-         }
-      ],
-      "pageInfo": {
-         "page": 1,
-         "size": 10,
-         "totalElements": 4,
-         "totalPages": 1
-      }
-   },
-   "answer": [
+  "question": {
+    "data": [
       {
-         "answer_id": 1,
-         "questions_id": 1,
-         "user_id": "냠냠",
-         "ans_content": "hello world!",
-         "ans_reg_date": "2022-10-31T13:00"
+        "questionId": 5,
+        "questionStatus": "QUESTION_EXIST",
+        "title": "string",
+        "body": "string",
+        "view": 0,
+        "createdAt": "2022-11-02T20:12:47.809521",
+        "updatedAt": "2022-11-02T20:12:47.719745"
       },
       {
-         "answer_id": 2,
-         "questions_id": 1,
-         "user_id": "바쁘다",
-         "ans_content": "bye world!",
-         "ans_reg_date": "2022-10-31T13:00"
+        "questionId": 4,
+        "questionStatus": "QUESTION_EXIST",
+        "title": "test",
+        "body": "qwdawdawdawdawd",
+        "view": 0,
+        "createdAt": "2022-11-02T15:23:23.614035",
+        "updatedAt": "2022-11-02T15:23:23.523276"
+      },
+      {
+        "questionId": 3,
+        "questionStatus": "QUESTION_EXIST",
+        "title": "string",
+        "body": "string",
+        "view": 0,
+        "createdAt": "2022-11-02T15:02:40.439374",
+        "updatedAt": "2022-11-02T15:02:40.381612"
+      },
+      {
+        "questionId": 2,
+        "questionStatus": "QUESTION_EXIST",
+        "title": "string1",
+        "body": "string2",
+        "view": 0,
+        "createdAt": "2022-11-02T14:18:35.093064",
+        "updatedAt": "2022-11-02T14:18:35.076376"
       }
-   ]
+    ],
+    "pageInfo": {
+      "page": 1,
+      "size": 10,
+      "totalElements": 4,
+      "totalPages": 1
+    }
+  },
+  "answer": [
+    {
+      "id": 2,
+      "questionId": 2,
+      "userId": "바쁘다",
+      "body": "bye world!aa",
+      "answerStatus": "ANSWER_NOT_EXIST"
+    }
+  ]
 }
