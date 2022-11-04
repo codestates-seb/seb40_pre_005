@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 export const headerHeight = 50 + 3; //header에 가리지 않기 위한 최소한의 높이
 const footerHeight = 322;
@@ -71,25 +72,25 @@ const Nav = () => {
       <div>
         <ul>
           <li>
-            <a href="#!">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <ul className="subNav">
               <li>PUBLIC</li>
               <li>
-                <a href="#!">
+                <Link to="/">
                   <FontAwesomeIcon icon={faEarthAmericas} size={'lg'} />
                   <span>Questions</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#!">Tags</a>
+                <Link to="#!">Tags</Link>
               </li>
               <li>
-                <a href="#!">Users</a>
+                <Link to="#!">Users</Link>
               </li>
               <li>
-                <a href="#!">Companies</a>
+                <Link to="#!">Companies</Link>
               </li>
             </ul>
           </li>
