@@ -26,7 +26,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/v1")
 @Validated
-@Api(tags = {"회원가입 API"})
+@Api(tags = {"User"})
 @Slf4j
 public class UserController {
 

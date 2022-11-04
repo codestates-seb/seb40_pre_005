@@ -22,7 +22,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.codestates"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .useDefaultResponseMessages(false);
     }
 
     private ApiInfo apiInfo(){
