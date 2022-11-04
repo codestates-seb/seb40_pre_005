@@ -47,18 +47,16 @@
    },
    "answer": [
       {
-         "answer_id": 1,
-         "questions_id": 1,
-         "user_id": "냠냠",
-         "ans_content": "hello world!",
-         "ans_reg_date": "2022-10-31T13:00"
+         "answerId": 1,
+         "questionId": 2,
+         "userId": "냠냠",
+         "body": "hello world!"
       },
       {
-         "answer_id": 2,
-         "questions_id": 1,
-         "user_id": "바쁘다",
-         "ans_content": "bye world!",
-         "ans_reg_date": "2022-10-31T13:00"
+         "answerId": 2,
+         "questionId": 2,
+         "userId": "바쁘다",
+         "body": "bye world!"
       }
    ]
 }
