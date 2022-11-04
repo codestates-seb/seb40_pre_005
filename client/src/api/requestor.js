@@ -10,19 +10,3 @@ export const getQuestionList = async ({ page, size }) => {
 
   return res.data;
 };
-
-export const postQuestion = async ({ body, title, userId }) => {
-  const res = await axios.post(baseUrl + `/question/write`, {
-    title,
-    body,
-    userId,
-  });
-
-  return res.data;
-};
-
-export const deleteQuestion = async ({ questionId }) => {
-  const res = await axios.delete(baseUrl + `/question/${questionId}`);
-
-  return res.data;
-};
