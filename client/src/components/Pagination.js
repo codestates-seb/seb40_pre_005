@@ -39,12 +39,6 @@ const Pagination = ({
 
   const handlePageButtonClick = (newPageNumber) => {
     setSelectedPage(newPageNumber);
-
-    window.history.pushState(
-      null,
-      '',
-      `${window.location.origin}/?page=${newPageNumber}`
-    );
   };
 
   return (
