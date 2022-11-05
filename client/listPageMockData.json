@@ -52,6 +52,16 @@
       "userId": "바쁘다",
       "body": "bye world!aa",
       "answerStatus": "ANSWER_NOT_EXIST"
+    },
+    {
+      "questionId": 2,
+      "body": "<p><strong>hello</strong>sddd</p>",
+      "id": 3
+    },
+    {
+      "questionId": "3",
+      "body": "<p>you should write something and post</p>",
+      "id": 4
     }
   ]
 }

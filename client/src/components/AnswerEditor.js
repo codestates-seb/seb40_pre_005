@@ -1,28 +1,25 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+// import MarkdownEditor from './MarkdownEditor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
 
 const AnswerEditorWrapper = styled.div`
   /* border-top: 1px solid #d6d9dc; */
   padding: 24px 0;
-  textarea {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 24px;
+  .button {
+    margin-top: 24px;
   }
 `;
 const AnswerEditor = ({ questionId, answers, setAnswers }) => {
   const [answer, setAnswer] = useState([]);
 
-  const onChange = (e) => {
-    setAnswer(e.target.value);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
       // eslint-disable-next-line no-const-assign, no-undef
-      questionId: 2,
+      questionId,
       body: answer,
     };
     const fetchData = async () => {
@@ -37,13 +34,26 @@ const AnswerEditor = ({ questionId, answers, setAnswers }) => {
     };
     fetchData();
   };
+  const editorRef = useRef();
+  const onChange = () => {
+    const data = editorRef.current.getInstance().getHTML();
+    setAnswer(data);
+    console.log(data);
+  };
 
   return (
     <>
       <AnswerEditorWrapper className="answerEditor">
         <h2>Your Answer</h2>
         <form onSubmit={handleSubmit}>
-          <textarea onChange={onChange} />
+          <Editor
+            initialValue="hello"
+            height="200px"
+            initialEditType="markdown"
+            useCommandShortcut={true}
+            ref={editorRef}
+            onChange={onChange}
+          />
           <button className="button">Post Your Answer</button>
         </form>
       </AnswerEditorWrapper>
