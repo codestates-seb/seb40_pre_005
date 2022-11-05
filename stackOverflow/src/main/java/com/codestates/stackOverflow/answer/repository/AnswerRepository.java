@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Entity에 의해 생성된 데이터베이스에 접근하는 메소드를 사용하기 위한 인터페이스
  * Service와 DB를 연결하는 고리의 역할을 수행
@@ -16,9 +19,8 @@ import org.springframework.data.repository.query.Param;
  * JPA 인터페이스 사용
  */
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-
-
-    @Query("select c from Answer c where c.question =:question and c.answerStatus =:answerStatus")
-    Page<Answer> finaAllByQuestionAndAnswerStatus(Pageable pageable, @Param("question") Question question, @Param("answerStatus") Answer.AnswerStatus answerStatus);
+  @Query("select c from Answer c where c.question =:question and c.answerStatus =:answerStatus")
+  Page<Answer> finaAllByQuestionAndAnswerStatus(Pageable pageable, @Param("question") Question question, @Param("answerStatus") Answer.AnswerStatus answerStatus);
+   List<AnswerIdMapping> findAllByQuestion(Question question);
 
     }
