@@ -26,6 +26,7 @@ const QuestionContainer = styled.div`
   width: 100%;
   background-color: white;
   padding: 16px;
+  box-sizing: border-box;
 
   border-bottom: 1px solid #d6d9dc;
 `;
