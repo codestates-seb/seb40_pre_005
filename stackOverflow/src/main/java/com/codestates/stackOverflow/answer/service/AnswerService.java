@@ -46,8 +46,8 @@ public class AnswerService {
         return findAnswer.getUser();
     }
 
-    public Page<Answer> findAnswers(long questionId, int answerPage, int answerSize, String answerSort) throws BusinessLogicException{
-       Question question = questionRepository.findById(questionId).get();
+    public Page<Answer> findAnswers(Question question, int answerPage, int answerSize, String answerSort) throws BusinessLogicException{
+     //  Question question = questionRepository.findById(questionId).get();
         Page<Answer> findAllAnswer = answerRepository.finaAllByQuestionAndAnswerStatus( //해당question의 삭제되지 않은 answer의 Page를 가져온다
                 PageRequest.of(answerPage-1,answerSize, Sort.by(answerSort).descending()),
                 question, Answer.AnswerStatus.ANSWER_EXIST);
@@ -93,12 +93,12 @@ public class AnswerService {
         return answerRepository.findAll(PageRequest.of(page, size,
                 Sort.by("createdAt").descending()));
     }
-/**
+
     public List<AnswerIdMapping> findAnswers(long questionId) {
         Question question = questionRepository.findById(questionId).get();
         return answerRepository.findAllByQuestion(question);
     }
-*/
+
     private void VerifiedNoAnswer(Page<Answer> findAllAnswer) throws BusinessLogicException{//status가 ANSWER_EXIST인 List 데이터가 0이면 예외발생
         if(findAllAnswer.getTotalElements()==0){
             throw new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND);

@@ -8,6 +8,7 @@ public enum ExceptionCode {
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     INVALID_user_STATUS(400, "Invalid User status"),
 
+    INVALID_USER_STATUS(400, "Invalid User status"),
     ANSWER_NOT_FOUND(404, "Answer not found"),
 
     //ANSWER_EXISTS(409, "Answer exists"),

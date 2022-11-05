@@ -57,6 +57,7 @@ public class QuestionService {
 
         Optional.ofNullable(question.getUpdatedAt())//시간 수정
                 .ifPresent(questionUpdatedAt->findQuestion.setUpdatedAt(questionUpdatedAt));
+        questionRepository.save(question);
         question.edit(patchEditor);
     }
     //    //특정 질문 조회 서비스
@@ -72,15 +73,15 @@ public class QuestionService {
     public QuestionGetDto findQuestion(long id){
         Question question = questionRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
-        QuestionGetDto findQuestion = QuestionGetDto.builder()
+        question.setView(question.getView()+1);
+        questionRepository.save(question);
+        return QuestionGetDto.builder()
                 .id(question.getQuestionId())
                 .title(question.getTitle())
                 .body(question.getBody())
-                .view(question.getView() +1)
+                .view(question.getView())
+                .answers(question.getAnswers())
                 .build();
-//        question.setView(question.getView()+1);
-        questionRepository.save(question);
-        return findQuestion;
     }
     //모든 질문 조회 서비스
     public Page<Question> findQuestions(int page, int size){
@@ -94,6 +95,7 @@ public class QuestionService {
     }
     //질문 삭제 서비스
     public void deleteQuestion(long questionId){
+
         questionRepository.deleteById(questionId);
     }
 

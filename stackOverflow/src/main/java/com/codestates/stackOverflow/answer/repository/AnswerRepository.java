@@ -21,6 +21,6 @@ import java.util.Optional;
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
   @Query("select c from Answer c where c.question =:question and c.answerStatus =:answerStatus")
   Page<Answer> finaAllByQuestionAndAnswerStatus(Pageable pageable, @Param("question") Question question, @Param("answerStatus") Answer.AnswerStatus answerStatus);
-   //List<AnswerIdMapping> findAllByQuestion(Question question);
+   List<AnswerIdMapping> findAllByQuestion(Question question);
 
     }
