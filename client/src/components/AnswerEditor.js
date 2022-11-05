@@ -14,13 +14,12 @@ const AnswerEditorWrapper = styled.div`
     background-color: white;
   }
 `;
-const AnswerEditor = ({ questionId, answers, setAnswers }) => {
+const AnswerEditor = ({ questionId }) => {
   const [answer, setAnswer] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      // eslint-disable-next-line no-const-assign, no-undef
       body: answer,
       questionId,
     };
@@ -39,7 +38,6 @@ const AnswerEditor = ({ questionId, answers, setAnswers }) => {
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
     setAnswer(data);
-    console.log(data);
   };
 
   return (
