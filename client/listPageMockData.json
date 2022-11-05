@@ -60,8 +60,9 @@
     },
     {
       "questionId": "3",
-      "body": "<p>you should write something and post</p>",
-      "id": 4
+      "body": "<p>your answerggaaawerwed</p>",
+      "id": 4,
+      "answerStatus": "ANSWER_NOT_EXIST"
     }
   ]
 }

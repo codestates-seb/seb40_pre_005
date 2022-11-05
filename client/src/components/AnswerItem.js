@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import Writer from '../components/Writer';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import AnswerEditor from './AnswerEditor';
 import AnswerUpdate from './AnswerUpdate';
+import { Viewer } from '@toast-ui/react-editor';
 
 const Answer = styled.div`
   padding-bottom: 24px;
@@ -21,6 +21,7 @@ const Answer = styled.div`
 const AnswerItem = ({ answer }) => {
   const [isEdit, setIsEdit] = useState(false);
   const { id, body, userId } = answer;
+  const html = body;
   //DELETE
   const handleDelete = () => {
     console.log(id, body);
@@ -55,7 +56,7 @@ const AnswerItem = ({ answer }) => {
                 answerId={id}
               />
             ) : (
-              <div>{body}</div>
+              <Viewer initialValue={body} />
             )}
           </div>
           <Writer props={userId} />

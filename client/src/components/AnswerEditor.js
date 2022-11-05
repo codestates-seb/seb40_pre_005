@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-// import MarkdownEditor from './MarkdownEditor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
@@ -10,6 +9,9 @@ const AnswerEditorWrapper = styled.div`
   padding: 24px 0;
   .button {
     margin-top: 24px;
+  }
+  .toastui-editor-main {
+    background-color: white;
   }
 `;
 const AnswerEditor = ({ questionId, answers, setAnswers }) => {
@@ -47,9 +49,13 @@ const AnswerEditor = ({ questionId, answers, setAnswers }) => {
         <h2>Your Answer</h2>
         <form onSubmit={handleSubmit}>
           <Editor
-            initialValue="hello"
-            height="200px"
+            initialValue=" "
+            height="300px"
             initialEditType="markdown"
+            toolbarItems={[
+              ['heading', 'bold', 'italic', 'strike'],
+              ['hr', 'quote'],
+            ]}
             useCommandShortcut={true}
             ref={editorRef}
             onChange={onChange}
