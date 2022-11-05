@@ -109,11 +109,11 @@ const Detail = () => {
   let { id } = useParams();
   const [question, setQuestion] = useState(null);
   useEffect(() => {
-    const url = `http://localhost:3001/question?questionId=${id}`;
+    const url = `${process.env.REACT_APP_QUESTION}/${id}`;
     const fetchData = async () => {
       try {
         await axios.get(url).then((res) => {
-          setQuestion(res.data[0]);
+          setQuestion(res.data);
         });
       } catch (err) {
         console.log('error', err);
@@ -130,7 +130,7 @@ const Detail = () => {
       return;
     }
 
-    await deleteQuestion({ questionId: id });
+    // await deleteQuestion({ questionId: id });
 
     window.location.href = '/';
   };
