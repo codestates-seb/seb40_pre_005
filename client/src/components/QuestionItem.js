@@ -21,12 +21,12 @@ const QuestionItem = ({ question }) => {
 };
 
 const QuestionContainer = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   width: 100%;
   background-color: white;
   padding: 16px;
-  box-sizing: border-box;
 
   border-bottom: 1px solid #d6d9dc;
 `;
