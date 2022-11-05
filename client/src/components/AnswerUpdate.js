@@ -33,10 +33,11 @@ const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
     setEditText(data);
   };
   const handleEditBtn = () => {
-    // const url = REACT_APP_ANSWER + ${answerId};
-    const url = `http://localhost:3001/answer/${answerId}`;
+    console.log(answerId);
+    const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
+    // const url = `http://localhost:3001/answer/${answerId}`;
     const data = {
-      id: answerId,
+      answerId,
       answerStatus: 'ANSWER_NOT_EXIST',
       body: editText,
     };
