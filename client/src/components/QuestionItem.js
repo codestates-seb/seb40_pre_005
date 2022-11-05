@@ -21,6 +21,7 @@ const QuestionItem = ({ question }) => {
 };
 
 const QuestionContainer = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   width: 100%;
