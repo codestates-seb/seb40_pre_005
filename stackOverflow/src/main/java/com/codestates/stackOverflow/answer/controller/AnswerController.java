@@ -21,6 +21,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -46,7 +47,6 @@ public class AnswerController {
     private UserService userService;
     private UserMapper userMapper;
     private QuestionService questionService;
-
 
 /**
      * answer 등록 API
@@ -118,23 +118,29 @@ public class AnswerController {
     */
 
 
-
+/************
+ *
+ * GET 중간 완성 코드
+ *
+ *
 @ApiOperation(value = "Answer 조회", response = Answer.class)
 @GetMapping(value= "/answer")
 public ResponseEntity getAnswers(@RequestParam("page") @Positive int page,
                                  @RequestParam("size") @Positive int size) {
     Page<Answer> allAnswer = answerService.getAllAnswer(page - 1, size);
     List<Answer> content = allAnswer.getContent();
+
     return new ResponseEntity(new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(userMapper,content), allAnswer), HttpStatus.OK);
 }
+**/
 
 
-/**
-    @ApiOperation(value = "Answer 조회", response = Answer.class)
-    @GetMapping(value= "/answer/{question-id}")
-    public ResponseEntity getAnswers( @PathVariable("question-id") @Positive long questionId
-                                      ){
-            Page<Answer> pageAnswers = answerService.findAnswers(questionId,1,100);
+    @ApiOperation(value = "Answer 조회", response = Question.class)
+    @GetMapping(value= "/answer")
+    public ResponseEntity getAnswers( @PathVariable("question-id") @Positive long questionId,
+                                      @RequestParam("page") @Positive int page,
+                                      @RequestParam("size") @Positive int size){
+            Page<Answer> pageAnswers = answerService.findAnswers(questionId, page - 1, size,"createdAt" );
 
             List<Answer> findAllAnswer = pageAnswers.getContent();
 
@@ -142,7 +148,14 @@ public ResponseEntity getAnswers(@RequestParam("page") @Positive int page,
                     mapper.answersToAnswerResponseDtos(userMapper,findAllAnswer),pageAnswers),
                    HttpStatus.OK);
     }
-*/
+
+    @ApiOperation(value = " 특정 Answer 조회", response = Answer.class)
+    @GetMapping("/{answer-id}")
+    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
+        Answer answer = answerService.findAnswer(answerId);
+
+        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(userMapper,answer), HttpStatus.OK);
+    }
 
         /**
         return new ResponseEntity<>(

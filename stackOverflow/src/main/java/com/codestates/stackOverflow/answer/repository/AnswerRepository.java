@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,7 +19,8 @@ import java.util.Optional;
  * JPA 인터페이스 사용
  */
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    @Query("select c from Answer c where c.question =:question and c.answerStatus =:answerStatus")
-    Page<Answer> finaAllByQuestionAndAnswerStatus(Pageable pageable, @Param("question") Question question, @Param("answerStatus") Answer.AnswerStatus answerStatus);
+  @Query("select c from Answer c where c.question =:question and c.answerStatus =:answerStatus")
+  Page<Answer> finaAllByQuestionAndAnswerStatus(Pageable pageable, @Param("question") Question question, @Param("answerStatus") Answer.AnswerStatus answerStatus);
+   //List<AnswerIdMapping> findAllByQuestion(Question question);
 
     }
