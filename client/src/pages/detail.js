@@ -130,7 +130,7 @@ const Detail = () => {
       return;
     }
 
-    // await deleteQuestion({ questionId: id });
+    await deleteQuestion({ questionId: id });
 
     window.location.href = '/';
   };
