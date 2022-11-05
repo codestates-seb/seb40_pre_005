@@ -6,7 +6,9 @@ import com.codestates.stackOverflow.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -34,8 +36,19 @@ public class AuthController {
     public ResponseEntity loginPost(@Valid @RequestBody UserLoginRequestDto userLoginRequestDto){
         TokenDto tokenDto = securityService.login(userLoginRequestDto);
 
+        HttpHeaders headers = new HttpHeaders();
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", tokenDto.getRefreshToken())
+                .maxAge(7*24*60*60)
+                .path("/")
+                .secure(true)
+                .sameSite("None")
+                .httpOnly(true)
+                .build();
 
-        return new ResponseEntity(tokenDto, HttpStatus.OK);
+        headers.add("Set-cookie", cookie.toString());
+        headers.add("Authorization", tokenDto.getAccessToken());
+
+        return new ResponseEntity(headers,HttpStatus.OK);
     }
 
     @ApiOperation(value = "회원가입", notes = "회원가입을 합니다.")

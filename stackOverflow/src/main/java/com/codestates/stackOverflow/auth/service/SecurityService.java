@@ -12,6 +12,7 @@ import com.codestates.stackOverflow.exception.ExceptionCode;
 import com.codestates.stackOverflow.user.entity.User;
 import com.codestates.stackOverflow.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,6 +51,7 @@ public class SecurityService {
                 .userId(user.getUserId())
                 .token(tokenDto.getRefreshToken())
                 .build();
+
         refreshTokenRepository.save(refreshToken);
         return tokenDto;
     }

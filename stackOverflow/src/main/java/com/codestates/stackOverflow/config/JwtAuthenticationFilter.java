@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RequiredArgsConstructor
@@ -22,6 +23,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request,
                          ServletResponse response,
                          FilterChain filterchain) throws IOException, ServletException {
+
+        HttpServletResponse response1 = (HttpServletResponse) response;
+
+        response1.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response1.setHeader("Access-Control-Allow-Methods", "POST, GET, PATCH, DELETE");
+        response1.setHeader("Access-Control-Max-Age", "3600");
+        response1.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me, Origin,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+        response1.setHeader("Access-Control-Allow-Credentials",  "true");
 
         String token = jwtProvider.resolveToken((HttpServletRequest) request);
         if(token != null && jwtProvider.validationToken(token)){
