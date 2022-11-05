@@ -1,5 +1,7 @@
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
@@ -10,22 +12,25 @@ const Button = styled.button`
   border: 1px solid transparent;
   white-space: nowrap;
   font-size: 13px;
+  margin-top: 24px;
   cursor: pointer;
   &:hover {
     background-color: #0074cc;
   }
 `;
-const Textarea = styled.textarea`
-  width: 100%;
-  height: 200px;
-  margin-bottom: 24px;
-`;
+
 const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
   const [editText, setEditText] = useState();
+  const editorRef = useRef();
 
   // UPDATE
-  const onChange = (e) => {
-    setEditText(e.target.value);
+  useEffect(() => {
+    const htmlString = body;
+    editorRef.current?.getInstance().setHTML(htmlString);
+  }, []);
+  const onChange = () => {
+    const data = editorRef.current.getInstance().getHTML();
+    setEditText(data);
   };
   const handleEditBtn = () => {
     // const url = REACT_APP_ANSWER + ${answerId};
@@ -40,6 +45,7 @@ const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
         await axios.patch(url, data).then((res) => {
           console.log(res);
           setIsEdit(false);
+          window.location.reload();
         });
       } catch (err) {
         console.log('error', err);
@@ -47,9 +53,18 @@ const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
     };
     fetchData();
   };
+
   return (
     <>
-      <Textarea value={editText ? editText : body} onChange={onChange} />
+      <Editor
+        ref={editorRef}
+        initialEditType="wysiwyg"
+        toolbarItems={[
+          ['heading', 'bold', 'italic', 'strike'],
+          ['hr', 'quote'],
+        ]}
+        onChange={onChange}
+      />
       <Button onClick={handleEditBtn}>Save Edits</Button>
     </>
   );

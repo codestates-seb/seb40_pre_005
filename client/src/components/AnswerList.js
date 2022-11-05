@@ -8,11 +8,6 @@ const AnswersWrapper = styled.div`
   padding: 24px 0;
 `;
 
-const Answer = styled.div`
-  padding-bottom: 24px;
-  border-bottom: 1px solid #d6d9dc;
-`;
-
 const AnswerList = ({ questionId }) => {
   const [answers, setAnswers] = useState([]);
   useEffect(() => {
@@ -28,6 +23,7 @@ const AnswerList = ({ questionId }) => {
     };
     fetchData();
   }, [questionId]);
+
   return (
     <AnswersWrapper>
       {answers

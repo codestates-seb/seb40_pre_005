@@ -125,29 +125,18 @@ const Detail = () => {
   const [question, setQuestion] = useState(null);
 
   useEffect(() => {
+    const url = `${process.env.REACT_APP_QUESTION}/${id}`;
     const fetchData = async () => {
-      const data = await getSpecificQuestion({ questionId: id });
-
-      setQuestion(data);
+      try {
+        await axios.get(url).then((res) => {
+          setQuestion(res.data);
+        });
+      } catch (err) {
+        console.log('error', err);
+      }
     };
-
     fetchData();
   }, [id]);
-
-  // useEffect(() => {
-  //   const url = `http://localhost:3001/question?questionId=${id}`;
-  //   const fetchData = async () => {
-  //     try {
-  //       await axios.get(url).then((res) => {
-  //         setQuestion(res.data[0]);
-  //       });
-  //     } catch (err) {
-  //       console.log('error', err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
   const handleEditButtonClick = () => {
     window.location.href = `/questions/${id}/edit`;
   };
@@ -167,7 +156,6 @@ const Detail = () => {
 
   return (
     <>
-      (
       <Header />
       <Container>
         <Nav />
@@ -222,7 +210,7 @@ const Detail = () => {
           </div>
         </div>
       </Container>
-      <Footer />)
+      <Footer />
     </>
   );
 };
