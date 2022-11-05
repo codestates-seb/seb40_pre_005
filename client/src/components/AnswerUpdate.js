@@ -24,10 +24,10 @@ const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
   const editorRef = useRef();
 
   // UPDATE
+  const htmlString = body;
   useEffect(() => {
-    const htmlString = body;
     editorRef.current?.getInstance().setHTML(htmlString);
-  }, []);
+  }, [htmlString]);
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
     setEditText(data);
