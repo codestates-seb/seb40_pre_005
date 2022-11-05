@@ -11,6 +11,12 @@ export const getQuestionList = async ({ page, size }) => {
   return res.data;
 };
 
+export const getSpecificQuestion = async ({ questionId }) => {
+  const res = await axios.get(baseUrl + `/question/${questionId}`);
+
+  return res.data;
+};
+
 export const postQuestion = async ({ body, title, userId }) => {
   const res = await axios.post(baseUrl + `/question/write`, {
     title,
@@ -23,6 +29,15 @@ export const postQuestion = async ({ body, title, userId }) => {
 
 export const deleteQuestion = async ({ questionId }) => {
   const res = await axios.delete(baseUrl + `/question/${questionId}`);
+
+  return res.data;
+};
+
+export const updateQuestion = async ({ questionId, title, body }) => {
+  const res = await axios.patch(baseUrl + `/question/${questionId}`, {
+    title,
+    body,
+  });
 
   return res.data;
 };
