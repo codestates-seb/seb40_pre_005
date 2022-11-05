@@ -21,13 +21,12 @@ const AnswerEditor = ({ questionId, answers, setAnswers }) => {
     e.preventDefault();
     const data = {
       // eslint-disable-next-line no-const-assign, no-undef
-      questionId,
       body: answer,
+      questionId,
     };
     const fetchData = async () => {
       try {
-        // const url = `${process.env.REACT_APP_ANSWER}`;
-        const url = `http://localhost:3001/answer`;
+        const url = `${process.env.REACT_APP_ANSWER}`;
         await axios.post(url, data);
         window.location.reload();
       } catch (err) {
