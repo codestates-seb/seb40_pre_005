@@ -15,7 +15,7 @@ export const user = createSlice({
     // login 성공 시
     loginUser: (state, action) => {
       // name, id에 API 값 받아오기
-      console.log(action);
+
       state.userEmail = action.payload.userEmail;
       state.userId = action.payload.userId;
       state.userAccessToken = action.payload.userAccessToken;
