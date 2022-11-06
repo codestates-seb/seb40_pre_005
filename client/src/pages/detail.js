@@ -3,9 +3,12 @@ import Header from '../components/Header';
 import Nav, { headerHeight } from '../components/Nav';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
-import Answer from '../components/Answer';
-import AnswerEditor from '../components/AnswerEditor';
 import Writer from '../components/Writer';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import AnswerList from '../components/AnswerList';
+import { deleteQuestion, getSpecificQuestion } from '../api/requestor';
 
 const Container = styled.div`
   display: flex;
@@ -81,6 +84,36 @@ const Container = styled.div`
       background-color: #0074cc;
     }
   }
+  .deleteButton {
+    margin-right: 12px;
+
+    background-color: #db3a2e;
+    padding: 0.8em;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 13px;
+    cursor: pointer;
+    &:hover {
+      background-color: #b82a1f;
+    }
+  }
+  .editButton {
+    margin-right: 12px;
+
+    background-color: #7f7f7f;
+    padding: 0.8em;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 13px;
+    cursor: pointer;
+    &:hover {
+      background-color: #4f4f4f;
+    }
+  }
   h2 {
     font-weight: 400;
     font-size: 19px;
@@ -88,6 +121,39 @@ const Container = styled.div`
 `;
 
 const Detail = () => {
+  let { id } = useParams();
+  const [question, setQuestion] = useState(null);
+
+  useEffect(() => {
+    const url = `${process.env.REACT_APP_QUESTION}/${id}`;
+    const fetchData = async () => {
+      try {
+        await axios.get(url).then((res) => {
+          setQuestion(res.data);
+        });
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    fetchData();
+  }, [id]);
+  const handleEditButtonClick = () => {
+    window.location.href = `/questions/${id}/edit`;
+  };
+
+  const handleDeleteButtonClick = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 지우시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    await deleteQuestion({ questionId: id });
+
+    window.location.href = '/';
+  };
+
   return (
     <>
       <Header />
@@ -97,11 +163,20 @@ const Detail = () => {
           <div className="content">
             <div className="header">
               <div className="title">
-                <h1>
-                  How to match a Array in JS to a Dictionary and Return the
-                  values as output?
-                </h1>
+                {<h1>{question?.title}</h1>}
                 <div>
+                  <button
+                    className="editButton"
+                    onClick={handleEditButtonClick}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="deleteButton"
+                    onClick={handleDeleteButtonClick}
+                  >
+                    Delete
+                  </button>
                   <button href="#!" className="button">
                     Ask Question
                   </button>
@@ -110,7 +185,7 @@ const Detail = () => {
               <div className="detail">
                 <div>
                   <span>Asked</span>
-                  며칠전
+                  {question?.createdAt}
                 </div>
                 <div>
                   <span>Modified</span>
@@ -118,18 +193,17 @@ const Detail = () => {
                 </div>
                 <div>
                   <span>Viewed</span>
-                  몇명
+                  {question?.view}
                 </div>
               </div>
             </div>
             <div className="contentBody">
               <div className="mainbar">
                 <div className="post">
-                  <p>I have the following Array in JavaScript:</p>
+                  <p>{question?.body}</p>
                 </div>
-                <Writer />
-                <Answer />
-                <AnswerEditor />
+                <Writer props={question?.questionId} />
+                <AnswerList questionId={id} />
               </div>
               <Sidebar />
             </div>

@@ -21,12 +21,12 @@ const WriterWrapper = styled.div`
     }
   }
 `;
-const Writer = () => {
+const Writer = ({ props }) => {
   return (
     <WriterWrapper className="writer">
       <div>
         <div className="avatar"></div>
-        <div className="username">username</div>
+        <div className="username">{props ? props : 'username'}</div>
       </div>
     </WriterWrapper>
   );

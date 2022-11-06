@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SingupFormContainer = styled.div`
   width: 300.4px;
@@ -39,6 +41,10 @@ const DefaultSignupForm = styled.form`
     font-weight: 300;
     font-size: 12px;
     margin-top: 0px;
+  }
+
+  .error {
+    color: red;
   }
 
   .robot_input {
@@ -158,28 +164,72 @@ const FooterMessage = styled.span`
   }
 `;
 const SignupForm = () => {
-  const { register, watch, handleSubmit } = useForm();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const url = `${process.env.REACT_APP_SIGNUP}`;
   const robotCheckMessage = "I'm not a robot";
+  const navigate = useNavigate();
   const onValid = (e) => {
-    console.log(e);
+    const User = {
+      name: e.name,
+      userEmail: e.userEmail,
+      userPassword: e.userPassword,
+    };
+
+    axios
+      .post(url, User)
+      .then((res) => {
+        alert('회원가입이 완료되었습니다.');
+        navigate('/');
+      })
+      .catch((err) => {
+        err.response.status === 409
+          ? alert('가입되어 있는 이메일입니다.')
+          : console.log(err);
+      });
   };
 
   return (
     <>
       <SingupFormContainer>
-        <DefaultSignupForm onSubmit={handleSubmit()}>
+        <DefaultSignupForm onSubmit={handleSubmit(onValid)}>
           <span>Display Name </span>
-          <NameInput {...register('Name')} placeholder="Name"></NameInput>
+          <NameInput
+            {...register('name', { required: true })}
+            placeholder="Name"
+          ></NameInput>
           <span>Email </span>
           <EmailInput
-            {...register('user_email')}
+            type="email"
+            {...register('userEmail', {
+              required: true,
+            })}
             placeholder="Email"
           ></EmailInput>
           <span>Password </span>
           <PasswordInput
-            {...register('user_pw')}
+            type="password"
+            {...register('userPassword', {
+              required: true,
+              pattern: {
+                value:
+                  /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,24}$/,
+                message: '비밀번호는 영문, 특수문자, 숫자를 포함해야 합니다.',
+              },
+              minLength: {
+                value: 8,
+                message: '비밀번호는 8자 이상이여야 합니다.',
+              },
+            })}
             placeholder="Password"
           ></PasswordInput>
+          <span className="password_valid error">
+            {errors?.userPassword?.message}
+          </span>
           <span className="password_valid">
             Passwords must contain at least eight characters, including at least
             1 letter and 1 number.
@@ -218,7 +268,6 @@ const SignupForm = () => {
               </div>
             </RobotCheck>
           </RobotCheckContainer>
-
           <div className="description">
             <input className="check_input small" type="checkbox" />
             <p>
@@ -227,7 +276,7 @@ const SignupForm = () => {
             </p>
           </div>
 
-          <SignupBtn type="submit">Sign up</SignupBtn>
+          <SignupBtn as="input" type="submit" value="Sign up"></SignupBtn>
           <span className="form_footer">
             By clicking “Sign up”, you agree to our{' '}
             <a

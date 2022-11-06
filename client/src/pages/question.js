@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getQuestionList } from '../api/requestor';
-import QuestionItem from './QuestionItem';
+import QuestionItem from '../components/QuestionItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Pagination from '../components/Pagination';
 
 export const headerHeight = 50 + 3; //header에 가리지 않기 위한 최소한의 높이
 const footerHeight = 322;
@@ -20,18 +21,18 @@ const QuestionWrapper = styled.div`
   background-color: white;
 `;
 
-const Head = styled.div`
+export const Head = styled.div`
   display: flex;
   margin-bottom: 20px;
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-size: 27px;
   font-weight: 400;
   margin: 0;
 `;
 
-const AskQuestionButton = styled.button`
+export const AskQuestionButton = styled.button`
   margin-left: auto; //Head의 Top Questions와 Ask Question 버튼 위치 정렬
   color: white;
   background-color: #0a95ff;
@@ -47,7 +48,7 @@ const AskQuestionButton = styled.button`
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
 `;
 
-const ToolBox = styled.div`
+export const ToolBox = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 12px;
@@ -59,11 +60,11 @@ const ToolBox = styled.div`
   }
 `;
 
-const QuestionAmount = styled.div`
+export const QuestionAmount = styled.div`
   font-size: 17px;
 `;
 
-const LeftestButton = styled.button`
+export const LeftestButton = styled.button`
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border: 1px solid #6a737c;
@@ -75,7 +76,7 @@ const LeftestButton = styled.button`
   margin-left: auto;
 `;
 
-const MiddleButton = styled.button`
+export const MiddleButton = styled.button`
   border: 1px solid #6a737c;
   border-left: none;
   background-color: white;
@@ -85,7 +86,7 @@ const MiddleButton = styled.button`
   font-size: 12px;
 `;
 
-const RightestButton = styled.button`
+export const RightestButton = styled.button`
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 1px solid #6a737c;
@@ -98,7 +99,7 @@ const RightestButton = styled.button`
   margin-right: 16px;
 `;
 
-const FilterButton = styled.button`
+export const FilterButton = styled.button`
   border-radius: 3px;
   border: 1px solid rgb(122, 167, 199);
   background-color: #e1ecf4;
@@ -108,32 +109,41 @@ const FilterButton = styled.button`
   font-size: 12px;
 `;
 
-const QuestionList = styled.div`
+export const QuestionList = styled.div`
   border-top: 1px solid #d6d9dc;
 `;
 
 function Question() {
+  const [pageInfo, setPageInfo] = useState();
   const [questions, setQuestions] = useState([]);
+  const [selectedPage, setSelectedPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getQuestionList();
+      const data = await getQuestionList({
+        page: selectedPage,
+        size: pageSize,
+      });
 
-      setQuestions(data);
+      setPageInfo(data.pageInfo);
+      setQuestions(data.data);
     };
 
     fetchData();
-  }, []);
+  }, [selectedPage, pageSize]);
 
   return (
     <>
       <QuestionWrapper>
         <Head>
           <Title>All Questions</Title>
-          <AskQuestionButton>Ask Question</AskQuestionButton>
+          <a href="/questions/ask" style={{ marginLeft: 'auto' }}>
+            <AskQuestionButton>Ask Question</AskQuestionButton>
+          </a>
         </Head>
         <ToolBox>
-          <QuestionAmount>23,149,033 questions</QuestionAmount>
+          <QuestionAmount>{pageInfo?.totalElements} questions</QuestionAmount>
           <LeftestButton>Newest</LeftestButton>
           <MiddleButton>Active</MiddleButton>
           <MiddleButton>Bountied</MiddleButton>
@@ -146,9 +156,15 @@ function Question() {
         </ToolBox>
         <QuestionList>
           {questions.map((question) => (
-            <QuestionItem key={question.questions_id} question={question} />
+            <QuestionItem key={question.questionId} question={question} />
           ))}
         </QuestionList>
+        <Pagination
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
+          totalElements={pageInfo?.totalElements || 0}
+          pageSize={pageSize}
+        />
       </QuestionWrapper>
     </>
   );
