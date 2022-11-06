@@ -126,15 +126,15 @@ public class AnswerController {
  *
  */
 
-@ApiOperation(value = "Answer 전체 조회", response = Answer.class)
-@GetMapping(value= "/answer")
-public ResponseEntity getAnswers(@RequestParam("page") @Positive int page,
-                                 @RequestParam("size") @Positive int size) {
-    Page<Answer> allAnswer = answerService.findAnswers(page - 1, size);
-    List<Answer> content = allAnswer.getContent();
-
-    return new ResponseEntity(new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(userMapper,content), allAnswer), HttpStatus.OK);
-}
+//@ApiOperation(value = "Answer 전체 조회", response = Answer.class)
+//@GetMapping(value= "/answer")
+//public ResponseEntity getAnswers(@RequestParam("page") @Positive int page,
+//                                 @RequestParam("size") @Positive int size) {
+//    Page<Answer> allAnswer = answerService.findAnswers(page - 1, size);
+//    List<Answer> content = allAnswer.getContent();
+//
+//    return new ResponseEntity(new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(userMapper,content), allAnswer), HttpStatus.OK);
+//}
 
 
 /**
@@ -152,13 +152,13 @@ public ResponseEntity getAnswers(@RequestParam("page") @Positive int page,
                    HttpStatus.OK);
     }
 */
-    @ApiOperation(value = " 특정 Answer 조회", response = Answer.class)
-    @GetMapping("/{answer-id}")
-    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
-
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(userMapper,answer), HttpStatus.OK);
-    }
+//    @ApiOperation(value = " 특정 Answer 조회", response = Answer.class)
+//    @GetMapping("/{answer-id}")
+//    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
+//        Answer answer = answerService.findAnswer(answerId);
+//
+//        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(userMapper,answer), HttpStatus.OK);
+//    }
 
         /**
         return new ResponseEntity<>(

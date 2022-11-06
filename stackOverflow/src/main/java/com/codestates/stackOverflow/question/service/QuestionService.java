@@ -70,18 +70,26 @@ public class QuestionService {
 //        questionRepository.save(question);
 //        return question;
 //    }
-    public QuestionGetDto findQuestion(long id){
-        Question question = questionRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
-        question.setView(question.getView()+1);
-        questionRepository.save(question);
-        return QuestionGetDto.builder()
-                .id(question.getQuestionId())
-                .title(question.getTitle())
-                .body(question.getBody())
-                .view(question.getView())
-                .answers(question.getAnswers())
-                .build();
+//    public QuestionGetDto findQuestion(long id){
+//        Question question = questionRepository.findById(id)
+//                .orElseThrow(IllegalArgumentException::new);
+//        question.setView(question.getView()+1);
+//        questionRepository.save(question);
+//        return QuestionGetDto.builder()
+//                .id(question.getQuestionId())
+//                .title(question.getTitle())
+//                .body(question.getBody())
+//                .view(question.getView())
+////                .answers(question.getAnswers())
+//                .build();
+//    }
+    public  Question findQuestion(long questionId){
+        Question findQuestion = findVerifiedQuestion(questionId); //요청된 질문이 DB에 없으면 에러
+
+        findQuestion.setView(findQuestion.getView()+1); //view 1증가
+        questionRepository.save(findQuestion); // 수정후 DB에 저장
+
+        return findQuestion;
     }
     //모든 질문 조회 서비스
     public Page<Question> findQuestions(int page, int size){
