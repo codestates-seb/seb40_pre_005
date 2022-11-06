@@ -46,10 +46,10 @@ public class AnswerService {
         return findAnswer.getUser();
     }
 
-    public Page<Answer> findAnswers(Question question, int answerPage, int answerSize, String answerSort) throws BusinessLogicException{
+    public Page<Answer> findAnswers(Question question, int answerPage, int answerSize) throws BusinessLogicException{
      //  Question question = questionRepository.findById(questionId).get();
         Page<Answer> findAllAnswer = answerRepository.finaAllByQuestionAndAnswerStatus( //해당question의 삭제되지 않은 answer의 Page를 가져온다
-                PageRequest.of(answerPage-1,answerSize, Sort.by(answerSort).descending()),
+                PageRequest.of(answerPage-1,answerSize, Sort.by("createdAt").descending()),
                 question, Answer.AnswerStatus.ANSWER_EXIST);
         VerifiedNoAnswer(findAllAnswer);
 

@@ -99,9 +99,11 @@ public interface AnswerMapper {
 
        return answerResponseDtos;
     };
+    List<AnswerResponseDto> answersToAnswersResponseDtos(List<Answer> answers);
+}
 
 
   // List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers);
 
 
-}
+

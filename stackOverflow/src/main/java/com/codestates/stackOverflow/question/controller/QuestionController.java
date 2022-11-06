@@ -1,5 +1,7 @@
 package com.codestates.stackOverflow.question.controller;
 
+import com.codestates.stackOverflow.answer.mapper.AnswerMapper;
+import com.codestates.stackOverflow.answer.service.AnswerService;
 import com.codestates.stackOverflow.question.dto.QuestionGetDto;
 import com.codestates.stackOverflow.question.dto.QuestionPatchDto;
 import com.codestates.stackOverflow.question.dto.QuestionPostDto;
@@ -43,6 +45,8 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final AnswerMapper answerMapper;
+    private final AnswerService answerService;
 
     //질문 정보 등록
     @PostMapping("/write")
@@ -71,25 +75,24 @@ public class QuestionController {
         questionService.updateQuestion(questionId, request);
     }
 
-//    //한개의 질문 정보 조회
-//    @GetMapping("/{question-id}")
-//    @ApiOperation(value = "특정질문조회", response = Question.class)
-//    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
-//                                      @Positive @RequestParam("page") int answerPage,
-//                                      @Positive @RequestParam("size") int answerSize,
-//                                      @RequestParam("sort") String answerSort){
-//        Question question = questionService.findQuestion(questionId);
-////        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(), HttpStatus.OK);
-//        return new ResponseEntity<>(new SingleResponseDto<>(
-//                questionMapper.questionToQuestionAndAnswerResponseDto(
-//                        userMapper, question, answerPage, answerSize, answerSort)), HttpStatus.OK);
-//    }
+    //한개의 질문 정보 조회
     @GetMapping("/{question-id}")
     @ApiOperation(value = "특정질문조회", response = Question.class)
-    public QuestionGetDto getQuestion(@PathVariable("question-id") @Positive long questionId){
-
-        return questionService.findQuestion(questionId);
+    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
+                                      @Positive @RequestParam("page") int answerPage,
+                                      @Positive @RequestParam("size") int answerSize){
+        Question question = questionService.findQuestion(questionId);
+//        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(
+                questionMapper.questionToQuestionAndAnswerResponseDtos(answerService,answerMapper,question,
+                        answerPage,answerSize)), HttpStatus.OK);
     }
+//    @GetMapping("/{question-id}")
+//    @ApiOperation(value = "특정질문조회", response = Question.class)
+//    public QuestionGetDto getQuestion(@PathVariable("question-id") @Positive long questionId){
+//
+//        return questionService.findQuestion(questionId);
+//    }
     // 모든 질문 정보 조회
     @GetMapping
     @ApiOperation(value = "모든질문조회", response = Question.class)
