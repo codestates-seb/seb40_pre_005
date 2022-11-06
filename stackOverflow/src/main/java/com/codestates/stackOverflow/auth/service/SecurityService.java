@@ -46,7 +46,7 @@ public class SecurityService {
         if(!passwordEncoder.matches(userLoginRequestDto.getUserPassword(), user.getPassword()))
             throw new BusinessLogicException(ExceptionCode.LOGIN_FAILED);
 
-        TokenDto tokenDto = jwtProvider.createToken(user.getUserId(), user.getRoles());
+        TokenDto tokenDto = jwtProvider.createToken(user.getUserId(), user.getName(), user.getRoles());
 
         RefreshToken refreshToken = RefreshToken.builder()
                 .userId(user.getUserId())
@@ -82,7 +82,7 @@ public class SecurityService {
         if(!refreshToken.getToken().equals(tokenRequestDto.getRefreshToken()))
             throw new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_INVALID);
 
-        TokenDto newCreatedToken = jwtProvider.createToken(user.getUserId(), user.getRoles());
+        TokenDto newCreatedToken = jwtProvider.createToken(user.getUserId(), user.getName(), user.getRoles());
         RefreshToken updaterefreshToken = refreshToken.updateToken(newCreatedToken.getRefreshToken());
         refreshTokenRepository.save(updaterefreshToken);
 

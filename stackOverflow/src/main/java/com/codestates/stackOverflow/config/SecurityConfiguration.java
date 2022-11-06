@@ -32,6 +32,8 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("users/**").hasRole("ROLE_USER")
+                        .antMatchers("question/write").hasRole("ROLE_USER")
+                        .antMatchers("question/{question-id}").hasRole("ROLE_USER")
                         .antMatchers("/**").permitAll())
                 .exceptionHandling()
                 .authenticationEntryPoint(cAuthenticationEntryPoint)

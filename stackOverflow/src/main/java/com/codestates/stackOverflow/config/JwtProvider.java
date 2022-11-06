@@ -27,20 +27,18 @@ public class JwtProvider {
 
     @Value("spring.jwt.secret")
     private String secretKey;
-//    private String ROLES = "roles";
 
     private final Long accessTokenValidMillisecond = 60 * 60 * 1000L; // 1 hour
     private final Long refreshTokenValidMillisecond = 14 * 24 * 60 * 60 * 1000L; // 14 day
     private final String ROLES = "roles";
     private final UserDetailsService userDetailsService;
-    //private final CustomUserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init(){
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public TokenDto createToken(Long userId, List<String> roles){
+    public TokenDto createToken(Long userId,String name, List<String> roles){
 
         // user 구분을 위해 Claims에 UserId값 넣어줌
         Claims claims = Jwts.claims().setSubject(String.valueOf(userId));
@@ -65,6 +63,7 @@ public class JwtProvider {
 
         return TokenDto.builder()
                 .userId(userId)
+                .name(name)
                 .grantType("Bearer")
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
