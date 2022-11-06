@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Search from './Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLogin } from '../redux/store';
+import Modal from './Modal';
 
 const HeaderNav = styled.header`
   width: 100%;
@@ -133,60 +134,86 @@ const LogoutBtn = styled.button`
   }
 `;
 
-const Profile = styled.img`
+const Profile = styled.button`
   border-radius: 15px;
   width: 33px;
   height: 33px;
   margin: 5px 15px 5px 5px;
   background-color: white;
   border: 1px solid grey;
-
+  background-image: ${process.env.PUBLIC_URL + '/profile.png'};
   :hover {
     cursor: pointer;
+  }
+
+  div {
+    /* margin-right: 10px; */
+  }
+
+  img {
+    margin-right: 10px;
+    position: absolute;
+    top: 15%;
+    right: 12.6%;
   }
 `;
 
 function Header() {
   // const [isLogin, setIsLogin] = useState(false);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalClose = () => {
+    setModalOpen(!modalOpen);
+  };
   const isLogin = useSelector((state) => state.user.isLogin);
   const dispatch = useDispatch();
+  const myPage = () => {};
 
   // const onClick = () => {
   //   dispatch(changeLogin());
   //   console.log('isLogin', isLogin);
   // };
   return (
-    <HeaderNav>
-      <LogoContainer>
-        <a href="/" className="logo">
-          <img src={logo_svg} className="logo_icon" alt="logo_icon" />
-        </a>
-      </LogoContainer>
-      <NavItemContainer>
-        <span className="About">About</span>
-        <span className="Product">Product</span>
-        <span className="ForTeams">For Teams</span>
-      </NavItemContainer>
-      <Search />
-      {!isLogin ? (
-        <ButtonContainer>
-          <Link to="/login">
-            <LoginBtn>Log in</LoginBtn>
-          </Link>
-          <Link to="/signup">
-            <SignUpBtn>Sign up</SignUpBtn>
-          </Link>
-        </ButtonContainer>
-      ) : (
-        <ButtonContainer>
-          <Profile src={process.env.PUBLIC_URL + '/profile.png'}></Profile>
-          <Link to="/logout">
-            <LogoutBtn>Log out</LogoutBtn>
-          </Link>
-        </ButtonContainer>
-      )}
-    </HeaderNav>
+    <>
+      <HeaderNav>
+        <LogoContainer>
+          <a href="/" className="logo">
+            <img src={logo_svg} className="logo_icon" alt="logo_icon" />
+          </a>
+        </LogoContainer>
+        <NavItemContainer>
+          <span className="About">About</span>
+          <span className="Product">Product</span>
+          <span className="ForTeams">For Teams</span>
+        </NavItemContainer>
+        <Search />
+        {!isLogin ? (
+          <ButtonContainer>
+            <Link to="/login">
+              <LoginBtn>Log in</LoginBtn>
+            </Link>
+            <Link to="/signup">
+              <SignUpBtn>Sign up</SignUpBtn>
+            </Link>
+          </ButtonContainer>
+        ) : (
+          <ButtonContainer>
+            <Profile onClick={modalClose}>
+              <div>
+                <img
+                  src={process.env.PUBLIC_URL + '/profile.png'}
+                  alt="profile"
+                ></img>
+              </div>
+            </Profile>
+
+            <Link to="/logout">
+              <LogoutBtn>Log out</LogoutBtn>
+            </Link>
+          </ButtonContainer>
+        )}
+      </HeaderNav>
+      {modalOpen && <Modal modalClose={modalClose}></Modal>}
+    </>
   );
 }
 export default Header;

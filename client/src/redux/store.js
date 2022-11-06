@@ -5,6 +5,7 @@ export const user = createSlice({
   name: 'user',
   initialState: {
     isLogin: false,
+    userName: '',
     userEmail: '',
     userId: '',
     userPassword: '',
@@ -18,6 +19,7 @@ export const user = createSlice({
 
       state.userEmail = action.payload.userEmail;
       state.userId = action.payload.userId;
+      state.userName = action.payload.userName;
       state.userAccessToken = action.payload.userAccessToken;
       state.userRefreshToken = action.payload.userRefreshToken;
       state.isLogin = true;
@@ -28,6 +30,7 @@ export const user = createSlice({
     clearUser: (state) => {
       // name, id 값을 비워줌.
       state.isLogin = false;
+      state.userName = '';
       state.userEmail = '';
       state.userId = '';
       state.userAccessToken = '';
