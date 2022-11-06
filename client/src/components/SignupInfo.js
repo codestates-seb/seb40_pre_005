@@ -17,6 +17,9 @@ const IntroduceContainer = styled.div`
     text-decoration: none;
     color: #0a95ff;
   }
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const IntroduceText = styled.div`
