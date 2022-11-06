@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../redux/store';
 
 const Container = styled.div`
   .help {
@@ -95,18 +98,36 @@ const LoginForm = () => {
     userEmail: '',
     userPassword: '',
   });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user);
+
   const onValid = (data) => {
     const User = {
       userEmail: data.userEmail,
       userPassword: data.userPassword,
     };
-
+    const url = `${process.env.REACT_APP_LOGIN}`;
     setUser(User);
 
     axios
-      .get('http://localhost:3001/data')
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log('err', err));
+      .post(url, User)
+      .then((res) => {
+        const accessToken = res.data.accessToken;
+        const refreshToken = res.data.refreshToken;
+        User.userId = res.data.userId;
+        User.userAccessToken = res.data.accessToken;
+        User.userRefreshToken = res.data.refreshToken;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        dispatch(loginUser(User));
+        navigate('/');
+      })
+      .catch((err) => {
+        err.response.status === 409
+          ? alert('아이디와 비밀번호를 확인해주십시오.')
+          : console.log(err);
+      });
   };
   const helpMessage = "Don't have an account?";
 
@@ -123,6 +144,7 @@ const LoginForm = () => {
           <PasswordInput
             {...register('userPassword', { required: true })}
             placeholder="Password"
+            type="password"
           ></PasswordInput>
           <LoginBtn as="input" type="submit" value="Log in"></LoginBtn>
         </DefaultLoginForm>

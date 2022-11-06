@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../redux/store';
 
 const LogoutContainer = styled.div`
   width: 100%;
@@ -119,6 +121,12 @@ const Wariningdiv = styled.div`
   line-height: 17px;
 `;
 const Logout = () => {
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+  const onClick = () => {
+    dispatch(clearUser(user));
+  };
   return (
     <LogoutContainer>
       <div>
@@ -192,7 +200,10 @@ const Logout = () => {
             </DomainSpan>
           </Inputdiv>
           <BtnContainer>
-            <LogoutBtn>Log out</LogoutBtn>
+            <Link to="/">
+              <LogoutBtn onClick={onClick}>Log out</LogoutBtn>
+            </Link>
+
             <Link to="/">
               <CancelBtn>Cancel</CancelBtn>
             </Link>
