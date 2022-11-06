@@ -16,7 +16,7 @@ import { loginUser } from './redux/store';
 function App() {
   const userInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log('현재 유저 정보', userInfo);
+  // console.log('현재 유저 정보', userInfo);
   const user = JSON.parse(localStorage.getItem('user'));
   useEffect(() => {
     if (localStorage.getItem('user') !== null) {
