@@ -80,7 +80,7 @@ public class QuestionService {
                 .title(question.getTitle())
                 .body(question.getBody())
                 .view(question.getView())
-                .answers(question.getAnswers())
+//                .answers(question.getAnswers())
                 .build();
     }
     //모든 질문 조회 서비스

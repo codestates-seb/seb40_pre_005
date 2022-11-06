@@ -87,6 +87,7 @@ public class QuestionController {
     @GetMapping("/{question-id}")
     @ApiOperation(value = "특정질문조회", response = Question.class)
     public QuestionGetDto getQuestion(@PathVariable("question-id") @Positive long questionId){
+
         return questionService.findQuestion(questionId);
     }
     // 모든 질문 정보 조회

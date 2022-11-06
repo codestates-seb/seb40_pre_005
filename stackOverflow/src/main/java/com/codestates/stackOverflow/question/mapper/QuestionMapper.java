@@ -10,6 +10,7 @@ import com.codestates.stackOverflow.question.service.QuestionService;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -69,4 +70,43 @@ public interface QuestionMapper {
         return questionAndAnswerResponseDto;
 
     }
+//    default QuestionAndAnswerResponseDto questionToQuestionAndAnswerResponseDto(AnswerService answerService, AnswerMapper answerMapper,
+//                                                                                UserMapper userMapper, Question question, Integer answerPage, Integer answerSize,
+//                                                                                String answerSort){
+//
+//        QuestionAndAnswerResponseDto questionAndAnswerResponseDto = new QuestionAndAnswerResponseDto();
+//        questionAndAnswerResponseDto.setQuestionId(question.getQuestionId());
+//        questionAndAnswerResponseDto.setQuestionStatus(question.getQuestionStatus());
+//        questionAndAnswerResponseDto.setTitle(question.getTitle());
+//        questionAndAnswerResponseDto.setBody(question.getBody());
+//        questionAndAnswerResponseDto.setVote(question.getVote());
+//        questionAndAnswerResponseDto.setView(question.getView());
+//
+//        User user = question.getUser(); //질문 작성자 속성 추가
+//        questionAndAnswerResponseDto.setUser(userMapper.userToUserResponseDto(user));//질문 작성자 속성 추가
+//
+//        questionAndAnswerResponseDto.setQuestionTags(questionTagsToQuestionTagResponseDtos( //질문에 대한 태그 속성 추가
+//                question.getQuestionTags()
+//        ));
+//
+//        questionAndAnswerResponseDto.setCreatedAt(question.getCreatedAt());
+//        questionAndAnswerResponseDto.setUpdatedAt(question.getUpdatedAt());
+//
+//        try{
+//            Page<Answer> pageAnswers = answerService.findAnswers(
+//                    question,answerPage,answerSize,answerSort); // 해당 question에 해당하는 answer의 sort 와 pagenation 결과를 가져온다.
+//            List<Answer> answers = pageAnswers.getContent();
+////        questionAndAnswerResponseDto.setAnswers(new MultiResponseDto<>(
+////                answerMapper.answersToAnswerResponseDtos(userMapper,answers), pageAnswers));
+//            questionAndAnswerResponseDto.setAnswers(new MultiResponseDto<>(
+//                    answerMapper.answersToAnswerResponseDtos(answers), pageAnswers));
+//        }catch(BusinessLogicException e){
+//
+//        }
+//
+//
+//        return questionAndAnswerResponseDto;
+//
+//
+//    }
 }
