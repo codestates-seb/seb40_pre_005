@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import logo_svg from '../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 import Search from './Search';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeLogin } from '../redux/store';
 
 const HeaderNav = styled.header`
   width: 100%;
@@ -145,10 +147,15 @@ const Profile = styled.img`
 `;
 
 function Header() {
-  const [isLogin, setIsLogin] = useState(false);
-  const onClick = () => {
-    setIsLogin(!isLogin);
-  };
+  // const [isLogin, setIsLogin] = useState(false);
+
+  const isLogin = useSelector((state) => state.user.isLogin);
+  const dispatch = useDispatch();
+
+  // const onClick = () => {
+  //   dispatch(changeLogin());
+  //   console.log('isLogin', isLogin);
+  // };
   return (
     <HeaderNav>
       <LogoContainer>
@@ -165,7 +172,7 @@ function Header() {
       {!isLogin ? (
         <ButtonContainer>
           <Link to="/login">
-            <LoginBtn onClick={onClick}>Log in</LoginBtn>
+            <LoginBtn>Log in</LoginBtn>
           </Link>
           <Link to="/signup">
             <SignUpBtn>Sign up</SignUpBtn>
@@ -175,7 +182,7 @@ function Header() {
         <ButtonContainer>
           <Profile src={process.env.PUBLIC_URL + '/profile.png'}></Profile>
           <Link to="/logout">
-            <LogoutBtn onClick={onClick}>Log out</LogoutBtn>
+            <LogoutBtn>Log out</LogoutBtn>
           </Link>
         </ButtonContainer>
       )}
