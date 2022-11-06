@@ -64,6 +64,7 @@ public class JwtProvider {
                 .compact();
 
         return TokenDto.builder()
+                .userId(userId)
                 .grantType("Bearer")
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

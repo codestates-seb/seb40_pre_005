@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 //@Controller
-@RequestMapping("/v1")
+@RequestMapping("/v1/user")
 @Validated
 //@Api(tags = {"User"})
 @Slf4j

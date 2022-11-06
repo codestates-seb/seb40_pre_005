@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -37,6 +38,7 @@ public class AuthController {
         TokenDto tokenDto = securityService.login(userLoginRequestDto);
 
         HttpHeaders headers = new HttpHeaders();
+
         ResponseCookie cookie = ResponseCookie.from("refreshToken", tokenDto.getRefreshToken())
                 .maxAge(7*24*60*60)
                 .path("/")
@@ -48,7 +50,7 @@ public class AuthController {
         headers.add("Set-cookie", cookie.toString());
         headers.add("Authorization", tokenDto.getAccessToken());
 
-        return new ResponseEntity(headers,HttpStatus.OK);
+        return new ResponseEntity(tokenDto,HttpStatus.OK);
     }
 
     @ApiOperation(value = "회원가입", notes = "회원가입을 합니다.")
