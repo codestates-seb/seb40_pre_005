@@ -118,6 +118,7 @@ const LoginForm = () => {
         User.userId = res.data.userId;
         User.userAccessToken = res.data.accessToken;
         User.userRefreshToken = res.data.refreshToken;
+        localStorage.setItem('user', JSON.stringify(User));
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         dispatch(loginUser(User));

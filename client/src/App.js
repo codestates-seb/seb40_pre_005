@@ -10,11 +10,20 @@ import Detail from './pages/detail';
 import SearchPage from './pages/search';
 import Ask from './pages/ask';
 import Logout from './pages/logout';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { loginUser } from './redux/store';
 function App() {
-  // const user = useSelector((state) => state.user);
-  // console.log('현재 유저 정보', user); -> 참조하시려면 주석 해제 후 콘솔확인 해보세요
+  const userInfo = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  // console.log('현재 유저 정보', userInfo);
+  const user = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    if (localStorage.getItem('user') !== null) {
+      dispatch(loginUser(user));
+    }
+  }, []);
+
   return (
     <div>
       <BrowserRouter>

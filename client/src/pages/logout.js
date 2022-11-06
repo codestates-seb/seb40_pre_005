@@ -126,6 +126,9 @@ const Logout = () => {
   const dispatch = useDispatch();
   const onClick = () => {
     dispatch(clearUser(user));
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
   };
   return (
     <LogoutContainer>
