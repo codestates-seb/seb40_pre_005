@@ -202,7 +202,7 @@ const Detail = ({ setPageInfo, pageInfo }) => {
                 <div className="post">
                   <p>{question?.body}</p>
                 </div>
-                <Writer props={question?.questionId} />
+                <Writer props={question?.name} />
                 <AnswerList questionId={id} questionInfo={question} />
               </div>
               <Sidebar />
