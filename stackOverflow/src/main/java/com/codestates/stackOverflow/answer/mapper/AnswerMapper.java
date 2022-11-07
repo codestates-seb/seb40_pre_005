@@ -43,6 +43,7 @@ public interface AnswerMapper {
     default Answer answerPostDtoToAnswer(QuestionService questionService, UserService userService, AnswerPostDto answerPostDto){
         Answer answer = new Answer();
         answer.setBody(answerPostDto.getBody());
+        answer.setUser(userService.findUser(answerPostDto.getUserId()));
         answer.setQuestion(questionService.findVerifiedQuestion(answerPostDto.getQuestionId()));
         // 현재 로그인한 토큰으로 유저정보 불러옴
        // answer.setUser(userService.getLoginUser());

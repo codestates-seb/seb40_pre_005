@@ -26,6 +26,7 @@ public interface QuestionMapper {
         Question question = new Question();
 
         question.setView(0);
+        question.setUser(userService.findUser(questionPostDto.getUserId()));
         question.setBody(questionPostDto.getBody());
         question.setTitle(questionPostDto.getTitle());
 

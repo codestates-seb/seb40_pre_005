@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class QuestionPostDto {
 
-//    private long userId;
+    private long userId;
     @NotBlank(message = "The title must not be blank.")
     private String title;
     @NotBlank(message = "The content must not be blank.")

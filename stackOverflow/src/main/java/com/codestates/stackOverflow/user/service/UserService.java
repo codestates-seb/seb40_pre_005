@@ -28,6 +28,10 @@ public class UserService {
     public User findUser(String userEmail){
         return findVerifiedUser(userEmail);
     }
+    @Transactional(readOnly = true)
+    public User findUser(long userId){
+        return findVerifiedUser(userId);
+    }
 
     private User findVerifiedUser(String userEmail) {
         Optional<User> optionalUser =
@@ -36,6 +40,12 @@ public class UserService {
         return findUser;
     }
 
+    private User findVerifiedUser(long userId) {
+        Optional<User> optionalUser =
+                userRepository.findByUserId(userId);
+        User findUser = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        return findUser;
+    }
     private void verifyExistsEmail(String userEmail) {
         Optional<User> user = userRepository.findByUserEmail(userEmail);
         if (user.isPresent())

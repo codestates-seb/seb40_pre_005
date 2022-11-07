@@ -16,4 +16,6 @@ public class AnswerPostDto {
     // 답변 작성
     @NotBlank(message = "Post Your Answer" )
     private String body;
+
+    private long userId;
 }
