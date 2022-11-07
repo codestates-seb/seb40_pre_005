@@ -26,14 +26,14 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-const Home = () => {
+const Home = ({ setPageInfo, pageInfo }) => {
   return (
     <>
       <Header />
       <ContentWrapper>
         <Nav />
         <div className="mainContents">
-          <Question />
+          <Question setPageInfo={setPageInfo} pageInfo={pageInfo} />
           <Sidebar />
         </div>
       </ContentWrapper>
