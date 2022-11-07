@@ -47,6 +47,10 @@ const AnswerItem = ({ answer }) => {
     fetchData();
   };
   const handleEditBtn = () => {
+    if (!token) {
+      alert('로그인해주세요!');
+      return;
+    }
     setIsEdit(!isEdit);
   };
 

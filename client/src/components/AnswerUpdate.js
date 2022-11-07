@@ -37,10 +37,6 @@ const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
     setEditText(data);
   };
   const handleEditBtn = () => {
-    if (!token) {
-      alert('로그인해주세요!');
-      return;
-    }
     const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const data = {
       answerId,
