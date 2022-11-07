@@ -102,7 +102,7 @@ public interface AnswerMapper {
             return null;
         }
 
-        List<AnswerResponseDto> list = new ArrayList<AnswerResponseDto>( answers.size() );
+        List<AnswerResponseDto> list = new ArrayList<>(answers.size());
         for ( Answer answer : answers ) {
             AnswerResponseDto answerResponseDto = new AnswerResponseDto();
 

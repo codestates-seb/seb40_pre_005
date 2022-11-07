@@ -18,6 +18,7 @@ import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -53,13 +54,37 @@ public interface QuestionMapper {
         questionResponseDto.setTitle(question.getTitle());
         questionResponseDto.setBody(question.getBody());
         questionResponseDto.setView(question.getView());
-
+        questionResponseDto.setName(question.getUser().getName());
+        questionResponseDto.setUserId(question.getUser().getUserId());
         questionResponseDto.setCreatedAt(question.getCreatedAt());
         questionResponseDto.setUpdatedAt(question.getUpdatedAt());
 
         return questionResponseDto;
     }
-    List<QuestionResponseDto> questionsToQuestionResponseDtos(List <Question> questions);
+    default List<QuestionResponseDto> questionsToQuestionResponseDtos(List <Question> questions){
+        if ( questions == null ) {
+            return null;
+        }
+
+        List<QuestionResponseDto> list = new ArrayList<QuestionResponseDto>( questions.size() );
+        for ( Question question : questions ) {
+            QuestionResponseDto questionResponseDto = new QuestionResponseDto();
+
+            questionResponseDto.setQuestionId( question.getQuestionId() );
+            questionResponseDto.setQuestionStatus( question.getQuestionStatus() );
+            questionResponseDto.setTitle( question.getTitle() );
+            questionResponseDto.setBody( question.getBody() );
+            questionResponseDto.setView( question.getView() );
+            questionResponseDto.setUserId(question.getUser().getUserId());
+            questionResponseDto.setName(question.getUser().getName());
+            questionResponseDto.setCreatedAt( question.getCreatedAt() );
+            questionResponseDto.setUpdatedAt( question.getUpdatedAt() );
+
+            list.add( questionResponseDto );
+        }
+
+        return list;
+    };
 
     default QuestionResponseDto questionToQuestionAndAnswerResponseDto(UserMapper userMapper, Question question, Integer answerPage,
                                                                    Integer answerSize, String answerSort) {
@@ -69,7 +94,6 @@ public interface QuestionMapper {
         questionAndAnswerResponseDto.setTitle(question.getTitle());
         questionAndAnswerResponseDto.setBody(question.getBody());
         questionAndAnswerResponseDto.setView(question.getView());
-
         questionAndAnswerResponseDto.setCreatedAt(question.getCreatedAt());
         questionAndAnswerResponseDto.setUpdatedAt(question.getUpdatedAt());
 
@@ -104,7 +128,5 @@ public interface QuestionMapper {
 
 
         return questionAndAnswerResponseDto;
-
-
     }
 }

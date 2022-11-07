@@ -17,4 +17,6 @@ public class QuestionResponseDto {
     private int view;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String name;
+    private long userId;
 }
