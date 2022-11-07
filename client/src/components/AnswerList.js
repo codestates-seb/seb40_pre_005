@@ -8,22 +8,13 @@ const AnswersWrapper = styled.div`
   padding: 24px 0;
 `;
 
-const AnswerList = ({ questionId }) => {
-  const [answers, setAnswers] = useState([]);
+const AnswerList = ({ questionId, questionInfo }) => {
+  const [answers, setAnswers] = useState(null);
   useEffect(() => {
-    const fetchData = async () => {
-      const url = `http://localhost:3001/answer?questionId=${questionId}`;
-      try {
-        await axios.get(url).then((res) => {
-          setAnswers(res.data);
-        });
-      } catch (err) {
-        console.log('error', err);
-      }
-    };
-    fetchData();
-  }, [questionId]);
-
+    if (questionInfo) {
+      setAnswers(questionInfo.answers?.data);
+    }
+  }, [questionInfo]);
   return (
     <AnswersWrapper>
       {answers
@@ -35,11 +26,7 @@ const AnswerList = ({ questionId }) => {
             );
           })
         : null}
-      <AnswerEditor
-        questionId={questionId}
-        answers={answers}
-        setAnswers={setAnswers}
-      />
+      <AnswerEditor questionId={questionId} />
     </AnswersWrapper>
   );
 };

@@ -11,7 +11,7 @@ import SearchPage from './pages/search';
 import Ask from './pages/ask';
 import Logout from './pages/logout';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { loginUser } from './redux/store';
 function App() {
   const userInfo = useSelector((state) => state.user);
@@ -23,16 +23,23 @@ function App() {
       dispatch(loginUser(user));
     }
   }, []);
+  const [pageInfo, setPageInfo] = useState();
 
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route
+            path="/"
+            element={<Home setPageInfo={setPageInfo} pageInfo={pageInfo} />}
+          ></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/logout" element={<Logout />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/questions/:id" element={<Detail />}></Route>
+          <Route
+            path="/questions/:id"
+            element={<Detail setPageInfo={setPageInfo} pageInfo={pageInfo} />}
+          ></Route>
           <Route path="/search" element={<SearchPage />}></Route>
           <Route path="/questions/ask" element={<Ask />}></Route>
           <Route

@@ -20,16 +20,13 @@ const Answer = styled.div`
 `;
 const AnswerItem = ({ answer }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const { id, body, userId } = answer;
-  const html = body;
+  const { answerId, body, userId } = answer;
   //DELETE
   const handleDelete = () => {
-    console.log(id, body);
-    const url = `http://localhost:3001/answer/${id}`;
+    const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const fetchData = async () => {
       try {
         await axios.delete(url).then(() => {
-          console.log(id, body);
           window.location.reload();
         });
       } catch (err) {
@@ -45,7 +42,7 @@ const AnswerItem = ({ answer }) => {
   return (
     <>
       {answer ? (
-        <Answer id={id}>
+        <Answer>
           <div>
             <h2>Answers</h2>
             {isEdit ? (
@@ -53,7 +50,7 @@ const AnswerItem = ({ answer }) => {
                 body={body}
                 setIsEdit={setIsEdit}
                 isEdit={isEdit}
-                answerId={id}
+                answerId={answerId}
               />
             ) : (
               <Viewer initialValue={body} />

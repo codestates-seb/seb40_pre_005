@@ -14,20 +14,18 @@ const AnswerEditorWrapper = styled.div`
     background-color: white;
   }
 `;
-const AnswerEditor = ({ questionId, answers, setAnswers }) => {
+const AnswerEditor = ({ questionId }) => {
   const [answer, setAnswer] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      // eslint-disable-next-line no-const-assign, no-undef
-      questionId,
       body: answer,
+      questionId,
     };
     const fetchData = async () => {
       try {
-        // const url = `${process.env.REACT_APP_ANSWER}`;
-        const url = `http://localhost:3001/answer`;
+        const url = `${process.env.REACT_APP_ANSWER}`;
         await axios.post(url, data);
         window.location.reload();
       } catch (err) {
@@ -40,7 +38,6 @@ const AnswerEditor = ({ questionId, answers, setAnswers }) => {
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
     setAnswer(data);
-    console.log(data);
   };
 
   return (
