@@ -80,6 +80,12 @@ public class QuestionController {
 //                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper,updatedQuestion)),
 //                HttpStatus.OK);
 //    }
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "Bearer",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
     @PatchMapping("/{question-id}")
     @ApiOperation(value = "질문수정", response = Question.class)
     public void patchQuestion(@PathVariable("question-id") @Positive long questionId, @RequestBody @Valid QuestionPatchDto request){
