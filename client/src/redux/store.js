@@ -41,6 +41,17 @@ export const user = createSlice({
   },
 });
 
+export const answerUser = createSlice({
+  name: 'answerUser',
+  initialState: 'hi',
+  reducers: {
+    addAnswerUser(state, action) {
+      state = action.payload;
+      return state;
+    },
+  },
+});
+
 export let isLogin = createSlice({
   name: 'isLogin',
   initialState: false,
@@ -53,12 +64,14 @@ export let isLogin = createSlice({
 
 export const { changeLogin } = isLogin.actions;
 export const { loginUser, clearUser } = user.actions;
+export const { addAnswerUser } = answerUser.actions;
 
 const store = configureStore({
   reducer: {
     question: questionReducer,
     user: user.reducer,
     isLogin: isLogin.reducer,
+    answerUser: answerUser.reducer,
   },
 });
 
