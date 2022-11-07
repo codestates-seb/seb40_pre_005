@@ -21,14 +21,12 @@ const Answer = styled.div`
 const AnswerItem = ({ answer }) => {
   const [isEdit, setIsEdit] = useState(false);
   const { answerId, body, userId } = answer;
-  // const html = body;
   //DELETE
   const handleDelete = () => {
     const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const fetchData = async () => {
       try {
         await axios.delete(url).then(() => {
-          console.log(answerId, body);
           window.location.reload();
         });
       } catch (err) {
