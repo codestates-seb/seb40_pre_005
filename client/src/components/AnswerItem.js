@@ -21,7 +21,7 @@ const Answer = styled.div`
 const AnswerItem = ({ answer }) => {
   const token = localStorage.getItem('accessToken');
   const [isEdit, setIsEdit] = useState(false);
-  const { answerId, body, userId } = answer;
+  const { answerId, body, userId, name } = answer;
   //DELETE
   const handleDelete = () => {
     if (!token) {
@@ -67,7 +67,7 @@ const AnswerItem = ({ answer }) => {
               <Viewer initialValue={body} />
             )}
           </div>
-          <Writer props={userId} />
+          <Writer props={name} />
           <div className="handleBtns">
             <button onClick={handleEditBtn}>edit</button>
             <button onClick={handleDelete}>delete</button>

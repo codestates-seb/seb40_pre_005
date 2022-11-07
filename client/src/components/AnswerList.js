@@ -21,7 +21,11 @@ const AnswerList = ({ questionId, questionInfo }) => {
         ? answers.map((answer) => {
             return (
               <>
-                <AnswerItem key={answer.answerId} answer={answer} />
+                <AnswerItem
+                  key={answer.answerId}
+                  answer={answer}
+                  name={answer.name}
+                />
               </>
             );
           })

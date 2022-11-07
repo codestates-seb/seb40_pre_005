@@ -25,7 +25,7 @@ const Writer = ({ props }) => {
   return (
     <WriterWrapper className="writer">
       <div>
-        <div className="avatar"></div>
+        <img src={process.env.PUBLIC_URL + '/profile.png'} alt="profile"></img>
         <div className="username">{props ? props : 'username'}</div>
       </div>
     </WriterWrapper>
