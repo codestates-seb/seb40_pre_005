@@ -113,7 +113,6 @@ const LoginForm = () => {
     axios
       .post(url, User)
       .then((res) => {
-        console.log('res', res.data.name);
         const accessToken = res.data.accessToken;
         const refreshToken = res.data.refreshToken;
         User.userId = res.data.userId;

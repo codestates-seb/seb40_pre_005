@@ -1,5 +1,4 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import questionReducer from './getSlice';
 
 export const user = createSlice({
   name: 'user',
@@ -68,7 +67,6 @@ export const { addAnswerUser } = answerUser.actions;
 
 const store = configureStore({
   reducer: {
-    question: questionReducer,
     user: user.reducer,
     isLogin: isLogin.reducer,
     answerUser: answerUser.reducer,
