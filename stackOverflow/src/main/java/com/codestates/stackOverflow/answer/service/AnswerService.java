@@ -75,8 +75,8 @@ public class AnswerService {
                 .ifPresent(answerUpdatedAt->findAnswer.setUpdatedAt(answerUpdatedAt));
 
 
-        Optional.ofNullable(answer.getAnswerStatus()) //글 삭제
-                .ifPresent(answerStatus->findAnswer.setAnswerStatus(answerStatus));
+     //   Optional.ofNullable(answer.getAnswerStatus()) //글 삭제
+            //    .ifPresent(answerStatus->findAnswer.setAnswerStatus(answerStatus));
 
         Answer updatedQuestion = answerRepository.save(findAnswer);
 
