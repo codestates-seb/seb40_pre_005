@@ -11,6 +11,7 @@ import com.codestates.stackOverflow.answer.service.AnswerService;
 import com.codestates.stackOverflow.exception.BusinessLogicException;
 import com.codestates.stackOverflow.exception.ExceptionCode;
 import com.codestates.stackOverflow.question.service.QuestionService;
+import com.codestates.stackOverflow.user.dto.UserResponseDto;
 import com.codestates.stackOverflow.user.entity.User;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
@@ -33,8 +34,6 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "Spring")
 public interface AnswerMapper {
-
-
 
 /**
      *  유저 정보와 질문 정보를 받아 와야 함
@@ -64,20 +63,17 @@ public interface AnswerMapper {
         return answer;
     }
 
-    default AnswerResponseDto answerToAnswerResponseDto(UserMapper userMapper, Answer answer){
+    default AnswerResponseDto answerToAnswerResponseDto( UserMapper userMapper, Answer answer){
         AnswerResponseDto answerResponseDto = new AnswerResponseDto();
+        User user =new User();
+
         answerResponseDto.setAnswerId(answer.getAnswerId());
+        answerResponseDto.setName(answer.getUser().getName());
         answerResponseDto.setAnswerStatus(answer.getAnswerStatus());
         answerResponseDto.setBody(answer.getBody());
         answerResponseDto.setCreatedAt(answer.getCreatedAt());
 
-/**
-        User user = answer.getUser();
-        answerResponseDto.setUser(userMapper.userToUserResponseDto(user));
-        //   answerResponseDto.setVote(answer.getVote());
-        answerResponseDto.setUpdatedAt(answer.getUpdatedAt());
 
-*/
         return answerResponseDto;
 
 
