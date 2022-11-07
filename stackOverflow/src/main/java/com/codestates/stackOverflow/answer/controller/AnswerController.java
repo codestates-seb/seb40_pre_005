@@ -70,10 +70,7 @@ public class AnswerController {
                 mapper.answerPostDtoToAnswer(questionService, userService,answerPostDto));
 
         return new ResponseEntity<>(
-                /** new SingleResponseDto<>/
-                 *
-                 */
-                (mapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
+               (mapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
     }
 
 

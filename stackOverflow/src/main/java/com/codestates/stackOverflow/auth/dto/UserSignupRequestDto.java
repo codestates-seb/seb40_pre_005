@@ -1,7 +1,9 @@
 package com.codestates.stackOverflow.auth.dto;
 
 import com.codestates.stackOverflow.user.entity.User;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;

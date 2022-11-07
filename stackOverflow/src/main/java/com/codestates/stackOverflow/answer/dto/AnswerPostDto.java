@@ -18,4 +18,5 @@ public class AnswerPostDto {
     private String body;
 
     private long userId;
+
 }
