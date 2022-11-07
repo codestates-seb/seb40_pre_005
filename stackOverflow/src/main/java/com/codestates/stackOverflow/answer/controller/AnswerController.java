@@ -17,6 +17,8 @@ import com.codestates.stackOverflow.response.SingleResponseDto;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +41,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @AllArgsConstructor
-@RequestMapping("/v1")
+@RequestMapping("/v1/answer")
 public class AnswerController {
 
     private AnswerService answerService;
@@ -55,8 +57,14 @@ public class AnswerController {
 
 // answer Id 추가
 // localhost8080/v1/answer
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "Bearer",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
     @ApiOperation(value = "Answer 등록", response = Answer.class)
-    @PostMapping("/answer")
+    @PostMapping
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
         Answer question = answerService.createAnswer(
                 mapper.answerPostDtoToAnswer(questionService, userService,answerPostDto));
@@ -75,8 +83,15 @@ public class AnswerController {
 
 
 
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "Bearer",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
     @ApiOperation(value = "Answer 수정", response = Answer.class)
-    @PatchMapping("/answer/{answer-id}")
+    @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
                                           @Valid @RequestBody AnswerPatchDto answerPatchDto) {
         /**
@@ -171,8 +186,14 @@ public class AnswerController {
     /**
      * answer 삭제 API
      */
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "Bearer",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
     @ApiOperation(value = "Answer 삭제", response = Answer.class)
-    @DeleteMapping(value= "/answer/{answer-id}")
+    @DeleteMapping(value= "/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId){
 
         answerService.deleteAnswer(answerId);

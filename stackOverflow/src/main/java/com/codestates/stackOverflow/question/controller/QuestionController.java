@@ -16,16 +16,20 @@ import com.codestates.stackOverflow.user.entity.User;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -49,9 +53,16 @@ public class QuestionController {
     private final AnswerService answerService;
 
     //질문 정보 등록
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "Bearer",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
     @PostMapping("/write")
     @ApiOperation(value = "질문등록", response = Question.class)
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto){
+
         Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(userService,questionPostDto));
 
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper,question)), HttpStatus.CREATED);
@@ -76,7 +87,7 @@ public class QuestionController {
     }
 
     //한개의 질문 정보 조회
-    @GetMapping("/{question-id}")
+    @GetMapping("find/{question-id}")
     @ApiOperation(value = "특정질문조회", response = Question.class)
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
                                       @Positive @RequestParam("page") int answerPage,
@@ -107,6 +118,12 @@ public class QuestionController {
                 pageQuestions),HttpStatus.OK);
     }
     //질문 정보 삭제
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "Bearer",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
     @DeleteMapping("/{question-id}")
     @ApiOperation(value = "특정질문삭제", response = Question.class)
     public ResponseEntity deleteQuestion(@PathVariable("question-id") @Positive long questionId){

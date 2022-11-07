@@ -31,9 +31,10 @@ public class SecurityConfiguration {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("users/**").hasRole("ROLE_USER")
+                        .antMatchers("user/**").hasRole("ROLE_USER")
                         .antMatchers("question/write").hasRole("ROLE_USER")
                         .antMatchers("question/{question-id}").hasRole("ROLE_USER")
+                        .antMatchers("answer/**").hasRole("ROLE_USER")
                         .antMatchers("/**").permitAll())
                 .exceptionHandling()
                 .authenticationEntryPoint(cAuthenticationEntryPoint)
