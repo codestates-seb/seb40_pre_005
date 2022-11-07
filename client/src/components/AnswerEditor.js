@@ -18,8 +18,10 @@ const AnswerEditorWrapper = styled.div`
 const AnswerEditor = ({ questionId }) => {
   const [answer, setAnswer] = useState([]);
   const userInfo = useSelector((state) => state.user);
-  const token = localStorage.getItem('accessToken');
-
+  // const token = localStorage.getItem('accessToken');
+  const token = useSelector((state) => state.user.userAccessToken);
+  console.log(token);
+  axios.defaults.headers.common['Authorization'] = token;
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -31,7 +33,9 @@ const AnswerEditor = ({ questionId }) => {
       try {
         const url = `${process.env.REACT_APP_ANSWER}`;
         await axios.post(url, data, {
-          headers: token,
+          headers: {
+            Authorization: token,
+          },
         });
         window.location.reload();
       } catch (err) {
