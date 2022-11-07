@@ -85,7 +85,8 @@ public interface QuestionMapper {
         questionAndAnswerResponseDto.setTitle(question.getTitle());
         questionAndAnswerResponseDto.setBody(question.getBody());
         questionAndAnswerResponseDto.setView(question.getView());
-
+        questionAndAnswerResponseDto.setUserId(question.getUser().getUserId());
+        questionAndAnswerResponseDto.setName(question.getUser().getName());
         questionAndAnswerResponseDto.setCreatedAt(question.getCreatedAt());
         questionAndAnswerResponseDto.setUpdatedAt(question.getUpdatedAt());
 

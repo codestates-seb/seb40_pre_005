@@ -21,4 +21,6 @@ public class AnswerResponseDto {
     //private UserResponseDto user;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String name;
+    private long userId;
 }
