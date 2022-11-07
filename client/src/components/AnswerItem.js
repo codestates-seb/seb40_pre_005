@@ -20,11 +20,14 @@ const Answer = styled.div`
 `;
 const AnswerItem = ({ answer }) => {
   const token = localStorage.getItem('accessToken');
-
   const [isEdit, setIsEdit] = useState(false);
   const { answerId, body, userId } = answer;
   //DELETE
   const handleDelete = () => {
+    if (!token) {
+      alert('로그인해주세요');
+      return;
+    }
     const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const fetchData = async () => {
       try {
