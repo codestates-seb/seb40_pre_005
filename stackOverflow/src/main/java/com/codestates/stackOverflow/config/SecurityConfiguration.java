@@ -8,9 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
@@ -37,10 +35,12 @@ public class SecurityConfiguration {
                         .antMatchers("answer/**").hasRole("ROLE_USER")
                         .antMatchers("/**").permitAll())
                 .exceptionHandling()
-                .authenticationEntryPoint(cAuthenticationEntryPoint)
                 .accessDeniedHandler(cAccessDeniedHandler)
+                .authenticationEntryPoint(cAuthenticationEntryPoint)
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(new )
+        ;
 
         return http.build();
     }

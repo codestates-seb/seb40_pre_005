@@ -3,6 +3,7 @@ package com.codestates.stackOverflow.question.dto;
 import com.codestates.stackOverflow.answer.dto.AnswerResponseDto;
 import com.codestates.stackOverflow.question.entity.Question;
 import com.codestates.stackOverflow.response.MultiResponseDto;
+import com.codestates.stackOverflow.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +20,5 @@ public class QuestionAndAnswerResponseDto {
     private MultiResponseDto<AnswerResponseDto> answers;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private User user;
 }

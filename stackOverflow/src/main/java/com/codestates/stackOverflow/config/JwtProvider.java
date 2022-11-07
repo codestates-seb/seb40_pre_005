@@ -102,15 +102,17 @@ public class JwtProvider {
             return true;
         }catch (SecurityException | MalformedJwtException e){
             log.error("잘못된 Jwt 서명입니다.");
-            //throw new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_INVALID);
+            throw new CAuthenticationEntryPointException();
         }catch (ExpiredJwtException e) {
             log.error("만료된 토큰입니다.");
+            throw new CAuthenticationEntryPointException();
         } catch (UnsupportedJwtException e) {
             log.error("지원하지 않는 토큰입니다.");
+            throw new CAuthenticationEntryPointException();
         } catch (IllegalArgumentException e) {
             log.error("잘못된 토큰입니다.");
+            throw new CAuthenticationEntryPointException();
         }
-        return false;
     }
 
 }
