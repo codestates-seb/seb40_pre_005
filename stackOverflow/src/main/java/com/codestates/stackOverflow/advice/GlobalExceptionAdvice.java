@@ -1,8 +1,10 @@
 package com.codestates.stackOverflow.advice;
 
-import com.codestates.stackOverflow.exception.BusinessLogicException;
+import com.codestates.stackOverflow.exception.*;
 import com.codestates.stackOverflow.response.ErrorResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,7 +19,12 @@ import javax.validation.ConstraintViolationException;
 
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionAdvice {
+
+    private final MessageSource messageSource;
+
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValidException(
@@ -85,4 +92,5 @@ public class GlobalExceptionAdvice {
 
         return response;
     }
+
 }

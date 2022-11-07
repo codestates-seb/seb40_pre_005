@@ -16,9 +16,7 @@ const SignupContainer = styled.div``;
 
 const Signup = () => {
   const { register, watch, handleSubmit } = useForm();
-  const onValid = (e) => {
-    console.log(e);
-  };
+
   return (
     <>
       <Header />

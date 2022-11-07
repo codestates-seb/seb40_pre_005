@@ -52,6 +52,32 @@
       "userId": "바쁘다",
       "body": "bye world!aa",
       "answerStatus": "ANSWER_NOT_EXIST"
+    },
+    {
+      "questionId": 2,
+      "body": "<p><strong>hello</strong>sddd</p>",
+      "id": 3
+    },
+    {
+      "questionId": "3",
+      "body": "<p>your answerggaaawerwedaaaasdfdccddc</p>",
+      "id": 4,
+      "answerStatus": "ANSWER_NOT_EXIST"
+    },
+    {
+      "questionId": "43",
+      "body": "<p>테스트</p>",
+      "id": 5
+    },
+    {
+      "questionId": "47",
+      "body": "<p>하하</p>",
+      "id": 6
+    },
+    {
+      "questionId": "43",
+      "body": "<p>ㅎㅎ</p>",
+      "id": 7
     }
   ]
 }

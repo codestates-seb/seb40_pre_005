@@ -1,27 +1,24 @@
 package com.codestates.stackOverflow.user.controller;
 
-import com.codestates.stackOverflow.user.dto.UserDto;
 import com.codestates.stackOverflow.user.entity.User;
 import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Controller
-@RequestMapping("/v1")
+//@Controller
+@RequestMapping("/v1/user")
 @Validated
-@Api(tags = {"회원가입 API"})
+//@Api(tags = {"User"})
 @Slf4j
 public class UserController {
 
@@ -33,13 +30,16 @@ public class UserController {
         this.mapper = mapper;
     }
 
-    /* 회원 가입 API */
-    @PostMapping("/sign-up")
-    @ApiOperation(value = "회원가입", response = User.class)
-    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post requestBody){
-        User user = mapper.userPostToUser(requestBody);
-        userService.createUser(user);
-
-        return new ResponseEntity(user, HttpStatus.CREATED);
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "Bearer",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "회원 검색")
+    @GetMapping("{userEmail}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable String userEmail){
+        User user = userService.findUser(userEmail);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

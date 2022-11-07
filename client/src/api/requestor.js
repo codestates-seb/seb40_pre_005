@@ -11,18 +11,45 @@ export const getQuestionList = async ({ page, size }) => {
   return res.data;
 };
 
+export const getSpecificQuestion = async ({ questionId, page, size }) => {
+  const res = await axios.get(
+    `${process.env.REACT_APP_QUESTION}/find/${questionId}?page=${page}&size=${size}`
+  );
+
+  return res.data;
+};
+
 export const postQuestion = async ({ body, title, userId }) => {
-  const res = await axios.post(baseUrl + `/question/write`, {
-    title,
-    body,
-    userId,
-  });
+  const userToken = localStorage.getItem('accessToken');
+
+  const res = await axios.post(
+    baseUrl + `/question/write`,
+    {
+      title,
+      body,
+      userId,
+    },
+    {
+      headers: {
+        Authorization: userToken,
+      },
+    }
+  );
 
   return res.data;
 };
 
 export const deleteQuestion = async ({ questionId }) => {
   const res = await axios.delete(baseUrl + `/question/${questionId}`);
+
+  return res.data;
+};
+
+export const updateQuestion = async ({ questionId, title, body }) => {
+  const res = await axios.patch(baseUrl + `/question/${questionId}`, {
+    title,
+    body,
+  });
 
   return res.data;
 };

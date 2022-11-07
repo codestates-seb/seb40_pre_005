@@ -1,35 +1,40 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AnswerEditorWrapper = styled.div`
   /* border-top: 1px solid #d6d9dc; */
   padding: 24px 0;
-  textarea {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 24px;
+  .button {
+    margin-top: 24px;
+  }
+  .toastui-editor-main {
+    background-color: white;
   }
 `;
-const AnswerEditor = ({ questionId, answers, setAnswers }) => {
+const AnswerEditor = ({ questionId }) => {
   const [answer, setAnswer] = useState([]);
-
-  const onChange = (e) => {
-    setAnswer(e.target.value);
-  };
+  const userInfo = useSelector((state) => state.user);
+  const token = localStorage.getItem('accessToken');
+  axios.defaults.headers.common['Authorization'] = token;
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      // eslint-disable-next-line no-const-assign, no-undef
-      questionId: 2,
       body: answer,
+      questionId,
+      userId: userInfo.userId,
     };
     const fetchData = async () => {
       try {
-        // const url = `${process.env.REACT_APP_ANSWER}`;
-        const url = `http://localhost:3001/answer`;
-        await axios.post(url, data);
+        const url = `${process.env.REACT_APP_ANSWER}`;
+        await axios.post(url, data, {
+          headers: {
+            Authorization: token,
+          },
+        });
         window.location.reload();
       } catch (err) {
         console.log('error', err);
@@ -37,13 +42,29 @@ const AnswerEditor = ({ questionId, answers, setAnswers }) => {
     };
     fetchData();
   };
+  const editorRef = useRef();
+  const onChange = () => {
+    const data = editorRef.current.getInstance().getHTML();
+    setAnswer(data);
+  };
 
   return (
     <>
       <AnswerEditorWrapper className="answerEditor">
         <h2>Your Answer</h2>
         <form onSubmit={handleSubmit}>
-          <textarea onChange={onChange} />
+          <Editor
+            initialValue=" "
+            height="300px"
+            initialEditType="markdown"
+            toolbarItems={[
+              ['heading', 'bold', 'italic', 'strike'],
+              ['hr', 'quote'],
+            ]}
+            useCommandShortcut={true}
+            ref={editorRef}
+            onChange={onChange}
+          />
           <button className="button">Post Your Answer</button>
         </form>
       </AnswerEditorWrapper>

@@ -1,6 +1,8 @@
 package com.codestates.stackOverflow.audit;
 
 import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,7 +20,9 @@ public abstract class Auditable {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    @Column(name = "LAST_MODIFIED_AT")
-    private LocalDateTime modifiedAt;
+    @Getter
+    @Setter
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    protected LocalDateTime updatedAt = LocalDateTime.now();
 }

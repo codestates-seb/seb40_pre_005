@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import AnswerList from '../components/AnswerList';
-import { deleteQuestion } from '../api/requestor';
+import { deleteQuestion, getSpecificQuestion } from '../api/requestor';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -99,28 +100,49 @@ const Container = styled.div`
       background-color: #b82a1f;
     }
   }
+  .editButton {
+    margin-right: 12px;
+
+    background-color: #7f7f7f;
+    padding: 0.8em;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 13px;
+    cursor: pointer;
+    &:hover {
+      background-color: #4f4f4f;
+    }
+  }
   h2 {
     font-weight: 400;
     font-size: 19px;
   }
 `;
 
-const Detail = () => {
+const Detail = ({ setPageInfo, pageInfo }) => {
   let { id } = useParams();
   const [question, setQuestion] = useState(null);
+  const [selectedPage, setSelectedPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const userInfo = useSelector((state) => state.user);
+
   useEffect(() => {
-    const url = `http://localhost:3001/question?questionId=${id}`;
     const fetchData = async () => {
-      try {
-        await axios.get(url).then((res) => {
-          setQuestion(res.data[0]);
-        });
-      } catch (err) {
-        console.log('error', err);
-      }
+      const data = await getSpecificQuestion({
+        questionId: id,
+        page: selectedPage,
+        size: pageSize,
+      });
+      setPageInfo(data.pageInfo);
+      setQuestion(data.data);
     };
     fetchData();
   }, []);
+  const handleEditButtonClick = () => {
+    window.location.href = `/questions/${id}/edit`;
+  };
 
   const handleDeleteButtonClick = async () => {
     // eslint-disable-next-line no-restricted-globals
@@ -137,7 +159,6 @@ const Detail = () => {
 
   return (
     <>
-      (
       <Header />
       <Container>
         <Nav />
@@ -146,13 +167,24 @@ const Detail = () => {
             <div className="header">
               <div className="title">
                 {<h1>{question?.title}</h1>}
+
                 <div>
-                  <button
-                    className="deleteButton"
-                    onClick={handleDeleteButtonClick}
-                  >
-                    Delete
-                  </button>
+                  {userInfo?.userId === question?.userId && (
+                    <>
+                      <button
+                        className="editButton"
+                        onClick={handleEditButtonClick}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="deleteButton"
+                        onClick={handleDeleteButtonClick}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
                   <button href="#!" className="button">
                     Ask Question
                   </button>
@@ -165,7 +197,7 @@ const Detail = () => {
                 </div>
                 <div>
                   <span>Modified</span>
-                  며칠전
+                  {question?.updatedAt}
                 </div>
                 <div>
                   <span>Viewed</span>
@@ -178,15 +210,15 @@ const Detail = () => {
                 <div className="post">
                   <p>{question?.body}</p>
                 </div>
-                <Writer props={question?.questionId} />
-                <AnswerList questionId={id} />
+                <Writer props={question?.name} />
+                <AnswerList questionId={id} questionInfo={question} />
               </div>
               <Sidebar />
             </div>
           </div>
         </div>
       </Container>
-      <Footer />)
+      <Footer />
     </>
   );
 };
