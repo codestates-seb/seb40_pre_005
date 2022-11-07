@@ -12,8 +12,6 @@ export const getQuestionList = async ({ page, size }) => {
 };
 
 export const getSpecificQuestion = async ({ questionId, page, size }) => {
-  console.log(process.env.REACT_APP_QUESTION);
-
   const res = await axios.get(
     `${process.env.REACT_APP_QUESTION}/find/${questionId}?page=${page}&size=${size}`
   );
