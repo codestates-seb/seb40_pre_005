@@ -20,5 +20,6 @@ public class QuestionAndAnswerResponseDto {
     private MultiResponseDto<AnswerResponseDto> answers;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private User user;
+    private long userId;
+    private String name;
 }

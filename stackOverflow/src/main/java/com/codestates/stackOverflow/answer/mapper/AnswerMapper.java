@@ -17,6 +17,7 @@ import com.codestates.stackOverflow.user.mapper.UserMapper;
 import com.codestates.stackOverflow.user.service.UserService;
 import org.mapstruct.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,7 @@ public interface AnswerMapper {
 
         answerResponseDto.setAnswerId(answer.getAnswerId());
         answerResponseDto.setName(answer.getUser().getName());
+        answerResponseDto.setUserId(answer.getUser().getUserId());
         answerResponseDto.setAnswerStatus(answer.getAnswerStatus());
         answerResponseDto.setBody(answer.getBody());
         answerResponseDto.setCreatedAt(answer.getCreatedAt());
@@ -95,7 +97,30 @@ public interface AnswerMapper {
 
        return answerResponseDtos;
     };
-    List<AnswerResponseDto> answersToAnswersResponseDtos(List<Answer> answers);
+    default List<AnswerResponseDto> answersToAnswersResponseDtos(List<Answer> answers){
+        if ( answers == null ) {
+            return null;
+        }
+
+        List<AnswerResponseDto> list = new ArrayList<AnswerResponseDto>( answers.size() );
+        for ( Answer answer : answers ) {
+            AnswerResponseDto answerResponseDto = new AnswerResponseDto();
+
+            if ( answer.getAnswerId() != null ) {
+                answerResponseDto.setAnswerId( answer.getAnswerId() );
+            }
+            answerResponseDto.setAnswerStatus( answer.getAnswerStatus() );
+            answerResponseDto.setBody( answer.getBody() );
+            answerResponseDto.setCreatedAt( answer.getCreatedAt() );
+            answerResponseDto.setUpdatedAt( answer.getUpdatedAt() );
+            answerResponseDto.setName(answer.getUser().getName());
+            answerResponseDto.setUserId(answer.getUser().getUserId());
+
+            list.add( answerResponseDto );
+        }
+
+        return list;
+    };
 }
 
 

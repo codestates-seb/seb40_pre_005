@@ -21,9 +21,10 @@ public class AnswerResponseDto {
     private Answer.AnswerStatus answerStatus;
     private String body;
    // private UserResponseDto user;
-    private User userId;
-    private User name;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String name;
+    private long userId;
 
 }
