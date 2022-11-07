@@ -1,8 +1,7 @@
 package com.codestates.stackOverflow.auth.dto;
 
 import com.codestates.stackOverflow.user.entity.User;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
@@ -11,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import java.util.Collections;
 
 @Getter
+@NoArgsConstructor
 public class UserSignupRequestDto {
     @NotNull
     @Email
