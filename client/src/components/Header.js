@@ -134,27 +134,15 @@ const LogoutBtn = styled.button`
   }
 `;
 
-const Profile = styled.button`
+const Profile = styled.img`
   border-radius: 15px;
   width: 33px;
   height: 33px;
   margin: 5px 15px 5px 5px;
-  background-color: white;
+
   border: 1px solid grey;
-  background-image: ${process.env.PUBLIC_URL + '/profile.png'};
   :hover {
     cursor: pointer;
-  }
-
-  div {
-    /* margin-right: 10px; */
-  }
-
-  img {
-    margin-right: 10px;
-    position: absolute;
-    top: 15%;
-    right: 12.6%;
   }
 `;
 
@@ -168,10 +156,6 @@ function Header() {
   const dispatch = useDispatch();
   const myPage = () => {};
 
-  // const onClick = () => {
-  //   dispatch(changeLogin());
-  //   console.log('isLogin', isLogin);
-  // };
   return (
     <>
       <HeaderNav>
@@ -197,14 +181,10 @@ function Header() {
           </ButtonContainer>
         ) : (
           <ButtonContainer>
-            <Profile onClick={modalClose}>
-              <div>
-                <img
-                  src={process.env.PUBLIC_URL + '/profile.png'}
-                  alt="profile"
-                ></img>
-              </div>
-            </Profile>
+            <Profile
+              onClick={modalClose}
+              src={process.env.PUBLIC_URL + '/profile.png'}
+            ></Profile>
 
             <Link to="/logout">
               <LogoutBtn>Log out</LogoutBtn>
