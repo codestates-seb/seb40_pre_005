@@ -77,6 +77,7 @@ public interface QuestionMapper {
             questionResponseDto.setView( question.getView() );
             questionResponseDto.setUserId(question.getUser().getUserId());
             questionResponseDto.setName(question.getUser().getName());
+            questionResponseDto.setAnswerCnt(question.getAnswers().size());
             questionResponseDto.setCreatedAt( question.getCreatedAt() );
             questionResponseDto.setUpdatedAt( question.getUpdatedAt() );
 

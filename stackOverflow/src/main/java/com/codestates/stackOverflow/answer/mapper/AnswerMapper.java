@@ -74,6 +74,7 @@ public interface AnswerMapper {
         answerResponseDto.setAnswerStatus(answer.getAnswerStatus());
         answerResponseDto.setBody(answer.getBody());
         answerResponseDto.setCreatedAt(answer.getCreatedAt());
+        answerResponseDto.setUpdatedAt(answer.getUpdatedAt());
 
 
         return answerResponseDto;

@@ -19,4 +19,5 @@ public class QuestionResponseDto {
     private LocalDateTime updatedAt;
     private String name;
     private long userId;
+    private int answerCnt;
 }

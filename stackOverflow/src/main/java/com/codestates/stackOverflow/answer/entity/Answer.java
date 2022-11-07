@@ -1,6 +1,7 @@
 package com.codestates.stackOverflow.answer.entity;
 
 
+import com.codestates.stackOverflow.audit.Auditable;
 import com.codestates.stackOverflow.question.entity.Question;
 import com.codestates.stackOverflow.user.entity.User;
 import lombok.Getter;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "ANSWERS")
-public class Answer {
+public class Answer extends Auditable {
 
     /**
      * id 값을 null로 하면 DB가 알아서 AUTO_INCREMENT ( 1씩 증감 ) 해준다.
@@ -37,12 +38,6 @@ public class Answer {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "STATUS")
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_EXIST;
-
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(nullable = false, name = "UPDATED_AT")
-    private LocalDateTime updatedAt = LocalDateTime.now();
 
     /**
      * @Enumerated(EnumType.STRING)
