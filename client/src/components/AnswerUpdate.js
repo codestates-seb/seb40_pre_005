@@ -3,6 +3,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Button = styled.button`
   background-color: #0a95ff;
@@ -22,6 +23,9 @@ const Button = styled.button`
 const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
   const [editText, setEditText] = useState();
   const editorRef = useRef();
+  const userInfo = useSelector((state) => state.user);
+  const token = localStorage.getItem('accessToken');
+  console.log(userInfo);
 
   // UPDATE
   const htmlString = body;
@@ -33,20 +37,25 @@ const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
     setEditText(data);
   };
   const handleEditBtn = () => {
-    // const url = REACT_APP_ANSWER + ${answerId};
-    const url = `http://localhost:3001/answer/${answerId}`;
+    const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const data = {
-      id: answerId,
+      answerId,
       answerStatus: 'ANSWER_NOT_EXIST',
       body: editText,
     };
     const fetchData = async () => {
       try {
-        await axios.patch(url, data).then((res) => {
-          console.log(res);
-          setIsEdit(false);
-          window.location.reload();
-        });
+        await axios
+          .patch(url, data, {
+            headers: {
+              Authorization: token,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            setIsEdit(false);
+            window.location.reload();
+          });
       } catch (err) {
         console.log('error', err);
       }

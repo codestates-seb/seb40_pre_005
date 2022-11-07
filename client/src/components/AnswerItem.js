@@ -19,19 +19,27 @@ const Answer = styled.div`
   }
 `;
 const AnswerItem = ({ answer }) => {
+  const token = localStorage.getItem('accessToken');
   const [isEdit, setIsEdit] = useState(false);
-  const { id, body, userId } = answer;
-  const html = body;
+  const { answerId, body, userId, name } = answer;
   //DELETE
   const handleDelete = () => {
-    console.log(id, body);
-    const url = `http://localhost:3001/answer/${id}`;
+    if (!token) {
+      alert('로그인해주세요');
+      return;
+    }
+    const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const fetchData = async () => {
       try {
-        await axios.delete(url).then(() => {
-          console.log(id, body);
-          window.location.reload();
-        });
+        await axios
+          .delete(url, {
+            headers: {
+              Authorization: token,
+            },
+          })
+          .then(() => {
+            window.location.reload();
+          });
       } catch (err) {
         console.log('error', err);
       }
@@ -39,13 +47,17 @@ const AnswerItem = ({ answer }) => {
     fetchData();
   };
   const handleEditBtn = () => {
+    if (!token) {
+      alert('로그인해주세요!');
+      return;
+    }
     setIsEdit(!isEdit);
   };
 
   return (
     <>
       {answer ? (
-        <Answer id={id}>
+        <Answer>
           <div>
             <h2>Answers</h2>
             {isEdit ? (
@@ -53,13 +65,13 @@ const AnswerItem = ({ answer }) => {
                 body={body}
                 setIsEdit={setIsEdit}
                 isEdit={isEdit}
-                answerId={id}
+                answerId={answerId}
               />
             ) : (
               <Viewer initialValue={body} />
             )}
           </div>
-          <Writer props={userId} />
+          <Writer props={name} />
           <div className="handleBtns">
             <button onClick={handleEditBtn}>edit</button>
             <button onClick={handleDelete}>delete</button>

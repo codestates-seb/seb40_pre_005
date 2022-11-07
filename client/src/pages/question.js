@@ -113,8 +113,8 @@ export const QuestionList = styled.div`
   border-top: 1px solid #d6d9dc;
 `;
 
-function Question() {
-  const [pageInfo, setPageInfo] = useState();
+function Question({ setPageInfo, pageInfo }) {
+  // const [pageInfo, setPageInfo] = useState();
   const [questions, setQuestions] = useState([]);
   const [selectedPage, setSelectedPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);

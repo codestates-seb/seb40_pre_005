@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import stack_logo_svg from '../assets/img/stack_logo.png';
@@ -43,17 +43,6 @@ const FormContainer = styled.div`
 `;
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate;
-  const url =
-    'http://ec2-3-39-250-169.ap-northeast-2.compute.amazonaws.com:8080/v1/login';
-  useEffect(() => {
-    const data = axios
-      .get(url)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
   return (
     <>
       <Header />

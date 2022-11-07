@@ -120,23 +120,23 @@ const Container = styled.div`
   }
 `;
 
-const Detail = () => {
+const Detail = ({ setPageInfo, pageInfo }) => {
   let { id } = useParams();
   const [question, setQuestion] = useState(null);
-
+  const [selectedPage, setSelectedPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
   useEffect(() => {
-    const url = `${process.env.REACT_APP_QUESTION}/${id}`;
     const fetchData = async () => {
-      try {
-        await axios.get(url).then((res) => {
-          setQuestion(res.data);
-        });
-      } catch (err) {
-        console.log('error', err);
-      }
+      const data = await getSpecificQuestion({
+        questionId: id,
+        page: selectedPage,
+        size: pageSize,
+      });
+      setPageInfo(data.pageInfo);
+      setQuestion(data.data);
     };
     fetchData();
-  }, [id]);
+  }, []);
   const handleEditButtonClick = () => {
     window.location.href = `/questions/${id}/edit`;
   };
@@ -189,7 +189,7 @@ const Detail = () => {
                 </div>
                 <div>
                   <span>Modified</span>
-                  며칠전
+                  {question?.updatedAt}
                 </div>
                 <div>
                   <span>Viewed</span>
@@ -203,7 +203,7 @@ const Detail = () => {
                   <p>{question?.body}</p>
                 </div>
                 <Writer props={question?.questionId} />
-                <AnswerList questionId={id} />
+                <AnswerList questionId={id} questionInfo={question} />
               </div>
               <Sidebar />
             </div>

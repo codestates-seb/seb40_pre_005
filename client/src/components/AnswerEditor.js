@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AnswerEditorWrapper = styled.div`
   /* border-top: 1px solid #d6d9dc; */
@@ -14,21 +15,26 @@ const AnswerEditorWrapper = styled.div`
     background-color: white;
   }
 `;
-const AnswerEditor = ({ questionId, answers, setAnswers }) => {
+const AnswerEditor = ({ questionId }) => {
   const [answer, setAnswer] = useState([]);
-
+  const userInfo = useSelector((state) => state.user);
+  const token = localStorage.getItem('accessToken');
+  axios.defaults.headers.common['Authorization'] = token;
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      // eslint-disable-next-line no-const-assign, no-undef
-      questionId,
       body: answer,
+      questionId,
+      userId: userInfo.userId,
     };
     const fetchData = async () => {
       try {
-        // const url = `${process.env.REACT_APP_ANSWER}`;
-        const url = `http://localhost:3001/answer`;
-        await axios.post(url, data);
+        const url = `${process.env.REACT_APP_ANSWER}`;
+        await axios.post(url, data, {
+          headers: {
+            Authorization: token,
+          },
+        });
         window.location.reload();
       } catch (err) {
         console.log('error', err);
@@ -40,7 +46,6 @@ const AnswerEditor = ({ questionId, answers, setAnswers }) => {
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
     setAnswer(data);
-    console.log(data);
   };
 
   return (
