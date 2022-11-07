@@ -2,11 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+const getRandomInteger = () => {
+  return Math.floor(Math.random() * 300);
+};
+
 const QuestionItem = ({ question }) => {
   return (
     <QuestionContainer>
       <QuestionStat>
-        <span>123 likes</span>
+        <span>{getRandomInteger()} likes</span>
         <span style={{ color: '#6a737c' }}>123 answers</span>
         <span style={{ color: '#6a737c' }}>{question.view} views</span>
       </QuestionStat>

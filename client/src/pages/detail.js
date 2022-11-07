@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import AnswerList from '../components/AnswerList';
 import { deleteQuestion, getSpecificQuestion } from '../api/requestor';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -125,6 +126,8 @@ const Detail = ({ setPageInfo, pageInfo }) => {
   const [question, setQuestion] = useState(null);
   const [selectedPage, setSelectedPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
+  const userInfo = useSelector((state) => state.user);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getSpecificQuestion({
@@ -164,19 +167,24 @@ const Detail = ({ setPageInfo, pageInfo }) => {
             <div className="header">
               <div className="title">
                 {<h1>{question?.title}</h1>}
+
                 <div>
-                  <button
-                    className="editButton"
-                    onClick={handleEditButtonClick}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="deleteButton"
-                    onClick={handleDeleteButtonClick}
-                  >
-                    Delete
-                  </button>
+                  {userInfo?.userId === question?.userId && (
+                    <>
+                      <button
+                        className="editButton"
+                        onClick={handleEditButtonClick}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="deleteButton"
+                        onClick={handleDeleteButtonClick}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
                   <button href="#!" className="button">
                     Ask Question
                   </button>
@@ -202,7 +210,7 @@ const Detail = ({ setPageInfo, pageInfo }) => {
                 <div className="post">
                   <p>{question?.body}</p>
                 </div>
-                <Writer props={question?.questionId} />
+                <Writer props={question?.name} />
                 <AnswerList questionId={id} questionInfo={question} />
               </div>
               <Sidebar />

@@ -12,6 +12,8 @@ export const getQuestionList = async ({ page, size }) => {
 };
 
 export const getSpecificQuestion = async ({ questionId, page, size }) => {
+  console.log(process.env.REACT_APP_QUESTION);
+
   const res = await axios.get(
     `${process.env.REACT_APP_QUESTION}/find/${questionId}?page=${page}&size=${size}`
   );
@@ -20,11 +22,21 @@ export const getSpecificQuestion = async ({ questionId, page, size }) => {
 };
 
 export const postQuestion = async ({ body, title, userId }) => {
-  const res = await axios.post(baseUrl + `/question/write`, {
-    title,
-    body,
-    userId,
-  });
+  const userToken = localStorage.getItem('accessToken');
+
+  const res = await axios.post(
+    baseUrl + `/question/write`,
+    {
+      title,
+      body,
+      userId,
+    },
+    {
+      headers: {
+        Authorization: userToken,
+      },
+    }
+  );
 
   return res.data;
 };

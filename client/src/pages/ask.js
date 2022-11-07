@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -109,16 +110,21 @@ function Ask({ mode }) {
   const { id } = useParams();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const userInfo = useSelector((state) => state.user);
 
   useEffect(() => {
     if (mode === 'EDIT') {
       // id를 가지고 이 질문의 정보를 가져와야 한다
       const fetchData = async () => {
-        const data = await getSpecificQuestion({ questionId: id });
+        const data = await getSpecificQuestion({
+          questionId: id,
+          page: 1,
+          size: 5,
+        });
 
         // 가져와서 title, body를 setTitle(), setBody() 로 state에 넣는다.
-        setTitle(data.title);
-        setBody(data.body);
+        setTitle(data.data.title);
+        setBody(data.data.body);
       };
 
       fetchData();
@@ -138,11 +144,17 @@ function Ask({ mode }) {
       return;
     }
 
-    postQuestion({
-      title,
-      body,
-      userId: 0,
-    });
+    try {
+      await postQuestion({
+        title,
+        body,
+        userId: userInfo?.userId,
+      });
+
+      window.location.href = '/';
+    } catch (error) {
+      alert('에러가 발생했습니다.');
+    }
   };
 
   const handleUpdateButtonClick = () => {
@@ -158,11 +170,17 @@ function Ask({ mode }) {
       return;
     }
 
-    updateQuestion({
-      questionId: id,
-      title,
-      body,
-    });
+    try {
+      updateQuestion({
+        questionId: id,
+        title,
+        body,
+      });
+
+      window.location.href = '/';
+    } catch (error) {
+      alert('에러가 발생했습니다.');
+    }
   };
 
   const handleTitleInputChange = (e) => {
@@ -222,17 +240,13 @@ function Ask({ mode }) {
         </InputBox>
         <ButtonsRow>
           {mode === 'EDIT' ? (
-            <a href="/">
-              <SubmitButton onClick={handleUpdateButtonClick}>
-                Update
-              </SubmitButton>
-            </a>
+            <SubmitButton onClick={handleUpdateButtonClick}>
+              Update
+            </SubmitButton>
           ) : (
-            <a href="/">
-              <SubmitButton onClick={handleSubmitButtonClick}>
-                Submit
-              </SubmitButton>
-            </a>
+            <SubmitButton onClick={handleSubmitButtonClick}>
+              Submit
+            </SubmitButton>
           )}
         </ButtonsRow>
       </Wrapper>
