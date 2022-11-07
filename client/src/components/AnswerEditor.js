@@ -18,9 +18,7 @@ const AnswerEditorWrapper = styled.div`
 const AnswerEditor = ({ questionId }) => {
   const [answer, setAnswer] = useState([]);
   const userInfo = useSelector((state) => state.user);
-  // const token = localStorage.getItem('accessToken');
-  const token = useSelector((state) => state.user.userAccessToken);
-  console.log(token);
+  const token = localStorage.getItem('accessToken');
   axios.defaults.headers.common['Authorization'] = token;
   const handleSubmit = (e) => {
     e.preventDefault();
