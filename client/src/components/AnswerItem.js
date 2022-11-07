@@ -19,6 +19,8 @@ const Answer = styled.div`
   }
 `;
 const AnswerItem = ({ answer }) => {
+  const token = localStorage.getItem('accessToken');
+
   const [isEdit, setIsEdit] = useState(false);
   const { answerId, body, userId } = answer;
   //DELETE
@@ -26,9 +28,15 @@ const AnswerItem = ({ answer }) => {
     const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const fetchData = async () => {
       try {
-        await axios.delete(url).then(() => {
-          window.location.reload();
-        });
+        await axios
+          .delete(url, {
+            headers: {
+              Authorization: token,
+            },
+          })
+          .then(() => {
+            window.location.reload();
+          });
       } catch (err) {
         console.log('error', err);
       }
