@@ -17,5 +17,8 @@ public class CAuthenticationEntryPoint implements AuthenticationEntryPoint {
             HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
 
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("Error: Unauthorized");
+        return;
+        //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
     }}

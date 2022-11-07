@@ -60,7 +60,6 @@ public interface AnswerMapper {
         Answer answer = new Answer();
         answer.setAnswerId(answerPatchDto.getAnswerId());
         answer.setBody(answerPatchDto.getBody());
-        answer.setAnswerStatus(answerPatchDto.getAnswerStatus());
 
         return answer;
     }

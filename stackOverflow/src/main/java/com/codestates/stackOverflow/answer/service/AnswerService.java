@@ -74,10 +74,6 @@ public class AnswerService {
         Optional.ofNullable(answer.getUpdatedAt()) // 업데이트 날짜 수정
                 .ifPresent(answerUpdatedAt->findAnswer.setUpdatedAt(answerUpdatedAt));
 
-
-        Optional.ofNullable(answer.getAnswerStatus()) //글 삭제
-                .ifPresent(answerStatus->findAnswer.setAnswerStatus(answerStatus));
-
         Answer updatedQuestion = answerRepository.save(findAnswer);
 
         return updatedQuestion;

@@ -14,7 +14,4 @@ public class AnswerPatchDto {
     // 답변 수정
     private String body;
 
-    //답 삭제
-    private Answer.AnswerStatus answerStatus;
-
 }
