@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 import java.util.Collections;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor    // 기본 생성자 추가
 public class UserSignupRequestDto {
     @NotNull
     @Email
