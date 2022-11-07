@@ -24,6 +24,10 @@ const AnswerItem = ({ answer }) => {
   const { answerId, body, userId, name } = answer;
   //DELETE
   const handleDelete = () => {
+    if (!token) {
+      alert('로그인해주세요');
+      return;
+    }
     const url = `${process.env.REACT_APP_ANSWER}/${answerId}`;
     const fetchData = async () => {
       try {
@@ -43,6 +47,10 @@ const AnswerItem = ({ answer }) => {
     fetchData();
   };
   const handleEditBtn = () => {
+    if (!token) {
+      alert('로그인해주세요!');
+      return;
+    }
     setIsEdit(!isEdit);
   };
 

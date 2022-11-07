@@ -25,6 +25,7 @@ const AnswerUpdate = ({ setIsEdit, isEdit, body, answerId }) => {
   const editorRef = useRef();
   const userInfo = useSelector((state) => state.user);
   const token = localStorage.getItem('accessToken');
+  console.log(userInfo);
 
   // UPDATE
   const htmlString = body;
